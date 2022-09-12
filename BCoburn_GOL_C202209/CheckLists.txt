@@ -1,0 +1,16 @@
+﻿This page is used solely to assist in Making sure the proper Milestones are completed.
+
+1. Render Game of Life in a .NET application (all life rules applied and working)
+	DONE: This has been completed, the cells update and display correctly based on the rules of the game.
+
+2. Start, Pause, Next Menu Items
+	DONE: All three buttons implements and functioning.
+
+3. Emptying Universe
+	DONE: Clear button has been implemented, and is functioning appropriately.
+
+4. Proper Commenting
+	DONE: Each method, property, etc.. is commented, explaining what is occuring on the backend.
+
+5. Structure
+	DONE: Code is Neatly layed out and in a logical structured order.
