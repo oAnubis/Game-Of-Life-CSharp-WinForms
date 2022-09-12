@@ -1,4 +1,5 @@
 ﻿using System.Drawing;
+using System.Windows.Forms;
 
 namespace BCoburn_GOL_C202209
 {
@@ -13,6 +14,7 @@ namespace BCoburn_GOL_C202209
         public Universe scratchPad { get; private set; }
 
         public int Seed { get; set; }
+
 
         // Determines the color of the gridlines
         //TODO: Allow to be customizable
@@ -160,11 +162,13 @@ namespace BCoburn_GOL_C202209
             Cell[,] universe = gameBoard.UniverseGrid;
             Cell[,] scratch = scratchPad.UniverseGrid;
 
+            int totalAlive = 0;
+
             // Iterate through 1st Dimension of the Universe:  x = Left to Right.
-            for (int x = 0; x < universe.GetLength(1); x++)
+            for (int x = 0; x < universe.GetLength(0); x++)
             {
                 // Iterate through 2nd Dimension of the Universe: y = Top to Bottom.
-                for (int y = 0; y < universe.GetLength(0); y++)
+                for (int y = 0; y < universe.GetLength(1); y++)
                 {
                     // Holds value of how many living neighbors, Calculated with the CountNeighborsFinite Method.
                     int count = CountNeighborsFinite(x, y);
@@ -195,7 +199,6 @@ namespace BCoburn_GOL_C202209
                     }
                 }
             }
-
             // Method to swap the scratchpad and the universe, to display the next generation.
             SwapBoards();
         }
@@ -227,6 +230,23 @@ namespace BCoburn_GOL_C202209
             Cell[,] universe = gameBoard.UniverseGrid;
             // Toggles LifeState to opposite of current LifeState.
             universe[x, y].SetLifeState(!universe[x, y].Alive);
+        }
+
+        public int CountTotalAlive()
+        {
+            int totalAlive = 0;
+            for (int x = 0; x < gameBoard.UniverseGrid.GetLength(0); x++)
+            {
+                for (int y = 0; y < gameBoard.UniverseGrid.GetLength(1); y++)
+                {
+                    if (gameBoard.UniverseGrid[x, y].Alive)
+                    {
+                        totalAlive++;
+                    }
+                }
+            }
+
+            return totalAlive;
         }
     }
 }

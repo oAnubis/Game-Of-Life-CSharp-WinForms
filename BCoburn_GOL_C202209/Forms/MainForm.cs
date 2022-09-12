@@ -49,6 +49,7 @@ namespace BCoburn_GOL_C202209
 
             // Tells the Panel it needs to redraw.
             graphicsPanel1.Invalidate();
+
         }
 
         // The event called by the timer every Interval milliseconds.
@@ -116,6 +117,9 @@ namespace BCoburn_GOL_C202209
                 }
             }
 
+            //TODO: Find a better place to put this.
+            toolStripStatusLabelAliveCount.Text = "Cells Alive = " + game.CountTotalAlive().ToString();
+
             // Releases the resources for the gridPen
             gridPen.Dispose();
             cellBrush.Dispose();
@@ -127,17 +131,17 @@ namespace BCoburn_GOL_C202209
             if (e.Button == MouseButtons.Left)
             {
                 // Calculate the width and height of each cell in pixels
-                int cellWidth = graphicsPanel1.ClientSize.Width / game.gameBoard.UniverseGrid.GetLength(0);
-                int cellHeight = graphicsPanel1.ClientSize.Height / game.gameBoard.UniverseGrid.GetLength(1);
+                float cellWidth = (float)graphicsPanel1.ClientSize.Width / game.gameBoard.UniverseGrid.GetLength(0);
+                float cellHeight = (float)graphicsPanel1.ClientSize.Height / game.gameBoard.UniverseGrid.GetLength(1);
 
                 // Calculate the cell that was clicked in
                 // CELL X = MOUSE X / CELL WIDTH
-                int x = e.X / cellWidth;
+                float x = e.X / cellWidth;
                 // CELL Y = MOUSE Y / CELL HEIGHT
-                int y = e.Y / cellHeight;
+                float y = e.Y / cellHeight;
 
                 // Toggle the cell's state
-                game.ToggleCell(x, y);
+                game.ToggleCell((int)x, (int)y);
 
                 // Tell Windows you need to repaint
                 graphicsPanel1.Invalidate();
@@ -238,6 +242,20 @@ namespace BCoburn_GOL_C202209
             graphicsPanel1.Invalidate();
         }
 
+        // Stops the Simulation, and Resets the counts and universe
+        private void stopButton_Click(object sender, EventArgs e)
+        {
+            if (timer.Enabled)
+            {
+                gameFlowButton_Click(sender, e);
+            }
+
+            generations = 0;
+            toolStripStatusLabelGenerations.Text = "Generations = " + generations.ToString();
+            clearButton_Click(sender, e);
+            graphicsPanel1.Invalidate();
+        }
+
         private void randomizeStripButton1_Click(object sender, EventArgs e)
         {
             //TODO: Update Commenting
@@ -292,9 +310,6 @@ namespace BCoburn_GOL_C202209
 
         #endregion Randomize Settings Dialog
 
-        private void stopButton_Click(object sender, EventArgs e)
-        {
-            
-        }
+        
     }
 }

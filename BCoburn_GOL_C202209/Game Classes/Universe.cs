@@ -15,7 +15,7 @@ namespace BCoburn_GOL_C202209
 
         public int RandomSeed { get; private set; }
 
-        public int PercentFill { get; private set; }
+        // public int PercentFill { get; private set; }
 
         // Constructor, Fills the 2D Array with Cells.
         public Universe()
