@@ -3,18 +3,17 @@ using System.Windows.Forms;
 
 namespace BCoburn_GOL_C202209
 {
-    internal class Game
+    public class Game
     {
         // PROPERTIES FOR THE GAME
-
+        //TODO: Change most logic from form to here in the form of Methods
         // Main universe, holds an array of cells. This is what is shown (Current generation)
-        public Universe gameBoard { get; private set; }
+        public Universe gameBoard;
 
         // Scratchpad, holds an array of cells. This holds the next generation to be shown
-        public Universe scratchPad { get; private set; }
+        public Universe scratchPad;
 
-        public int Seed { get; set; }
-
+        public int _seed;
 
         // Determines the color of the gridlines
         //TODO: Allow to be customizable
@@ -27,6 +26,12 @@ namespace BCoburn_GOL_C202209
         {
             gameBoard = new Universe();
             scratchPad = new Universe();
+        }
+
+        public Game(int width, int height)
+        {
+            gameBoard = new Universe(width, height);
+            scratchPad = new Universe(width, height);
         }
 
         ///// <summary>
@@ -93,14 +98,72 @@ namespace BCoburn_GOL_C202209
         //    cellBrush.Dispose();
         //}
 
+        public void PaintBoard(Panel panel, Graphics graphics)
+        {
+            Cell[,] universe = gameBoard.UniverseGrid;
+
+            // Calculate the width and height of each cell in pixels
+            // CELL WIDTH = WINDOW WIDTH / NUMBER OF CELLS IN X
+            float cellWidth = (float)panel.ClientSize.Width / universe.GetLength(0);
+            // CELL HEIGHT = WINDOW HEIGHT / NUMBER OF CELLS IN Y
+            float cellHeight = (float)panel.ClientSize.Height / universe.GetLength(1);
+
+            // A Pen for drawing the grid lines (color, width)
+            Pen gridPen = new Pen(gridColor, 1);
+
+            // A Brush for filling living cells interiors (color)
+            Brush cellBrush = new SolidBrush(cellColor);
+
+            // Iterate through the universe in the y, top to bottom
+            for (int y = 0; y < universe.GetLength(1); y++)
+            {
+                // Iterate through the universe in the x, left to right
+                for (int x = 0; x < universe.GetLength(0); x++)
+                {
+                    // A rectangle to represent each cell in pixels
+                    RectangleF cellRect = Rectangle.Empty;
+                    cellRect.X = x * cellWidth;
+                    cellRect.Y = y * cellHeight;
+                    cellRect.Width = cellWidth;
+                    cellRect.Height = cellHeight;
+
+                    if (universe[x, y].Alive)
+                    {
+                        graphics.FillRectangle(cellBrush, cellRect);
+                    }
+                    else
+                    {
+                    }
+
+                    // Fill the cell with a Spider if alive, or a CobWeb if dead
+                    //TODO: Reimplement Images
+                    //if (gameBoard.UniverseGrid[x, y].Alive)
+                    //{
+                    //    graphics.DrawImage(spider, cellRect);
+                    //}
+                    //else
+                    //{
+                    //    graphics.DrawImage(spiderWeb, cellRect);
+                    //}
+
+                    // Outline the cell with a pen
+                    graphics.DrawRectangle(gridPen, cellRect.X, cellRect.Y, cellRect.Width, cellRect.Height);
+                }
+            }
+
+            // Releases the resources for the gridPen
+            gridPen.Dispose();
+            cellBrush.Dispose();
+        }
+
         /// <summary>
         /// Method to swap the universe and scratchpad arrays (Make Next generation the current generation)
         /// </summary>
         public void SwapBoards()
         {
             Cell[,] temp = gameBoard.UniverseGrid;
-            gameBoard.UniverseGrid = scratchPad.UniverseGrid;
-            scratchPad.UniverseGrid = temp;
+            gameBoard.SetUniverse(scratchPad.UniverseGrid);
+            scratchPad.SetUniverse(temp);
         }
 
         /// <summary>
@@ -225,11 +288,27 @@ namespace BCoburn_GOL_C202209
         /// <summary>
         /// Called when a cell is clicked in the form, Toggles LifeState.
         /// </summary>
-        public void ToggleCell(int x, int y)
+        public void ToggleCell(Panel panel, MouseEventArgs e)
         {
             Cell[,] universe = gameBoard.UniverseGrid;
-            // Toggles LifeState to opposite of current LifeState.
-            universe[x, y].SetLifeState(!universe[x, y].Alive);
+            // If the left mouse button was clicked
+            if (e.Button == MouseButtons.Left)
+            {
+                // Calculate the width and height of each cell in pixels
+                float cellWidth = (float)panel.ClientSize.Width / universe.GetLength(0);
+                float cellHeight = (float)panel.ClientSize.Height / universe.GetLength(1);
+
+                // Calculate the cell that was clicked in
+                // CELL X = MOUSE X / CELL WIDTH
+                float x = e.X / cellWidth;
+                // CELL Y = MOUSE Y / CELL HEIGHT
+                float y = e.Y / cellHeight;
+
+                // Toggles LifeState to opposite of current LifeState.
+                universe[(int)x, (int)y].SetLifeState(!universe[(int)x, (int)y].Alive);
+
+                panel.Invalidate();
+            }
         }
 
         public int CountTotalAlive()

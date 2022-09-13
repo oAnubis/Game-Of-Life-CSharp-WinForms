@@ -243,6 +243,13 @@
         IdLBEDBEUVHxP4n4KlQraYAib1CkGehk24HRDAIUp0QaAgYGAFloKOl58L2ZAAAAAElFTkSuQmCC
 </value>
   </data>
+  <data name="quickRandomizeStripButton1.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+    <value>
+        iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8
+        YQUAAAAJcEhZcwAAFiUAABYlAUlSJPAAAABJSURBVDhPY/hPIQAbwMDAQBZGMYBUgNWA7u7u/xISEv/7
+        +/vBfGSALofVAJCC+vp6MI0O0OVo4wJSwHA1YKRHIzkYbgD54P9/AJdaGhq6/+YXAAAAAElFTkSuQmCC
+</value>
+  </data>
   <metadata name="statusStrip1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>237, 17</value>
   </metadata>

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Drawing;
 using System.Windows.Forms;
+using System.Xml;
 
 namespace BCoburn_GOL_C202209
 {
@@ -11,6 +12,9 @@ namespace BCoburn_GOL_C202209
 
         // The Timer class
         private Timer timer = new Timer();
+
+        // Timer Interval Property
+        public int timerInterval { get; private set; }
 
         // Generation count
         private int generations = 0;
@@ -28,9 +32,10 @@ namespace BCoburn_GOL_C202209
             InitializeComponent();
 
             game = new Game();
+            timerInterval = 100;
 
             // Setup the timer
-            timer.Interval = 100; // milliseconds
+            timer.Interval = timerInterval; // milliseconds
             timer.Tick += Timer_Tick;
             timer.Enabled = false; // Timer defaults to disabled on program launch.
         }
@@ -58,94 +63,27 @@ namespace BCoburn_GOL_C202209
             NextGeneration();
         }
 
+        public void UpdateSeedLabel()
+        {
+            toolStripStatusLabelSeed.Text = "Current Seed = " + game._seed;
+        }
+
+        public void UpdateAliveLabel(int totalAlive)
+        {
+            toolStripStatusLabelAliveCount.Text = "Cells Alive = " + game.CountTotalAlive().ToString();
+        }
+
         // Forms paint event
         private void graphicsPanel1_Paint(object sender, PaintEventArgs e)
         {
-            Cell[,] universe = game.gameBoard.UniverseGrid;
+            game.PaintBoard(graphicsPanel1, e.Graphics);
 
-            //TODO: Function Extension (Make possible to choose different images, cell and background colors) Enum or other properties at the top of file?.
-            // Spider and Spiderweb images, loading from Resources
-            Image spiderWeb = global::BCoburn_GOL_C202209.Properties.Resources.SpiderWeb;
-            Image spider = global::BCoburn_GOL_C202209.Properties.Resources.Spider;
-
-            // Calculate the width and height of each cell in pixels
-            // CELL WIDTH = WINDOW WIDTH / NUMBER OF CELLS IN X
-            float cellWidth = (float)graphicsPanel1.ClientSize.Width / universe.GetLength(0);
-            // CELL HEIGHT = WINDOW HEIGHT / NUMBER OF CELLS IN Y
-            float cellHeight = (float)graphicsPanel1.ClientSize.Height / universe.GetLength(1);
-
-            // A Pen for drawing the grid lines (color, width)
-            Pen gridPen = new Pen(gridColor, 1);
-
-            // A Brush for filling living cells interiors (color)
-            Brush cellBrush = new SolidBrush(cellColor);
-
-            // Iterate through the universe in the y, top to bottom
-            for (int y = 0; y < universe.GetLength(1); y++)
-            {
-                // Iterate through the universe in the x, left to right
-                for (int x = 0; x < universe.GetLength(0); x++)
-                {
-                    // A rectangle to represent each cell in pixels
-                    RectangleF cellRect = Rectangle.Empty;
-                    cellRect.X = x * cellWidth;
-                    cellRect.Y = y * cellHeight;
-                    cellRect.Width = cellWidth;
-                    cellRect.Height = cellHeight;
-
-                    if (universe[x, y].Alive)
-                    {
-                        e.Graphics.FillRectangle(cellBrush, cellRect);
-                    }
-                    else
-                    {
-                    }
-
-                    // Fill the cell with a Spider if alive, or a CobWeb if dead
-                    //TODO: Reimplement Images
-                    //if (gameBoard.UniverseGrid[x, y].Alive)
-                    //{
-                    //    graphics.DrawImage(spider, cellRect);
-                    //}
-                    //else
-                    //{
-                    //    graphics.DrawImage(spiderWeb, cellRect);
-                    //}
-
-                    // Outline the cell with a pen
-                    e.Graphics.DrawRectangle(gridPen, cellRect.X, cellRect.Y, cellRect.Width, cellRect.Height);
-                }
-            }
-
-            //TODO: Find a better place to put this.
-            toolStripStatusLabelAliveCount.Text = "Cells Alive = " + game.CountTotalAlive().ToString();
-
-            // Releases the resources for the gridPen
-            gridPen.Dispose();
-            cellBrush.Dispose();
+            UpdateAliveLabel(game.CountTotalAlive());
         }
 
         private void graphicsPanel1_MouseClick(object sender, MouseEventArgs e)
         {
-            // If the left mouse button was clicked
-            if (e.Button == MouseButtons.Left)
-            {
-                // Calculate the width and height of each cell in pixels
-                float cellWidth = (float)graphicsPanel1.ClientSize.Width / game.gameBoard.UniverseGrid.GetLength(0);
-                float cellHeight = (float)graphicsPanel1.ClientSize.Height / game.gameBoard.UniverseGrid.GetLength(1);
-
-                // Calculate the cell that was clicked in
-                // CELL X = MOUSE X / CELL WIDTH
-                float x = e.X / cellWidth;
-                // CELL Y = MOUSE Y / CELL HEIGHT
-                float y = e.Y / cellHeight;
-
-                // Toggle the cell's state
-                game.ToggleCell((int)x, (int)y);
-
-                // Tell Windows you need to repaint
-                graphicsPanel1.Invalidate();
-            }
+            game.ToggleCell(graphicsPanel1, e);
         }
 
         private void toolStripMenuItem1_Click(object sender, EventArgs e)
@@ -265,12 +203,39 @@ namespace BCoburn_GOL_C202209
 
             Random rnd = new Random();
 
-            game.Seed = rnd.Next(Int32.MinValue, Int32.MaxValue);
+            game._seed = rnd.Next(Int32.MinValue, Int32.MaxValue);
 
-            game.gameBoard.RandomFillUniverse(universe, game.Seed);
+            game.gameBoard.RandomFillUniverse(universe, game._seed);
+
+            UpdateSeedLabel();
 
             graphicsPanel1.Invalidate();
         }
+
+        private void timeRandomStripButton1_Click(object sender, EventArgs e)
+        {
+            Cell[,] universe = game.gameBoard.UniverseGrid;
+
+            Random rnd = new Random(DateTime.Now.Millisecond);
+
+            game._seed = rnd.Next(Int32.MinValue, Int32.MaxValue);
+
+            game.gameBoard.RandomFillUniverse(universe, game._seed);
+
+            UpdateSeedLabel();
+
+            graphicsPanel1.Invalidate();
+        }
+
+        private void toolStripButtonCurrentSeed_Click(object sender, EventArgs e)
+        {
+            Cell[,] universe = game.gameBoard.UniverseGrid;
+
+            game.gameBoard.RandomFillUniverse(universe, game._seed);
+
+            graphicsPanel1.Invalidate();
+        }
+
 
         #endregion ToolStrip Buttons
 
@@ -286,13 +251,14 @@ namespace BCoburn_GOL_C202209
 
             int seedValue = (int)RandomizeSettingsDialog.numericUpDown1.Value;
 
-            RandomizeSettingsDialog.numericUpDown1.Value = game.Seed;
+            RandomizeSettingsDialog.numericUpDown1.Value = game._seed;
 
             if (RandomizeSettingsDialog.ShowDialog() == DialogResult.OK)
             {
-                seedValue = game.Seed;
+                seedValue = game._seed;
                 Cell[,] universe = game.gameBoard.UniverseGrid;
                 game.gameBoard.RandomFillUniverse(universe, seedValue);
+                UpdateSeedLabel();
                 graphicsPanel1.Invalidate();
             }
             else
@@ -305,11 +271,58 @@ namespace BCoburn_GOL_C202209
         private void RandomizeSettingsDialog_Apply(object sender, RandomApplyArgs e)
         {
             int seed = e.Seed;
-            game.Seed = seed;
+            game._seed = seed;
         }
 
         #endregion Randomize Settings Dialog
 
-        
+
+        #region Game Options Dialog
+
+        //TODO: Update Comments
+        private void optionsToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            OptionsModalDialog optionsDialog = new OptionsModalDialog();
+
+            optionsDialog.Apply += OptionsDialog_Apply;
+
+            optionsDialog.numericUpDownTimer.Value = timerInterval;
+
+            optionsDialog.numericUpDownHeight.Value = game.gameBoard.Height;
+
+            optionsDialog.numericUpDownWidth.Value = game.gameBoard.Width;
+
+            if (DialogResult.OK == optionsDialog.ShowDialog())
+            {
+                optionsDialog.TimerInterval = (int)optionsDialog.numericUpDownTimer.Value;
+                optionsDialog.Height = (int)optionsDialog.numericUpDownHeight.Value;
+                optionsDialog.Width = (int)optionsDialog.numericUpDownWidth.Value;
+            }
+
+        }
+
+        void OptionsDialog_Apply(object sender, OptionsApplyArgs e)
+        {
+            timerInterval = e.TimerInterval;
+            timer.Interval = e.TimerInterval;
+            //TODO: Track and Apply Seed When Making a New Game.
+            if (e.Height != game.gameBoard.Height || e.Width != game.gameBoard.Width)
+            {
+                game = new Game(e.Width, e.Height);
+                if (game._seed != 0)
+                {
+                    
+                }
+            }
+
+            graphicsPanel1.Invalidate();
+        }
+
+        #endregion
+
+
+
+
+
     }
 }

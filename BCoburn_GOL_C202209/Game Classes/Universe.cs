@@ -10,28 +10,50 @@ namespace BCoburn_GOL_C202209
     // Class for each Universe (Main game board and scratchpad)
     public class Universe
     {
+
+        private int _width;
+
+        private int _height;
+
         // 2D Array holding Cells, Backbone of what is displayed on the Graphics Panel.
-        public Cell[,]UniverseGrid = new Cell[50, 50];
+        private Cell[,] _universeGrid;
 
-        public int RandomSeed { get; private set; }
+        public Cell[,] UniverseGrid
+        {
+            get { return _universeGrid; }
+            set { _universeGrid = value; }
+        }
 
-        // public int PercentFill { get; private set; }
+        public int Width
+        {
+            get { return _width; }
+        }
 
-        // Constructor, Fills the 2D Array with Cells.
+        public int Height
+        {
+            get { return _height; }
+        }
+        
+        // Constructor, Fills the 2D Array with Empty Cells.
         public Universe()
         {
+            UniverseGrid = new Cell[30, 30];
+            _width = 30;
+            _height = 30;
             FillGridArray(UniverseGrid);
         }
 
-        public Universe(int seed)
+        public Universe(int width, int height)
         {
-            RandomFillUniverse(UniverseGrid, seed);
+            UniverseGrid = new Cell[width, height];
+            FillGridArray(UniverseGrid);
+            _width = width;
+            _height = height;
         }
 
-        // A setter for the RandomSeed property
-        public void SetRandomSeed(int seed)
+        public void SetUniverse(Cell[,] toSet)
         {
-            RandomSeed = seed;
+            UniverseGrid = toSet;
         }
 
         public void RandomFillUniverse(Cell[,] universe, int seed)
@@ -75,7 +97,5 @@ namespace BCoburn_GOL_C202209
                 }
             }
         }
-
-        
     }
 }
