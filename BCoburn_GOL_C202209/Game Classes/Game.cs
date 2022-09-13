@@ -102,6 +102,12 @@ namespace BCoburn_GOL_C202209
         {
             Cell[,] universe = gameBoard.UniverseGrid;
 
+            Font cellFont = new Font("Arial", 10f);
+
+            StringFormat cellStringFormat = new StringFormat();
+            cellStringFormat.Alignment = StringAlignment.Center;
+            cellStringFormat.LineAlignment = StringAlignment.Center;
+
             // Calculate the width and height of each cell in pixels
             // CELL WIDTH = WINDOW WIDTH / NUMBER OF CELLS IN X
             float cellWidth = (float)panel.ClientSize.Width / universe.GetLength(0);
@@ -148,6 +154,14 @@ namespace BCoburn_GOL_C202209
 
                     // Outline the cell with a pen
                     graphics.DrawRectangle(gridPen, cellRect.X, cellRect.Y, cellRect.Width, cellRect.Height);
+
+                    
+                    gameBoard.CountNeighborsFinite(x, y);
+
+                    if (gameBoard.UniverseGrid[x, y].AliveNeighbors > 0)
+                    {
+                        graphics.DrawString(gameBoard.UniverseGrid[x, y].AliveNeighbors.ToString(), cellFont, Brushes.Black, cellRect, cellStringFormat);
+                    }
                 }
             }
 
@@ -164,56 +178,6 @@ namespace BCoburn_GOL_C202209
             Cell[,] temp = gameBoard.UniverseGrid;
             gameBoard.SetUniverse(scratchPad.UniverseGrid);
             scratchPad.SetUniverse(temp);
-        }
-
-        /// <summary>
-        /// Counts all living Cells around a specific cell based on cell coordinates passed to 2D Array (x = First Dimension, y = Second Dimension)
-        /// </summary>
-        private int CountNeighborsFinite(int x, int y)
-        {
-            // Creates local variables for the Universe and ScratchPad's Cell Arrays
-            Cell[,] universe = gameBoard.UniverseGrid;
-            Cell[,] scratch = scratchPad.UniverseGrid;
-
-            // Alive count to be incremented then returned
-            int count = 0;
-
-            // Calculates the size of each dimension in the game boards array
-            int xLen = universe.GetLength(0);
-            int yLen = universe.GetLength(1);
-
-            //TODO: Possible refactor opportunity (Optimize the neighbor search to be less checks)
-            // Loops through a cells neighbor, counts how many are alive (increments count variable initialized above)
-            for (int yOffset = -1; yOffset <= 1; yOffset++)
-            {
-                for (int xOffset = -1; xOffset <= 1; xOffset++)
-                {
-                    // Offset for each dimension, helpers to find the right neighbors or determine if out of bounds
-                    int xCheck = x + xOffset;
-                    int yCheck = y + yOffset;
-
-                    // Current Cell (Not a Neighbor)
-                    if (xOffset == 0 && yOffset == 0)
-                        continue;
-
-                    // These represent coordinates outside of the universe borders (Assumed dead)
-                    if (xCheck < 0)
-                        continue;
-                    if (yCheck < 0)
-                        continue;
-                    if (xCheck >= xLen)
-                        continue;
-                    if (yCheck >= yLen)
-                        continue;
-
-                    // Increments alive count if neighbors LifeState is alive. Only gets here if found to be inside the universe borders.
-                    if (universe[xCheck, yCheck].Alive)
-                        count++;
-                }
-            }
-
-            // Return the count of alive neighbors to the caller.
-            return count;
         }
 
         /// <summary>
@@ -234,7 +198,7 @@ namespace BCoburn_GOL_C202209
                 for (int y = 0; y < universe.GetLength(1); y++)
                 {
                     // Holds value of how many living neighbors, Calculated with the CountNeighborsFinite Method.
-                    int count = CountNeighborsFinite(x, y);
+                    int count = universe[x, y].AliveNeighbors;
 
                     // Holds the LifeState of the currently selected cell
                     bool lifeState = universe[x, y].GetLifeState();
@@ -265,6 +229,8 @@ namespace BCoburn_GOL_C202209
             // Method to swap the scratchpad and the universe, to display the next generation.
             SwapBoards();
         }
+
+        //TODO: Add a next generation method to determine if the cell would be alive the next generation (Used for painting numbers also)
 
         /// <summary>
         /// Called when Clear Button on the form is pressed, makes all cells LifeState "dead".

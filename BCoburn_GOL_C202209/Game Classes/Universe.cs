@@ -15,6 +15,8 @@ namespace BCoburn_GOL_C202209
 
         private int _height;
 
+        private int _aliveNeighbors;
+
         // 2D Array holding Cells, Backbone of what is displayed on the Graphics Panel.
         private Cell[,] _universeGrid;
 
@@ -33,6 +35,12 @@ namespace BCoburn_GOL_C202209
         {
             get { return _height; }
         }
+
+        public int AliveNeighbors
+        {
+            get { return _aliveNeighbors; }
+            set { _aliveNeighbors = value; }
+        }
         
         // Constructor, Fills the 2D Array with Empty Cells.
         public Universe()
@@ -49,6 +57,53 @@ namespace BCoburn_GOL_C202209
             FillGridArray(UniverseGrid);
             _width = width;
             _height = height;
+        }
+
+        /// <summary>
+        /// Counts all living Cells around a specific cell based on cell coordinates passed to 2D Array (x = First Dimension, y = Second Dimension)
+        /// </summary>
+        public int CountNeighborsFinite(int x, int y)
+        {
+            // Alive count to be incremented then returned
+            int count = 0;
+
+            // Calculates the size of each dimension in the game boards array
+            int xLen = UniverseGrid.GetLength(0);
+            int yLen =UniverseGrid.GetLength(1);
+
+            //TODO: Possible refactor opportunity (Optimize the neighbor search to be less checks)
+            // Loops through a cells neighbor, counts how many are alive (increments count variable initialized above)
+            for (int yOffset = -1; yOffset <= 1; yOffset++)
+            {
+                for (int xOffset = -1; xOffset <= 1; xOffset++)
+                {
+                    // Offset for each dimension, helpers to find the right neighbors or determine if out of bounds
+                    int xCheck = x + xOffset;
+                    int yCheck = y + yOffset;
+
+                    // Current Cell (Not a Neighbor)
+                    if (xOffset == 0 && yOffset == 0)
+                        continue;
+
+                    // These represent coordinates outside of the universe borders (Assumed dead)
+                    if (xCheck < 0)
+                        continue;
+                    if (yCheck < 0)
+                        continue;
+                    if (xCheck >= xLen)
+                        continue;
+                    if (yCheck >= yLen)
+                        continue;
+
+                    // Increments alive count if neighbors LifeState is alive. Only gets here if found to be inside the universe borders.
+                    if (UniverseGrid[xCheck, yCheck].Alive)
+                        count++;
+                }
+            }
+
+            // Return the count of alive neighbors to the caller.
+            UniverseGrid[x, y].AliveNeighbors = count;
+            return UniverseGrid[x, y].AliveNeighbors;
         }
 
         public void SetUniverse(Cell[,] toSet)

@@ -93,9 +93,9 @@
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.fileToolStripMenuItem,
             this.toolStripMenuItem1,
-            this.helpToolStripMenuItem,
             this.gameCommandsToolStripMenuItem,
-            this.gameSettingsToolStripMenuItem});
+            this.gameSettingsToolStripMenuItem,
+            this.helpToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
             this.menuStrip1.Size = new System.Drawing.Size(1266, 33);
@@ -172,32 +172,40 @@
             this.gridToolStripMenuItem,
             this.gridWrapToolStripMenuItem});
             this.toolStripMenuItem1.Name = "toolStripMenuItem1";
-            this.toolStripMenuItem1.Size = new System.Drawing.Size(65, 30);
+            this.toolStripMenuItem1.Size = new System.Drawing.Size(65, 29);
             this.toolStripMenuItem1.Text = "View";
             this.toolStripMenuItem1.Click += new System.EventHandler(this.toolStripMenuItem1_Click);
             // 
             // hUDToolStripMenuItem
             // 
+            this.hUDToolStripMenuItem.Checked = true;
+            this.hUDToolStripMenuItem.CheckState = System.Windows.Forms.CheckState.Checked;
             this.hUDToolStripMenuItem.Name = "hUDToolStripMenuItem";
-            this.hUDToolStripMenuItem.Size = new System.Drawing.Size(236, 34);
+            this.hUDToolStripMenuItem.Size = new System.Drawing.Size(270, 34);
             this.hUDToolStripMenuItem.Text = "HUD";
             // 
             // adjacentCountToolStripMenuItem
             // 
+            this.adjacentCountToolStripMenuItem.Checked = true;
+            this.adjacentCountToolStripMenuItem.CheckState = System.Windows.Forms.CheckState.Checked;
             this.adjacentCountToolStripMenuItem.Name = "adjacentCountToolStripMenuItem";
-            this.adjacentCountToolStripMenuItem.Size = new System.Drawing.Size(236, 34);
+            this.adjacentCountToolStripMenuItem.Size = new System.Drawing.Size(270, 34);
             this.adjacentCountToolStripMenuItem.Text = "Adjacent Count";
             // 
             // gridToolStripMenuItem
             // 
+            this.gridToolStripMenuItem.Checked = true;
+            this.gridToolStripMenuItem.CheckState = System.Windows.Forms.CheckState.Checked;
             this.gridToolStripMenuItem.Name = "gridToolStripMenuItem";
-            this.gridToolStripMenuItem.Size = new System.Drawing.Size(236, 34);
+            this.gridToolStripMenuItem.Size = new System.Drawing.Size(270, 34);
             this.gridToolStripMenuItem.Text = "Grid";
             // 
             // gridWrapToolStripMenuItem
             // 
+            this.gridWrapToolStripMenuItem.Checked = true;
+            this.gridWrapToolStripMenuItem.CheckState = System.Windows.Forms.CheckState.Checked;
             this.gridWrapToolStripMenuItem.Name = "gridWrapToolStripMenuItem";
-            this.gridWrapToolStripMenuItem.Size = new System.Drawing.Size(236, 34);
+            this.gridWrapToolStripMenuItem.Size = new System.Drawing.Size(270, 34);
             this.gridWrapToolStripMenuItem.Text = "Grid Wrap";
             // 
             // helpToolStripMenuItem

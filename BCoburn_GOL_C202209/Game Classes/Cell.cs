@@ -12,6 +12,14 @@ namespace BCoburn_GOL_C202209
         // Bool value for Cell LifeState (true = alive, false = dead)
         public bool Alive { get; private set; }
 
+        private int _aliveNeighbors;
+
+        public int AliveNeighbors
+        {
+            get { return _aliveNeighbors; }
+            set { _aliveNeighbors = value; }
+        }
+
         // Cell Constructor, Defaults each Cell to dead.
         public Cell()
         {

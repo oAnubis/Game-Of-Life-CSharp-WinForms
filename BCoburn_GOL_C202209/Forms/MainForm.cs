@@ -26,6 +26,8 @@ namespace BCoburn_GOL_C202209
 
         private Color cellColor = Color.DarkGreen;
 
+        public bool isAdjacentCountChecked = true;
+
 
         public MainForm()
         {
@@ -71,6 +73,16 @@ namespace BCoburn_GOL_C202209
         public void UpdateAliveLabel(int totalAlive)
         {
             toolStripStatusLabelAliveCount.Text = "Cells Alive = " + game.CountTotalAlive().ToString();
+        }
+
+        public void UpdateGenerationsLabel()
+        {
+            toolStripStatusLabelGenerations.Text = "Generations = " + generations.ToString();
+        }
+
+        public void ResetGenerations()
+        {
+            generations = 0;
         }
 
         // Forms paint event
@@ -207,6 +219,10 @@ namespace BCoburn_GOL_C202209
 
             game.gameBoard.RandomFillUniverse(universe, game._seed);
 
+            ResetGenerations();
+
+            UpdateGenerationsLabel();
+
             UpdateSeedLabel();
 
             graphicsPanel1.Invalidate();
@@ -222,6 +238,10 @@ namespace BCoburn_GOL_C202209
 
             game.gameBoard.RandomFillUniverse(universe, game._seed);
 
+            ResetGenerations();
+
+            UpdateGenerationsLabel();
+
             UpdateSeedLabel();
 
             graphicsPanel1.Invalidate();
@@ -232,6 +252,10 @@ namespace BCoburn_GOL_C202209
             Cell[,] universe = game.gameBoard.UniverseGrid;
 
             game.gameBoard.RandomFillUniverse(universe, game._seed);
+
+            ResetGenerations();
+
+            UpdateGenerationsLabel();
 
             graphicsPanel1.Invalidate();
         }
@@ -256,6 +280,8 @@ namespace BCoburn_GOL_C202209
             if (RandomizeSettingsDialog.ShowDialog() == DialogResult.OK)
             {
                 seedValue = game._seed;
+                ResetGenerations();
+                UpdateGenerationsLabel();
                 Cell[,] universe = game.gameBoard.UniverseGrid;
                 game.gameBoard.RandomFillUniverse(universe, seedValue);
                 UpdateSeedLabel();
@@ -309,10 +335,8 @@ namespace BCoburn_GOL_C202209
             if (e.Height != game.gameBoard.Height || e.Width != game.gameBoard.Width)
             {
                 game = new Game(e.Width, e.Height);
-                if (game._seed != 0)
-                {
-                    
-                }
+                ResetGenerations();
+                UpdateGenerationsLabel();
             }
 
             graphicsPanel1.Invalidate();
