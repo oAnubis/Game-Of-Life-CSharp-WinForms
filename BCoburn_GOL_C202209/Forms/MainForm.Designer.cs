@@ -626,10 +626,6 @@
             this.labelHUDGenerations.TabIndex = 0;
             this.labelHUDGenerations.Text = "Generations: 0";
             // 
-            // mainFormBindingSource
-            // 
-            this.mainFormBindingSource.DataSource = typeof(BCoburn_GOL_C202209.MainForm);
-            // 
             // toolStripSeparator13
             // 
             this.toolStripSeparator13.Margin = new System.Windows.Forms.Padding(0, 2, 0, 2);
