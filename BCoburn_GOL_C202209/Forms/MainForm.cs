@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Drawing;
 using System.Windows.Forms;
-using System.Xml;
 
 namespace BCoburn_GOL_C202209
 {
@@ -27,7 +26,6 @@ namespace BCoburn_GOL_C202209
         private Color cellColor = Color.DarkGreen;
 
         public bool isAdjacentCountChecked = true;
-
 
         public MainForm()
         {
@@ -56,7 +54,6 @@ namespace BCoburn_GOL_C202209
 
             // Tells the Panel it needs to redraw.
             graphicsPanel1.Invalidate();
-
         }
 
         // The event called by the timer every Interval milliseconds.
@@ -88,7 +85,14 @@ namespace BCoburn_GOL_C202209
         // Forms paint event
         private void graphicsPanel1_Paint(object sender, PaintEventArgs e)
         {
-            game.PaintBoard(graphicsPanel1, e.Graphics);
+            if (adjacentCountToolStripMenuItem.Checked)
+            {
+                game.PaintBoard(graphicsPanel1, e.Graphics);
+            }
+            else
+            {
+                game.PaintBoard(graphicsPanel1, e.Graphics, false);
+            }
 
             UpdateAliveLabel(game.CountTotalAlive());
         }
@@ -260,7 +264,6 @@ namespace BCoburn_GOL_C202209
             graphicsPanel1.Invalidate();
         }
 
-
         #endregion ToolStrip Buttons
 
         #region Randomize Settings Dialog
@@ -302,7 +305,6 @@ namespace BCoburn_GOL_C202209
 
         #endregion Randomize Settings Dialog
 
-
         #region Game Options Dialog
 
         //TODO: Update Comments
@@ -324,10 +326,9 @@ namespace BCoburn_GOL_C202209
                 optionsDialog.Height = (int)optionsDialog.numericUpDownHeight.Value;
                 optionsDialog.Width = (int)optionsDialog.numericUpDownWidth.Value;
             }
-
         }
 
-        void OptionsDialog_Apply(object sender, OptionsApplyArgs e)
+        private void OptionsDialog_Apply(object sender, OptionsApplyArgs e)
         {
             timerInterval = e.TimerInterval;
             timer.Interval = e.TimerInterval;
@@ -342,11 +343,11 @@ namespace BCoburn_GOL_C202209
             graphicsPanel1.Invalidate();
         }
 
-        #endregion
+        #endregion Game Options Dialog
 
-
-
-
-
+        private void adjacentCountToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            graphicsPanel1.Invalidate();
+        }
     }
 }

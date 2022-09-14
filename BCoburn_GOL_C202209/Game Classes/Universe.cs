@@ -4,12 +4,19 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 
 namespace BCoburn_GOL_C202209
 {
     // Class for each Universe (Main game board and scratchpad)
     public class Universe
     {
+        /*TODO: (Personal) - Likely after final submittal and before input into portfolio.    *Make it work then make it better*
+        Restructure as a Dictionary (I believe this could lead  to quicker access in the CountNeighbors and overall simulation performance
+        Algorithm is in blue notebook in the binder labeled "My Algorithm Design". The nature of Key,Value leads to near instant access, vs iteration over an entire array.
+        Working Theory: When getting into larger cell widths and heights, performance can become an issue, faster processing allows larger universes that run smoothly.
+        The algorithm would use an arithmetic based formula to access neighbors, alive states and such. The Height and Width would be used to determine a cells neighbor.
+         */
 
         private int _width;
 
@@ -148,7 +155,7 @@ namespace BCoburn_GOL_C202209
                 for (int y = 0; y < universe.GetLength(1); y++)
                 {
                     // Fills the selected 2D index(x, y) with a Cell object
-                    universe[x, y] = new Cell();
+                    universe[x, y] = new Cell(false);
                 }
             }
         }

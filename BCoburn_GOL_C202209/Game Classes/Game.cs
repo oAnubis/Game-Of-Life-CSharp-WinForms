@@ -98,7 +98,7 @@ namespace BCoburn_GOL_C202209
         //    cellBrush.Dispose();
         //}
 
-        public void PaintBoard(Panel panel, Graphics graphics)
+        public void PaintBoard(Panel panel, Graphics graphics, bool showNumbers = true)
         {
             Cell[,] universe = gameBoard.UniverseGrid;
 
@@ -155,13 +155,16 @@ namespace BCoburn_GOL_C202209
                     // Outline the cell with a pen
                     graphics.DrawRectangle(gridPen, cellRect.X, cellRect.Y, cellRect.Width, cellRect.Height);
 
-                    
-                    gameBoard.CountNeighborsFinite(x, y);
-
-                    if (gameBoard.UniverseGrid[x, y].AliveNeighbors > 0)
+                        gameBoard.CountNeighborsFinite(x, y);
+                    if (showNumbers)
                     {
-                        graphics.DrawString(gameBoard.UniverseGrid[x, y].AliveNeighbors.ToString(), cellFont, Brushes.Black, cellRect, cellStringFormat);
+
+                        if (gameBoard.UniverseGrid[x, y].AliveNeighbors > 0)
+                        {
+                            graphics.DrawString(gameBoard.UniverseGrid[x, y].AliveNeighbors.ToString(), cellFont, Brushes.Black, cellRect, cellStringFormat);
+                        }
                     }
+                    
                 }
             }
 

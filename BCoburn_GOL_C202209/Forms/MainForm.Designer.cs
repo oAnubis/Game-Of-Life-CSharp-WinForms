@@ -187,10 +187,12 @@
             // adjacentCountToolStripMenuItem
             // 
             this.adjacentCountToolStripMenuItem.Checked = true;
+            this.adjacentCountToolStripMenuItem.CheckOnClick = true;
             this.adjacentCountToolStripMenuItem.CheckState = System.Windows.Forms.CheckState.Checked;
             this.adjacentCountToolStripMenuItem.Name = "adjacentCountToolStripMenuItem";
             this.adjacentCountToolStripMenuItem.Size = new System.Drawing.Size(270, 34);
             this.adjacentCountToolStripMenuItem.Text = "Adjacent Count";
+            this.adjacentCountToolStripMenuItem.CheckStateChanged += new System.EventHandler(this.adjacentCountToolStripMenuItem_Click);
             // 
             // gridToolStripMenuItem
             // 

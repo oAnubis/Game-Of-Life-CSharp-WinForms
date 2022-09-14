@@ -3,11 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 
 namespace BCoburn_GOL_C202209
 {
     // Class for each Cell in the Universe 2D Array (Each Rectangle).
-    public class Cell
+    public class Cell : Universe
     {
         // Bool value for Cell LifeState (true = alive, false = dead)
         public bool Alive { get; private set; }
@@ -42,6 +43,11 @@ namespace BCoburn_GOL_C202209
         public bool GetLifeState()
         {
             return Alive;
+        }
+
+        public void CalculateNeighbors(int x, int y)
+        {
+            //this.UniverseGrid[]
         }
 
     }
