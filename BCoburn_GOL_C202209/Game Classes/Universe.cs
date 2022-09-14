@@ -19,7 +19,6 @@ namespace BCoburn_GOL_C202209
          */
 
         // 2D Array holding Cells, Backbone of what is displayed on the Graphics Panel.
-
         public Cell[,] UniverseGrid { get; set; }
 
         public int Width { get; }
