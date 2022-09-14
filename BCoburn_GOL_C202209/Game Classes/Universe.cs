@@ -18,43 +18,20 @@ namespace BCoburn_GOL_C202209
         The algorithm would use an arithmetic based formula to access neighbors, alive states and such. The Height and Width would be used to determine a cells neighbor.
          */
 
-        private int _width;
-
-        private int _height;
-
-        private int _aliveNeighbors;
-
         // 2D Array holding Cells, Backbone of what is displayed on the Graphics Panel.
-        private Cell[,] _universeGrid;
 
-        public Cell[,] UniverseGrid
-        {
-            get { return _universeGrid; }
-            set { _universeGrid = value; }
-        }
+        public Cell[,] UniverseGrid { get; set; }
 
-        public int Width
-        {
-            get { return _width; }
-        }
+        public int Width { get; }
 
-        public int Height
-        {
-            get { return _height; }
-        }
+        public int Height { get; }
 
-        public int AliveNeighbors
-        {
-            get { return _aliveNeighbors; }
-            set { _aliveNeighbors = value; }
-        }
-        
         // Constructor, Fills the 2D Array with Empty Cells.
         public Universe()
         {
             UniverseGrid = new Cell[30, 30];
-            _width = 30;
-            _height = 30;
+            Width = 30;
+            Height = 30;
             FillGridArray(UniverseGrid);
         }
 
@@ -62,8 +39,8 @@ namespace BCoburn_GOL_C202209
         {
             UniverseGrid = new Cell[width, height];
             FillGridArray(UniverseGrid);
-            _width = width;
-            _height = height;
+            Width = width;
+            Height = height;
         }
 
         /// <summary>
@@ -75,8 +52,8 @@ namespace BCoburn_GOL_C202209
             int count = 0;
 
             // Calculates the size of each dimension in the game boards array
-            int xLen = _universeGrid.GetLength(0);
-            int yLen = _universeGrid.GetLength(1);
+            int xLen = UniverseGrid.GetLength(0);
+            int yLen = UniverseGrid.GetLength(1);
 
             //TODO: Possible refactor opportunity (Optimize the neighbor search to be less checks)
             // Loops through a cells neighbor, counts how many are alive (increments count variable initialized above)
@@ -88,29 +65,24 @@ namespace BCoburn_GOL_C202209
                     int xCheck = x + xOffset;
                     int yCheck = y + yOffset;
 
+                    
                     // Current Cell (Not a Neighbor)
                     if (xOffset == 0 && yOffset == 0)
                         continue;
 
                     // These represent coordinates outside of the universe borders (Assumed dead)
-                    if (xCheck < 0)
+                    if (xCheck < 0 || yCheck < 0 || xCheck >= xLen || yCheck >= yLen)
                         continue;
-                    if (yCheck < 0)
-                        continue;
-                    if (xCheck >= xLen)
-                        continue;
-                    if (yCheck >= yLen)
-                        continue;
-
+                    
                     // Increments alive count if neighbors LifeState is alive. Only gets here if found to be inside the universe borders.
-                    if (_universeGrid[xCheck, yCheck].Alive)
+                    if (UniverseGrid[xCheck, yCheck].Alive)
                         count++;
                 }
             }
 
             // Return the count of alive neighbors to the caller.
-            _universeGrid[x, y].AliveNeighbors = count;
-            return _universeGrid[x, y].AliveNeighbors;
+            UniverseGrid[x, y].AliveNeighbors = count;
+            return UniverseGrid[x, y].AliveNeighbors;
         }
 
         public void SetUniverse(Cell[,] toSet)
@@ -155,7 +127,7 @@ namespace BCoburn_GOL_C202209
                 for (int y = 0; y < universe.GetLength(1); y++)
                 {
                     // Fills the selected 2D index(x, y) with a Cell object
-                    universe[x, y] = new Cell(false);
+                    universe[x, y] = new Cell();
                 }
             }
         }

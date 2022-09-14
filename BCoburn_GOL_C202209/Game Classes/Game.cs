@@ -19,7 +19,11 @@ namespace BCoburn_GOL_C202209
         //TODO: Allow to be customizable
         private Color gridColor = Color.Black;
 
-        private Color cellColor = Color.DarkGreen;
+        private Color cellColor = Color.Gray;
+
+        private Font cellFont = new Font("Cascadia Mono", 8f, FontStyle.Bold);
+
+        private StringFormat cellStringFormat = new StringFormat();
 
         // Game constructor - Creates the gameboard and the scratchpad. Called on program launch
         public Game()
@@ -102,12 +106,7 @@ namespace BCoburn_GOL_C202209
         {
             Cell[,] universe = gameBoard.UniverseGrid;
 
-            Font cellFont = new Font("Arial", 8f);
-
-            StringFormat cellStringFormat = new StringFormat();
-            cellStringFormat.Alignment = StringAlignment.Center;
-            cellStringFormat.LineAlignment = StringAlignment.Center;
-
+            
             // Calculate the width and height of each cell in pixels
             // CELL WIDTH = WINDOW WIDTH / NUMBER OF CELLS IN X
             float cellWidth = (float)panel.ClientSize.Width / universe.GetLength(0);
@@ -143,7 +142,7 @@ namespace BCoburn_GOL_C202209
 
                     // Fill the cell with a Spider if alive, or a CobWeb if dead
                     //TODO: Reimplement Images
-                    
+
                     // Outline the cell with a pen
                     graphics.DrawRectangle(gridPen, cellRect.X, cellRect.Y, cellRect.Width, cellRect.Height);
 
@@ -151,16 +150,30 @@ namespace BCoburn_GOL_C202209
                     {
                         if (gameBoard.UniverseGrid[x, y].AliveNeighbors > 0)
                         {
-                            graphics.DrawString(gameBoard.UniverseGrid[x, y].AliveNeighbors.ToString(), cellFont, Brushes.Black, cellRect, cellStringFormat);
+                            PrintNumbers(graphics, x, y, cellRect);
                         }
                     }
-                    
                 }
             }
 
             // Releases the resources for the gridPen
             gridPen.Dispose();
             cellBrush.Dispose();
+        }
+
+        public void PrintNumbers(Graphics graphics, int x, int y, RectangleF cellRect)
+        {
+            cellStringFormat.Alignment = StringAlignment.Center;
+            cellStringFormat.LineAlignment = StringAlignment.Center;
+
+            if (scratchPad.UniverseGrid[x, y].Alive)
+            {
+                graphics.DrawString(gameBoard.UniverseGrid[x, y].AliveNeighbors.ToString(), cellFont, Brushes.Green, cellRect, cellStringFormat);
+            }
+            else
+            {
+                graphics.DrawString(gameBoard.UniverseGrid[x, y].AliveNeighbors.ToString(), cellFont, Brushes.Red, cellRect, cellStringFormat);
+            }
         }
 
         /// <summary>
@@ -184,11 +197,11 @@ namespace BCoburn_GOL_C202209
 
             int totalAlive = 0;
 
-            // Iterate through 1st Dimension of the Universe:  x = Left to Right.
-            for (int x = 0; x < universe.GetLength(0); x++)
+            // Iterate through y Dimension of the Universe:  y = Top to Bottom.
+            for (int y = 0; y < universe.GetLength(1); y++)
             {
-                // Iterate through 2nd Dimension of the Universe: y = Top to Bottom.
-                for (int y = 0; y < universe.GetLength(1); y++)
+                // Iterate through x Dimension of the Universe: x = Left to Right.
+                for (int x = 0; x < universe.GetLength(0); x++)
                 {
                     // Holds value of how many living neighbors, Calculated with the CountNeighborsFinite Method.
                     int count = gameBoard.CountNeighborsFinite(x, y);
@@ -197,7 +210,8 @@ namespace BCoburn_GOL_C202209
                     bool lifeState = universe[x, y].GetLifeState();
 
                     //TODO: Possible refactor opportunity (?Check life state, then run the rules?)
-                    // Rule: Any living cell with less than 2 living neighbors dies, as if by under-population.
+
+                    //Rule: Any living cell with less than 2 living neighbors dies, as if by under - population.
                     if (count < 2 && lifeState == true)
                     {
                         scratch[x, y].SetLifeState(false);
@@ -220,7 +234,6 @@ namespace BCoburn_GOL_C202209
                 }
             }
             // Method to swap the scratchpad and the universe, to display the next generation.
-            
         }
 
         //TODO: Add a next generation method to determine if the cell would be alive the next generation (Used for painting numbers also)
@@ -231,9 +244,9 @@ namespace BCoburn_GOL_C202209
         public void ClearUniverse()
         {
             Cell[,] universe = gameBoard.UniverseGrid;
-            for (int x = 0; x < universe.GetLength(0); x++)
+            for (int y = 0; y < universe.GetLength(0); y++)
             {
-                for (int y = 0; y < universe.GetLength(1); y++)
+                for (int x = 0; x < universe.GetLength(1); x++)
                 {
                     // Checks if the selected cells LifeState, if its alive switches to dead
                     if (universe[x, y].Alive)
@@ -266,7 +279,6 @@ namespace BCoburn_GOL_C202209
                 // Toggles LifeState to opposite of current LifeState.
 
                 universe[(int)x, (int)y].SetLifeState(!universe[(int)x, (int)y].Alive);
-                
 
                 panel.Invalidate();
             }
@@ -275,9 +287,9 @@ namespace BCoburn_GOL_C202209
         public int CountTotalAlive()
         {
             int totalAlive = 0;
-            for (int x = 0; x < gameBoard.UniverseGrid.GetLength(0); x++)
+            for (int y = 0; y < gameBoard.UniverseGrid.GetLength(0); y++)
             {
-                for (int y = 0; y < gameBoard.UniverseGrid.GetLength(1); y++)
+                for (int x = 0; x < gameBoard.UniverseGrid.GetLength(1); x++)
                 {
                     if (gameBoard.UniverseGrid[x, y].Alive)
                     {

@@ -16,7 +16,7 @@ namespace BCoburn_GOL_C202209
         public int timerInterval { get; private set; }
 
         // Generation count
-        private int generations = 0;
+        public int generations { get; private set; }
 
         // Game 1st Start Tracker
         private bool isFirstLaunch = true;
@@ -30,6 +30,8 @@ namespace BCoburn_GOL_C202209
         public MainForm()
         {
             InitializeComponent();
+
+            
 
             game = new Game();
             timerInterval = 20;
@@ -47,7 +49,7 @@ namespace BCoburn_GOL_C202209
             generations++;
 
             // Update status strip generations
-            toolStripStatusLabelGenerations.Text = "Generations = " + generations.ToString();
+            UpdateGenerationsLabel();
 
             // Fires SwapBoards from the Game Class, Swapping Boards is what makes the next generation actually display.
             game.SwapBoards();
@@ -67,14 +69,23 @@ namespace BCoburn_GOL_C202209
             toolStripStatusLabelSeed.Text = "Current Seed = " + game._seed;
         }
 
-        public void UpdateAliveLabel(int totalAlive)
+        public void UpdateAliveLabel()
         {
             toolStripStatusLabelAliveCount.Text = "Cells Alive = " + game.CountTotalAlive().ToString();
+            labelHUDCellsAlive.Text = "Cells Alive: " + game.CountTotalAlive().ToString();
         }
 
         public void UpdateGenerationsLabel()
         {
             toolStripStatusLabelGenerations.Text = "Generations = " + generations.ToString();
+
+            labelHUDGenerations.Text = "Generations: " + generations.ToString();
+        }
+
+        public void UpdateUniverseSizeLabels()
+        {
+            labelHUDWidth.Text = "Universe Width: " + game.gameBoard.Width.ToString();
+            labelHUDHeight.Text = "Universe Width: " + game.gameBoard.Height.ToString();
         }
 
         public void ResetGenerations()
@@ -97,7 +108,7 @@ namespace BCoburn_GOL_C202209
                 game.PaintBoard(graphicsPanel1, e.Graphics, false);
             }
 
-            UpdateAliveLabel(game.CountTotalAlive());
+            UpdateAliveLabel();
         }
 
         private void graphicsPanel1_MouseClick(object sender, MouseEventArgs e)
@@ -195,6 +206,11 @@ namespace BCoburn_GOL_C202209
         {
             // Calls the ClearUniverse method in the Game class. (Sets all cells to dead LifeState)
             game.ClearUniverse();
+
+            generations = 0;
+
+            UpdateGenerationsLabel();
+
             // Tells the program the graphics panel needs to be redrawn
             graphicsPanel1.Invalidate();
         }
@@ -208,7 +224,7 @@ namespace BCoburn_GOL_C202209
             }
 
             generations = 0;
-            toolStripStatusLabelGenerations.Text = "Generations = " + generations.ToString();
+            UpdateGenerationsLabel();
             clearButton_Click(sender, e);
             graphicsPanel1.Invalidate();
         }
@@ -341,6 +357,8 @@ namespace BCoburn_GOL_C202209
                 game = new Game(e.Width, e.Height);
                 ResetGenerations();
                 UpdateGenerationsLabel();
+                UpdateAliveLabel();
+                UpdateUniverseSizeLabels();
             }
 
             graphicsPanel1.Invalidate();
@@ -351,6 +369,18 @@ namespace BCoburn_GOL_C202209
         private void adjacentCountToolStripMenuItem_Click(object sender, EventArgs e)
         {
             graphicsPanel1.Invalidate();
+        }
+
+        private void HUDToolStripMenuItem_CheckStateChanged(object sender, EventArgs e)
+        {
+            if (HUDToolStripMenuItem.Checked)
+            {
+                panelHUD.Visible = true;
+            }
+            else
+            {
+                panelHUD.Visible = false;
+            }
         }
     }
 }
