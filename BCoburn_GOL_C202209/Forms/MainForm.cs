@@ -32,7 +32,7 @@ namespace BCoburn_GOL_C202209
             InitializeComponent();
 
             game = new Game();
-            timerInterval = 100;
+            timerInterval = 20;
 
             // Setup the timer
             timer.Interval = timerInterval; // milliseconds
@@ -49,8 +49,8 @@ namespace BCoburn_GOL_C202209
             // Update status strip generations
             toolStripStatusLabelGenerations.Text = "Generations = " + generations.ToString();
 
-            // Runs Game Rules to determine what to output in the Next Generation
-            game.GameRules();
+            // Fires SwapBoards from the Game Class, Swapping Boards is what makes the next generation actually display.
+            game.SwapBoards();
 
             // Tells the Panel it needs to redraw.
             graphicsPanel1.Invalidate();
@@ -85,6 +85,9 @@ namespace BCoburn_GOL_C202209
         // Forms paint event
         private void graphicsPanel1_Paint(object sender, PaintEventArgs e)
         {
+            // Runs Game Rules to determine what to output in the Next Generation (Allowed font color changes based on next generation state)
+            game.GameRules();
+
             if (adjacentCountToolStripMenuItem.Checked)
             {
                 game.PaintBoard(graphicsPanel1, e.Graphics);

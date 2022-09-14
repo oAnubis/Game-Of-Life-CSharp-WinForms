@@ -102,7 +102,7 @@ namespace BCoburn_GOL_C202209
         {
             Cell[,] universe = gameBoard.UniverseGrid;
 
-            Font cellFont = new Font("Arial", 10f);
+            Font cellFont = new Font("Arial", 8f);
 
             StringFormat cellStringFormat = new StringFormat();
             cellStringFormat.Alignment = StringAlignment.Center;
@@ -143,22 +143,12 @@ namespace BCoburn_GOL_C202209
 
                     // Fill the cell with a Spider if alive, or a CobWeb if dead
                     //TODO: Reimplement Images
-                    //if (gameBoard.UniverseGrid[x, y].Alive)
-                    //{
-                    //    graphics.DrawImage(spider, cellRect);
-                    //}
-                    //else
-                    //{
-                    //    graphics.DrawImage(spiderWeb, cellRect);
-                    //}
-
+                    
                     // Outline the cell with a pen
                     graphics.DrawRectangle(gridPen, cellRect.X, cellRect.Y, cellRect.Width, cellRect.Height);
 
-                        gameBoard.CountNeighborsFinite(x, y);
                     if (showNumbers)
                     {
-
                         if (gameBoard.UniverseGrid[x, y].AliveNeighbors > 0)
                         {
                             graphics.DrawString(gameBoard.UniverseGrid[x, y].AliveNeighbors.ToString(), cellFont, Brushes.Black, cellRect, cellStringFormat);
@@ -201,7 +191,7 @@ namespace BCoburn_GOL_C202209
                 for (int y = 0; y < universe.GetLength(1); y++)
                 {
                     // Holds value of how many living neighbors, Calculated with the CountNeighborsFinite Method.
-                    int count = universe[x, y].AliveNeighbors;
+                    int count = gameBoard.CountNeighborsFinite(x, y);
 
                     // Holds the LifeState of the currently selected cell
                     bool lifeState = universe[x, y].GetLifeState();
@@ -230,7 +220,7 @@ namespace BCoburn_GOL_C202209
                 }
             }
             // Method to swap the scratchpad and the universe, to display the next generation.
-            SwapBoards();
+            
         }
 
         //TODO: Add a next generation method to determine if the cell would be alive the next generation (Used for painting numbers also)
@@ -274,7 +264,9 @@ namespace BCoburn_GOL_C202209
                 float y = e.Y / cellHeight;
 
                 // Toggles LifeState to opposite of current LifeState.
+
                 universe[(int)x, (int)y].SetLifeState(!universe[(int)x, (int)y].Alive);
+                
 
                 panel.Invalidate();
             }

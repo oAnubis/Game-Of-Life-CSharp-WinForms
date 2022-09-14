@@ -75,8 +75,8 @@ namespace BCoburn_GOL_C202209
             int count = 0;
 
             // Calculates the size of each dimension in the game boards array
-            int xLen = UniverseGrid.GetLength(0);
-            int yLen =UniverseGrid.GetLength(1);
+            int xLen = _universeGrid.GetLength(0);
+            int yLen = _universeGrid.GetLength(1);
 
             //TODO: Possible refactor opportunity (Optimize the neighbor search to be less checks)
             // Loops through a cells neighbor, counts how many are alive (increments count variable initialized above)
@@ -103,14 +103,14 @@ namespace BCoburn_GOL_C202209
                         continue;
 
                     // Increments alive count if neighbors LifeState is alive. Only gets here if found to be inside the universe borders.
-                    if (UniverseGrid[xCheck, yCheck].Alive)
+                    if (_universeGrid[xCheck, yCheck].Alive)
                         count++;
                 }
             }
 
             // Return the count of alive neighbors to the caller.
-            UniverseGrid[x, y].AliveNeighbors = count;
-            return UniverseGrid[x, y].AliveNeighbors;
+            _universeGrid[x, y].AliveNeighbors = count;
+            return _universeGrid[x, y].AliveNeighbors;
         }
 
         public void SetUniverse(Cell[,] toSet)

@@ -8,7 +8,7 @@ using System.Windows.Forms;
 namespace BCoburn_GOL_C202209
 {
     // Class for each Cell in the Universe 2D Array (Each Rectangle).
-    public class Cell : Universe
+    public class Cell
     {
         // Bool value for Cell LifeState (true = alive, false = dead)
         public bool Alive { get; private set; }
