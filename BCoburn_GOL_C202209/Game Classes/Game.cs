@@ -198,18 +198,24 @@ namespace BCoburn_GOL_C202209
             // Variables for Universe and Scratchpad 2D Arrays.
             Cell[,] scratch = scratchPad.UniverseGrid;
 
+            int count = 0;
+
             // Iterate through y Dimension of the Universe:  y = Top to Bottom.
             for (int y = 0; y < Height; y++)
             {
                 // Iterate through x Dimension of the Universe: x = Left to Right.
                 for (int x = 0; x < Width; x++)
                 {
-                    if (_mainForm.GetBorderMode() == false)
-                    // Holds value of how many living neighbors, Calculated with the CountNeighborsFinite method.
-                    //int count = gameBoard.CountNeighborsFinite(x, y);
-
-                    // Holds value of how many living neighbors, Calculated with the CountNeighborsToroidal method.
-                    int count = gameBoard.CountNeighborsToroidal(x, y);
+                    if (_mainForm.borderMode == BorderMode.Finite)
+                    {
+                        // Holds value of how many living neighbors, Calculated with the CountNeighborsFinite method.
+                        count = gameBoard.CountNeighborsFinite(x, y);
+                    }
+                    else
+                    {
+                        // Holds value of how many living neighbors, Calculated with the CountNeighborsToroidal method.
+                        count = gameBoard.CountNeighborsToroidal(x, y);
+                    }
 
                     // Holds the LifeState of the currently selected cell
                     bool lifeState = gameBoard.LifeState(x, y);

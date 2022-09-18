@@ -53,9 +53,6 @@ namespace BCoburn_GOL_C202209
         // Whether HUD is checked in the view menu.
         private bool _showHUD = true;
 
-        // The string for Boundry mode, shown in the HUD.
-        private string boundryMode = "Finite";
-
         #endregion Fields
 
         #region Constructors
@@ -64,6 +61,9 @@ namespace BCoburn_GOL_C202209
         {
             // Initializes all the components of the form (Buttons, Labels, MenuItems, etc...)
             InitializeComponent();
+
+            // Sets the default border mode to Finite.
+            this.borderMode = BorderMode.Finite;
 
             // Initialize a new instance of the Game class.
             game = new Game(this);
@@ -146,7 +146,7 @@ namespace BCoburn_GOL_C202209
             {
                 string hudString = $"Cells Alive: {game.CountTotalAlive().ToString()}\n" +
                     $"Generations: {generations}\n" +
-                    $"Boundry Mode: {boundryMode}\n" +
+                    $"Boundry Mode: {borderMode}\n" +
                     $"Universe Width: {game.Width.ToString()}   Universe Height: {game.Height.ToString()}";
 
                 Font font = new Font("Arial", 12, FontStyle.Bold);
@@ -476,17 +476,21 @@ namespace BCoburn_GOL_C202209
             if (toroidalViewMenuItem.Checked)
             {
                 finiteViewMenuItem.Checked = false;
-                _isFinite = false;
+                borderMode = BorderMode.Toroidal;
             }
+
+            graphicsPanel1.Invalidate();
         }
 
         private void finiteViewMenuItem_Clicked(object sender, EventArgs e)
         {
             if (finiteViewMenuItem.Checked)
             {
-                toroidalViewMenuItem.Enabled = false;
-                _isFinite = true;
+                toroidalViewMenuItem.Checked = false;
+                borderMode = BorderMode.Finite;
             }
+
+            graphicsPanel1.Invalidate();
         }
 
         private void HUDToolStripMenuItem_CheckStateChanged(object sender, EventArgs e)

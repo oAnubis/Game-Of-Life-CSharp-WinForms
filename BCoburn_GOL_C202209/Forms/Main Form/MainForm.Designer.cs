@@ -228,6 +228,7 @@
             this.toroidalViewMenuItem.Name = "toroidalViewMenuItem";
             this.toroidalViewMenuItem.Size = new System.Drawing.Size(270, 34);
             this.toroidalViewMenuItem.Text = "Toroidal";
+            this.toroidalViewMenuItem.Click += new System.EventHandler(this.toroidalViewMenuItem_Clicked);
             // 
             // finiteViewMenuItem
             // 
@@ -238,6 +239,7 @@
             this.finiteViewMenuItem.Name = "finiteViewMenuItem";
             this.finiteViewMenuItem.Size = new System.Drawing.Size(270, 34);
             this.finiteViewMenuItem.Text = "Finite";
+            this.finiteViewMenuItem.Click += new System.EventHandler(this.finiteViewMenuItem_Clicked);
             // 
             // gameCommandsToolStripMenuItem
             // 
@@ -255,30 +257,30 @@
             // 
             this.runToolStripMenuItem.CheckOnClick = true;
             this.runToolStripMenuItem.Name = "runToolStripMenuItem";
-            this.runToolStripMenuItem.Size = new System.Drawing.Size(270, 34);
+            this.runToolStripMenuItem.Size = new System.Drawing.Size(203, 34);
             this.runToolStripMenuItem.Text = "Run";
             // 
             // pauseToolStripMenuItem
             // 
             this.pauseToolStripMenuItem.Name = "pauseToolStripMenuItem";
-            this.pauseToolStripMenuItem.Size = new System.Drawing.Size(270, 34);
+            this.pauseToolStripMenuItem.Size = new System.Drawing.Size(203, 34);
             this.pauseToolStripMenuItem.Text = "Pause";
             // 
             // nextToolStripMenuItem
             // 
             this.nextToolStripMenuItem.Name = "nextToolStripMenuItem";
-            this.nextToolStripMenuItem.Size = new System.Drawing.Size(270, 34);
+            this.nextToolStripMenuItem.Size = new System.Drawing.Size(203, 34);
             this.nextToolStripMenuItem.Text = "Next";
             // 
             // toolStripSeparator8
             // 
             this.toolStripSeparator8.Name = "toolStripSeparator8";
-            this.toolStripSeparator8.Size = new System.Drawing.Size(267, 6);
+            this.toolStripSeparator8.Size = new System.Drawing.Size(200, 6);
             // 
             // randomizeToolStripMenuItem
             // 
             this.randomizeToolStripMenuItem.Name = "randomizeToolStripMenuItem";
-            this.randomizeToolStripMenuItem.Size = new System.Drawing.Size(270, 34);
+            this.randomizeToolStripMenuItem.Size = new System.Drawing.Size(203, 34);
             this.randomizeToolStripMenuItem.Text = "Randomize";
             this.randomizeToolStripMenuItem.Click += new System.EventHandler(this.randomizeToolStripMenuItem_Click);
             // 
