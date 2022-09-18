@@ -1,7 +1,18 @@
 ﻿<?xml version='1.0' encoding='utf-8'?>
-<SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)">
-  <Profiles>
-    <Profile Name="(Default)" />
-  </Profiles>
-  <Settings />
+<SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="BCoburn_GOL_C202209.Properties" GeneratedClassName="Settings">
+  <Profiles />
+  <Settings>
+    <Setting Name="BorderMode" Type="BCoburn_GOL_C202209.BorderMode" Scope="User">
+      <Value Profile="(Default)">Finite</Value>
+    </Setting>
+    <Setting Name="DisplayNumbers" Type="BCoburn_GOL_C202209.DisplayNumbers" Scope="User">
+      <Value Profile="(Default)">Yes</Value>
+    </Setting>
+    <Setting Name="ShowHUD" Type="BCoburn_GOL_C202209.ShowHUD" Scope="User">
+      <Value Profile="(Default)">Yes</Value>
+    </Setting>
+    <Setting Name="ShowGrid" Type="BCoburn_GOL_C202209.ShowGrid" Scope="User">
+      <Value Profile="(Default)">Yes</Value>
+    </Setting>
+  </Settings>
 </SettingsFile>

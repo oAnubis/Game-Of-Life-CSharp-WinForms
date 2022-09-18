@@ -8,22 +8,66 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace BCoburn_GOL_C202209.Properties
-{
-
-
+namespace BCoburn_GOL_C202209.Properties {
+    
+    
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.Editors.SettingsDesigner.SettingsSingleFileGenerator", "11.0.0.0")]
-    internal sealed partial class Settings : global::System.Configuration.ApplicationSettingsBase
-    {
-
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.Editors.SettingsDesigner.SettingsSingleFileGenerator", "17.2.0.0")]
+    internal sealed partial class Settings : global::System.Configuration.ApplicationSettingsBase {
+        
         private static Settings defaultInstance = ((Settings)(global::System.Configuration.ApplicationSettingsBase.Synchronized(new Settings())));
-
-        public static Settings Default
-        {
-            get
-            {
+        
+        public static Settings Default {
+            get {
                 return defaultInstance;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("Finite")]
+        public global::BCoburn_GOL_C202209.BorderMode BorderMode {
+            get {
+                return ((global::BCoburn_GOL_C202209.BorderMode)(this["BorderMode"]));
+            }
+            set {
+                this["BorderMode"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("Yes")]
+        public global::BCoburn_GOL_C202209.DisplayNumbers DisplayNumbers {
+            get {
+                return ((global::BCoburn_GOL_C202209.DisplayNumbers)(this["DisplayNumbers"]));
+            }
+            set {
+                this["DisplayNumbers"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("Yes")]
+        public global::BCoburn_GOL_C202209.ShowHUD ShowHUD {
+            get {
+                return ((global::BCoburn_GOL_C202209.ShowHUD)(this["ShowHUD"]));
+            }
+            set {
+                this["ShowHUD"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("Yes")]
+        public global::BCoburn_GOL_C202209.ShowGrid ShowGrid {
+            get {
+                return ((global::BCoburn_GOL_C202209.ShowGrid)(this["ShowGrid"]));
+            }
+            set {
+                this["ShowGrid"] = value;
             }
         }
     }

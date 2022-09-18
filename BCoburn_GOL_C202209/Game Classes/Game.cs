@@ -11,10 +11,10 @@ namespace BCoburn_GOL_C202209
         //TODO: Change most logic from form to here in the form of Methods
 
         // Main universe, holds an array of cells. This is what is shown (Current generation)
-        public Universe gameBoard;
+        public Universe GameBoard;
 
         // Scratchpad, holds an array of cells. This holds the next generation to be shown
-        public Universe scratchPad;
+        public Universe ScratchPad;
 
         // Hold the value of the current MainForm
         private MainForm _mainForm;
@@ -26,22 +26,22 @@ namespace BCoburn_GOL_C202209
         public int Height { get; private set; }
 
         // The current seed set in the game.
-        public int _seed;
+        public int Seed;
 
         // Determines the color of the gridlines
         //TODO: Allow to be customizable
-        private Color gridColor = Color.Black;
+        private Color _gridColor = Color.Black;
 
         // Determines the color of Alive Cells.
-        private Color cellColor = Color.Gray;
+        private Color _cellColor = Color.Gray;
 
         // Sets the Font of the numbers shown inside each Cell (If the setting in the view menu is checked).
-        private Font cellFont = new Font("Cascadia Mono", 8f, FontStyle.Bold);
+        private Font _cellFont = new Font("Cascadia Mono", 8f, FontStyle.Bold);
 
         // Instantiates a new StringFormat object, this allows the numbers to be centered in each rectangle in the gameBoard.
-        private StringFormat cellStringFormat = new StringFormat();
+        private StringFormat _cellStringFormat = new StringFormat();
 
-        private bool _showHUD = true;
+        private bool _showHud = true;
 
         private bool _showNumbers = true;
 
@@ -70,8 +70,8 @@ namespace BCoburn_GOL_C202209
         {
             Width = 30;
             Height = 30;
-            gameBoard = new Universe(Width, Height);
-            scratchPad = new Universe(Width, Height);
+            GameBoard = new Universe(Width, Height);
+            ScratchPad = new Universe(Width, Height);
         }
 
         /// <summary>
@@ -99,10 +99,10 @@ namespace BCoburn_GOL_C202209
             float cellHeight = (float)panel.ClientSize.Height / Height;
 
             // A Pen for drawing the grid lines (color, width)
-            Pen gridPen = new Pen(gridColor, 1);
+            Pen gridPen = new Pen(_gridColor, 1);
 
             // A Brush for filling living cells interiors (color)
-            Brush cellBrush = new SolidBrush(cellColor);
+            Brush cellBrush = new SolidBrush(_cellColor);
 
             // Iterate through the universe in the y, top to bottom
             for (int y = 0; y < Height; y++)
@@ -118,7 +118,7 @@ namespace BCoburn_GOL_C202209
                     cellRect.Height = cellHeight;
 
                     // Checks the life state of the Cell.
-                    if (gameBoard.LifeState(x, y) == true)
+                    if (GameBoard.LifeState(x, y) == true)
                     {
                         // Fills the rectangle with the Color selected for living cells.
                         e.Graphics.FillRectangle(cellBrush, cellRect);
@@ -135,10 +135,10 @@ namespace BCoburn_GOL_C202209
                     e.Graphics.DrawRectangle(gridPen, cellRect.X, cellRect.Y, cellWidth, cellHeight);
 
                     // Checks if showNumbers is true (Defaults to yes).
-                    if (_showNumbers)
+                    if (_mainForm.DisplayNumbers == DisplayNumbers.Yes)
                     {
                         // Checks if the cell has any living neighbors (Only draws a number if there is at least 1 living neighbor)
-                        if (gameBoard.UniverseGrid[x, y].AliveNeighbors > 0)
+                        if (GameBoard.UniverseGrid[x, y].AliveNeighbors > 0)
                         {
                             // Calls the PrintNumbers method, Handles drawing the number inside the Cell.
                             PrintNumbers(e, x, y, cellRect);
@@ -162,20 +162,20 @@ namespace BCoburn_GOL_C202209
         public void PrintNumbers(PaintEventArgs e, int x, int y, RectangleF cellRect)
         {
             // Sets the alignment of the number to be centered inside each Cell.
-            cellStringFormat.Alignment = StringAlignment.Center;
-            cellStringFormat.LineAlignment = StringAlignment.Center;
+            _cellStringFormat.Alignment = StringAlignment.Center;
+            _cellStringFormat.LineAlignment = StringAlignment.Center;
 
             // Checks if the cell will be Alive in the next generation (scratchPad holds the next generation state)
             // This is what allows the numbers to be colored based on if they will be alive the next generation or not.
-            if (scratchPad.UniverseGrid[x, y].Alive)
+            if (ScratchPad.UniverseGrid[x, y].Alive)
             {
                 // Colors the numbers in the Cells that will be alive next generation green.
-                e.Graphics.DrawString(gameBoard.GetAliveNeighbors(x, y).ToString(), cellFont, Brushes.Green, cellRect, cellStringFormat);
+                e.Graphics.DrawString(GameBoard.GetAliveNeighbors(x, y).ToString(), _cellFont, Brushes.Green, cellRect, _cellStringFormat);
             }
             else
             {
                 // Colors the numbers in the Cells that will be dead next generation red.
-                e.Graphics.DrawString(gameBoard.GetAliveNeighbors(x, y).ToString(), cellFont, Brushes.Red, cellRect, cellStringFormat);
+                e.Graphics.DrawString(GameBoard.GetAliveNeighbors(x, y).ToString(), _cellFont, Brushes.Red, cellRect, _cellStringFormat);
             }
         }
 
@@ -185,9 +185,9 @@ namespace BCoburn_GOL_C202209
         /// </summary>
         public void SwapBoards()
         {
-            Cell[,] temp = gameBoard.UniverseGrid;
-            gameBoard.SetUniverse(scratchPad.UniverseGrid);
-            scratchPad.SetUniverse(temp);
+            Cell[,] temp = GameBoard.UniverseGrid;
+            GameBoard.SetUniverse(ScratchPad.UniverseGrid);
+            ScratchPad.SetUniverse(temp);
         }
 
         /// <summary>
@@ -196,7 +196,7 @@ namespace BCoburn_GOL_C202209
         public void GameRules()
         {
             // Variables for Universe and Scratchpad 2D Arrays.
-            Cell[,] scratch = scratchPad.UniverseGrid;
+            Cell[,] scratch = ScratchPad.UniverseGrid;
 
             int count = 0;
 
@@ -206,19 +206,19 @@ namespace BCoburn_GOL_C202209
                 // Iterate through x Dimension of the Universe: x = Left to Right.
                 for (int x = 0; x < Width; x++)
                 {
-                    if (_mainForm.borderMode == BorderMode.Finite)
+                    if (_mainForm.BorderMode == BorderMode.Finite)
                     {
                         // Holds value of how many living neighbors, Calculated with the CountNeighborsFinite method.
-                        count = gameBoard.CountNeighborsFinite(x, y);
+                        count = GameBoard.CountNeighborsFinite(x, y);
                     }
                     else
                     {
                         // Holds value of how many living neighbors, Calculated with the CountNeighborsToroidal method.
-                        count = gameBoard.CountNeighborsToroidal(x, y);
+                        count = GameBoard.CountNeighborsToroidal(x, y);
                     }
 
                     // Holds the LifeState of the currently selected cell
-                    bool lifeState = gameBoard.LifeState(x, y);
+                    bool lifeState = GameBoard.LifeState(x, y);
 
                     //TODO: Possible refactor opportunity (?Check life state, then run the rules?)
 
@@ -240,7 +240,7 @@ namespace BCoburn_GOL_C202209
                     // Rule: Any living cell with 2 or 3 living neighbors will continue to live (Not over or under populated).
                     else
                     {
-                        scratch[x, y].SetLifeState(gameBoard.LifeState(x, y));
+                        scratch[x, y].SetLifeState(GameBoard.LifeState(x, y));
                     }
                 }
             }
@@ -252,7 +252,7 @@ namespace BCoburn_GOL_C202209
         public void ClearUniverse()
         {
             // Variable to hold the actual array in the Universe object (The gameBoard).
-            Cell[,] universe = gameBoard.UniverseGrid;
+            Cell[,] universe = GameBoard.UniverseGrid;
 
             // Iterates over the y dimension (Height)
             for (int y = 0; y < Height; y++)
@@ -278,7 +278,7 @@ namespace BCoburn_GOL_C202209
         public void ToggleCell(Panel panel, MouseEventArgs e)
         {
             // A variable holding the actual array of the Universe object (gameBoard)
-            Cell[,] universe = gameBoard.UniverseGrid;
+            Cell[,] universe = GameBoard.UniverseGrid;
 
             // If the left mouse button was clicked
             if (e.Button == MouseButtons.Left)
@@ -317,7 +317,7 @@ namespace BCoburn_GOL_C202209
                 for (int x = 0; x < Width; x++)
                 {
                     // Checks if the specified cell is living.
-                    if (gameBoard.UniverseGrid[x, y].Alive)
+                    if (GameBoard.UniverseGrid[x, y].Alive)
                     {
                         // Increments totalAlive variable (Counts the living cells).
                         totalAlive++;

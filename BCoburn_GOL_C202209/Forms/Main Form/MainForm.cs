@@ -1,14 +1,11 @@
 ﻿using System;
 using System.Drawing;
 using System.Windows.Forms;
+using BCoburn_GOL_C202209.Properties;
 
 namespace BCoburn_GOL_C202209
 {
-    public enum BorderMode
-    {
-        Toroidal,
-        Finite
-    }
+    
 
     public partial class MainForm : Form
     {
@@ -21,37 +18,31 @@ namespace BCoburn_GOL_C202209
         #region Properties
 
         // Game object (Holds game logic).
-        private Game game;
+        private Game _game;
 
         // The Timer class.
-        private Timer timer = new Timer();
+        private Timer _timer = new Timer();
 
         // Timer Interval Property (Speed of each generation, in milliseconds).
-        public int timerInterval { get; private set; }
+        public int TimerInterval { get; private set; }
 
         // Generation count.
-        public int generations { get; private set; }
+        public int Generations { get; private set; }
 
-        public BorderMode borderMode { get; private set; }
+        public BorderMode BorderMode { get; private set; }
+
+        public DisplayNumbers DisplayNumbers { get; private set; }
+
+        public ShowHUD ShowHUD { get; private set; }
+
+        public ShowGrid ShowGrid { get; private set; }
 
         #endregion Properties
 
         #region Fields
 
         // Game 1st Start Tracker (Has the simulation been ran since the program was opened).
-        private bool isFirstLaunch = true;
-
-        // Holds whether the Adjacent Count in the View menu is checked.
-        private bool _showNumbers = true;
-
-        // Whether the Grid in the view menu is checked.
-        private bool _showGrid = true;
-
-        // Whether the Finite in the view menu is checked (Only 1 needs to be tracked to set the boundry mode)
-        private bool _isFinite = true;
-
-        // Whether HUD is checked in the view menu.
-        private bool _showHUD = true;
+        private bool _isFirstLaunch = true;
 
         #endregion Fields
 
@@ -61,43 +52,70 @@ namespace BCoburn_GOL_C202209
         {
             // Initializes all the components of the form (Buttons, Labels, MenuItems, etc...)
             InitializeComponent();
-
-            // Sets the default border mode to Finite.
-            this.borderMode = BorderMode.Finite;
+            
+            // Loads the Application settings
+            LoadSettings();
 
             // Initialize a new instance of the Game class.
-            game = new Game(this);
+            _game = new Game(this);
 
             // Sets the default interval for the timer, in milliseconds.
-            timerInterval = 20;
+            TimerInterval = 20;
 
             // Setup the timer
-            timer.Interval = timerInterval; // milliseconds
-            timer.Tick += Timer_Tick;
-            timer.Enabled = false; // Timer defaults to disabled on program launch.
+            _timer.Interval = TimerInterval; // milliseconds
+            _timer.Tick += Timer_Tick;
+            _timer.Enabled = false; // Timer defaults to disabled on program launch.
         }
 
         #endregion Constructors
 
-        #region Getters
+        #region Forms Main Methods
 
-        public bool GetBorderMode()
+        private void SetViewMenu()
         {
-            return _isFinite;
+            if (BorderMode == BorderMode.Finite)
+            {
+                finiteViewMenuItem.Checked = true;
+                toroidalViewMenuItem.Checked = false;
+            }
+            else
+            {
+                finiteViewMenuItem.Checked = false;
+                toroidalViewMenuItem.Checked = true;
+            }
+
+            showHUDViewMenuToggle.Checked = ShowHUD == ShowHUD.Yes ? true : false;
+
         }
 
-        #endregion
+        private void LoadSettings()
+        {
+            BorderMode = Settings.Default.BorderMode;
+            DisplayNumbers = Settings.Default.DisplayNumbers;
+            ShowHUD = Settings.Default.ShowHUD;
+            ShowGrid = Settings.Default.ShowGrid;
 
-        #region Forms Main Methods
+            SetViewMenu();
+        }
+
+        private void SaveSettings()
+        {
+            Settings.Default.BorderMode = BorderMode;
+            Settings.Default.DisplayNumbers = DisplayNumbers;
+            Settings.Default.ShowHUD = ShowHUD;
+            Settings.Default.ShowGrid = ShowGrid;
+            Settings.Default.Save();
+        }
 
         // Shows the next generation on the GraphicsPanel
         private void NextGeneration()
         {
             // Increment generation count
-            generations++;
+            Generations++;
 
             // Fires SwapBoards from the Game Class, Swapping Boards is what makes the next generation actually display.
-            game.SwapBoards();
+            _game.SwapBoards();
 
             // Tells the Panel it needs to redraw.
             graphicsPanel1.Invalidate();
@@ -113,41 +131,41 @@ namespace BCoburn_GOL_C202209
         public void UpdateStausStrip()
         {
             // Updates the Current Seed label on the Status Strip.
-            toolStripStatusLabelSeed.Text = "Current Seed = " + game._seed;
+            toolStripStatusLabelSeed.Text = "Current Seed = " + _game.Seed;
 
             // Updates the Cells Alive label on the Status Strip.
-            toolStripStatusLabelAliveCount.Text = "Cells Alive = " + game.CountTotalAlive().ToString();
+            toolStripStatusLabelAliveCount.Text = "Cells Alive = " + _game.CountTotalAlive().ToString();
 
             // Updates the Generations label on the Status Strip.
-            toolStripStatusLabelGenerations.Text = "Generations = " + generations.ToString();
+            toolStripStatusLabelGenerations.Text = "Generations = " + Generations.ToString();
         }
 
         /// Small helper method to reset the generation count to 0
         public void ResetGenerations()
         {
-            generations = 0;
+            Generations = 0;
         }
 
         /// Forms Paint event for the Main GraphicsPanel.
         private void graphicsPanel1_Paint(object sender, PaintEventArgs e)
         {
             // Runs Game Rules to determine what to output in the Next Generation.
-            game.GameRules();
+            _game.GameRules();
 
-            game.PaintBoard(graphicsPanel1, e);
+            _game.PaintBoard(graphicsPanel1, e);
 
             UpdateStausStrip();
         }
 
         // Forms Paint event for the HUDs Graphics Panel.
-        private void paintHUD(object sender, PaintEventArgs e)
+        private void PaintHud(object sender, PaintEventArgs e)
         {
             if (labelHUD.Visible)
             {
-                string hudString = $"Cells Alive: {game.CountTotalAlive().ToString()}\n" +
-                    $"Generations: {generations}\n" +
-                    $"Boundry Mode: {borderMode}\n" +
-                    $"Universe Width: {game.Width.ToString()}   Universe Height: {game.Height.ToString()}";
+                string hudString = $"Cells Alive: {_game.CountTotalAlive().ToString()}\n" +
+                    $"Generations: {Generations}\n" +
+                    $"Boundry Mode: {BorderMode}\n" +
+                    $"Universe Width: {_game.Width.ToString()}   Universe Height: {_game.Height.ToString()}";
 
                 Font font = new Font("Arial", 12, FontStyle.Bold);
                 using (Brush hudBrush = new SolidBrush(Color.DarkViolet))
@@ -161,7 +179,12 @@ namespace BCoburn_GOL_C202209
         private void graphicsPanel1_MouseClick(object sender, MouseEventArgs e)
         {
             // Toggles the Cell state of the clicked cell.
-            game.ToggleCell(graphicsPanel1, e);
+            _game.ToggleCell(graphicsPanel1, e);
+        }
+
+        private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            SaveSettings();
         }
 
         #endregion
@@ -194,10 +217,10 @@ namespace BCoburn_GOL_C202209
         private void clearButton_Click(object sender, EventArgs e)
         {
             // Calls the ClearUniverse method in the Game class. (Sets all cells to dead LifeState)
-            game.ClearUniverse();
+            _game.ClearUniverse();
 
             // Resets generations to 0.
-            generations = 0;
+            Generations = 0;
 
             // Tells the program the graphics panel needs to be repainted.
             graphicsPanel1.Invalidate();
@@ -207,15 +230,15 @@ namespace BCoburn_GOL_C202209
         private void gameFlowButton_Click(object sender, EventArgs e)
         {
             // Switch which check if the game has been launched or if program was just opened
-            switch (isFirstLaunch)
+            switch (_isFirstLaunch)
             {
                 // If this is the first run this program launch, this will fire.
                 case true:
                     // Enables the timer (First Run)
-                    timer.Enabled = true;
+                    _timer.Enabled = true;
 
                     // Tells program simulation has been ran for the first time.
-                    isFirstLaunch = false;
+                    _isFirstLaunch = false;
 
                     // Changes the button to display a pause image.
                     gameFlowButton.Image = BCoburn_GOL_C202209.Properties.Resources.Pause;
@@ -227,10 +250,10 @@ namespace BCoburn_GOL_C202209
                 // If this is NOT the first run this set of logic will run.
                 case false:
                     // Check if timer is running.
-                    if (timer.Enabled)
+                    if (_timer.Enabled)
                     {
                         // Stops the timer.
-                        timer.Stop();
+                        _timer.Stop();
 
                         // Changes the button to display a Play image.
 
@@ -243,7 +266,7 @@ namespace BCoburn_GOL_C202209
                     else
                     {
                         // Restarts the timer.
-                        timer.Start();
+                        _timer.Start();
 
                         // Changes the button to display a Pause image.
                         gameFlowButton.Image = BCoburn_GOL_C202209.Properties.Resources.Pause;
@@ -259,7 +282,7 @@ namespace BCoburn_GOL_C202209
         private void stopButton_Click(object sender, EventArgs e)
         {
             // Checks if the timer is running.
-            if (timer.Enabled)
+            if (_timer.Enabled)
             {
                 // Calls the logic in the game flow buttons method. (Pause and Resume Simulation)
                 gameFlowButton_Click(sender, e);
@@ -279,7 +302,7 @@ namespace BCoburn_GOL_C202209
         private void nextButton_Click(object sender, EventArgs e)
         {
             // Check to make sure the timer is not running (Game is in a paused state)
-            if (!timer.Enabled)
+            if (!_timer.Enabled)
             {
                 // Calls the Next Generation method (Advances 1 generation)
                 NextGeneration();
@@ -290,10 +313,10 @@ namespace BCoburn_GOL_C202209
         private void currentSeedRandomizeButton_Click(object sender, EventArgs e)
         {
             // Variable holding the Array of the current games universe.
-            Cell[,] universeGrid = game.gameBoard.UniverseGrid;
+            Cell[,] universeGrid = _game.GameBoard.UniverseGrid;
 
             // Randomly fills the current board according the Games current seed value
-            game.gameBoard.RandomFillUniverse(universeGrid, game._seed);
+            _game.GameBoard.RandomFillUniverse(universeGrid, _game.Seed);
 
             // Resets Generations to 0
             ResetGenerations();
@@ -309,16 +332,16 @@ namespace BCoburn_GOL_C202209
         private void randomSeedRandomizeButton_Click(object sender, EventArgs e)
         {
             // Variable holding the 2D array of the current universe.
-            Cell[,] universe = game.gameBoard.UniverseGrid;
+            Cell[,] universe = _game.GameBoard.UniverseGrid;
 
             // Instantiates a new Random Generator for the Random output.
             Random rnd = new Random();
 
             // Sets current Games seed value according to a random seed.
-            game._seed = rnd.Next(Int32.MinValue, Int32.MaxValue);
+            _game.Seed = rnd.Next(Int32.MinValue, Int32.MaxValue);
 
             // Randomly fills the universe with the generated seed.
-            game.gameBoard.RandomFillUniverse(universe, game._seed);
+            _game.GameBoard.RandomFillUniverse(universe, _game.Seed);
 
             // Resets generations to 0.
             ResetGenerations();
@@ -334,16 +357,16 @@ namespace BCoburn_GOL_C202209
         private void timeSeedRandomizeButton_Click(object sender, EventArgs e)
         {
             // Variable holding the 2d Array of the current universe.
-            Cell[,] universe = game.gameBoard.UniverseGrid;
+            Cell[,] universe = _game.GameBoard.UniverseGrid;
 
             // Instantiates a new Random Generated, Seed is based on the current times milliseconds.
             Random rnd = new Random(DateTime.Now.Millisecond);
 
             // Sets the current seed to the generated output of the RNG.
-            game._seed = rnd.Next(Int32.MinValue, Int32.MaxValue);
+            _game.Seed = rnd.Next(Int32.MinValue, Int32.MaxValue);
 
             // Randomly fills the universe based on the outputted seed from the RNG.
-            game.gameBoard.RandomFillUniverse(universe, game._seed);
+            _game.GameBoard.RandomFillUniverse(universe, _game.Seed);
 
             // Resets generations to 0.
             ResetGenerations();
@@ -363,20 +386,20 @@ namespace BCoburn_GOL_C202209
         private void randomizeSettingsToolStripMenuItem_Click(object sender, EventArgs e)
         {
             // Instantiates a Modal Dialog object
-            RandomizeModalDialog RandomizeSettingsDialog = new RandomizeModalDialog();
+            RandomizeModalDialog randomizeSettingsDialog = new RandomizeModalDialog();
 
-            RandomizeSettingsDialog.Apply += new ApplyEventHandler(RandomizeSettingsDialog_Apply);
+            randomizeSettingsDialog.Apply += new ApplyEventHandler(RandomizeSettingsDialog_Apply);
 
-            int seedValue = (int)RandomizeSettingsDialog.numericUpDown1.Value;
+            int seedValue = (int)randomizeSettingsDialog.numericUpDown1.Value;
 
-            RandomizeSettingsDialog.numericUpDown1.Value = game._seed;
+            randomizeSettingsDialog.numericUpDown1.Value = _game.Seed;
 
-            if (RandomizeSettingsDialog.ShowDialog() == DialogResult.OK)
+            if (randomizeSettingsDialog.ShowDialog() == DialogResult.OK)
             {
-                seedValue = game._seed;
+                seedValue = _game.Seed;
                 ResetGenerations();
-                Cell[,] universe = game.gameBoard.UniverseGrid;
-                game.gameBoard.RandomFillUniverse(universe, seedValue);
+                Cell[,] universe = _game.GameBoard.UniverseGrid;
+                _game.GameBoard.RandomFillUniverse(universe, seedValue);
                 UpdateStausStrip();
                 graphicsPanel1.Invalidate();
             }
@@ -384,13 +407,13 @@ namespace BCoburn_GOL_C202209
             {
             }
 
-            RandomizeSettingsDialog.Dispose();
+            randomizeSettingsDialog.Dispose();
         }
 
         private void RandomizeSettingsDialog_Apply(object sender, RandomApplyArgs e)
         {
             int seed = e.Seed;
-            game._seed = seed;
+            _game.Seed = seed;
         }
 
         #endregion Randomize Settings Dialog
@@ -410,13 +433,13 @@ namespace BCoburn_GOL_C202209
             optionsDialog.Apply += OptionsDialog_Apply;
 
             // Sets the Timer numeric display to the current timerInterval value.
-            optionsDialog.numericUpDownTimer.Value = timerInterval;
+            optionsDialog.numericUpDownTimer.Value = TimerInterval;
 
             // Sets the Widths numeric display to the current Games Width vale.
-            optionsDialog.numericUpDownWidth.Value = game.Width;
+            optionsDialog.numericUpDownWidth.Value = _game.Width;
 
             // Sets the Heights numeric display to the current Games Height value.
-            optionsDialog.numericUpDownHeight.Value = game.Height;
+            optionsDialog.numericUpDownHeight.Value = _game.Height;
 
             // Checks if the Modal Dialog was closed with the OK button.
             if (DialogResult.OK == optionsDialog.ShowDialog())
@@ -438,22 +461,22 @@ namespace BCoburn_GOL_C202209
         private void OptionsDialog_Apply(object sender, OptionsApplyArgs e)
         {
             // Sets the Games timerInterval to the player input in the Modal Dialog.
-            timerInterval = e.TimerInterval;
+            TimerInterval = e.TimerInterval;
 
             // Updates the timer objects Interval.
-            timer.Interval = e.TimerInterval;
+            _timer.Interval = e.TimerInterval;
             
             // Checks if any changes were made to the Width or Height. If not Skips Updating the Games Board.
-            if (e.Height != game.Height || e.Width != game.Width)
+            if (e.Height != _game.Height || e.Width != _game.Width)
             {
                 // Sets the Games universeGrid based on what the user inputs.
-                game.SetBoardSize(e.Width, e.Height);
+                _game.SetBoardSize(e.Width, e.Height);
 
                 // Creates a new universe using the inputs for width and height.
-                game.gameBoard = new Universe(e.Width, e.Height);
+                _game.GameBoard = new Universe(e.Width, e.Height);
 
                 // Creates a new scratchpad to match the new universe.
-                game.scratchPad = new Universe(e.Width, e.Height);
+                _game.ScratchPad = new Universe(e.Width, e.Height);
                 
                 // Resets the generations to 0.
                 ResetGenerations();
@@ -476,7 +499,7 @@ namespace BCoburn_GOL_C202209
             if (toroidalViewMenuItem.Checked)
             {
                 finiteViewMenuItem.Checked = false;
-                borderMode = BorderMode.Toroidal;
+                BorderMode = BorderMode.Toroidal;
             }
 
             graphicsPanel1.Invalidate();
@@ -487,37 +510,44 @@ namespace BCoburn_GOL_C202209
             if (finiteViewMenuItem.Checked)
             {
                 toroidalViewMenuItem.Checked = false;
-                borderMode = BorderMode.Finite;
+                BorderMode = BorderMode.Finite;
             }
 
             graphicsPanel1.Invalidate();
         }
 
-        private void HUDToolStripMenuItem_CheckStateChanged(object sender, EventArgs e)
+        private void showNumbersViewMenuToggle_CheckStateChanged(object sender, EventArgs e)
         {
-            if (HUDToolStripMenuItem.Checked)
+            if (showNumbersViewMenuToggle.Checked)
+            {
+                DisplayNumbers = DisplayNumbers.Yes;
+            }
+            else
+            {
+                DisplayNumbers = DisplayNumbers.No;
+            }
+            
+            graphicsPanel1.Invalidate();
+
+
+        }
+
+        private void showHUDViewMenuToggle_CheckStateChanged(object sender, EventArgs e)
+        {
+            if (showHUDViewMenuToggle.Checked)
             {
                 labelHUD.Visible = true;
+                ShowHUD = ShowHUD.Yes;
             }
             else
             {
                 labelHUD.Visible = false;
+                ShowHUD = ShowHUD.No;
             }
-        }
-
-        private void adjacentCountToolStripMenuItem_CheckStateChanged(object sender, EventArgs e)
-        {
-            this.Apply += game.Game_Apply;
-
-            _showNumbers = adjacentCountToolStripMenuItem.Checked;
-            if (Apply != null)
-            {
-                Apply(this, new ViewApplyArgs(_showNumbers, _showGrid, _isFinite));
-            }
-
-            graphicsPanel1.Invalidate();
         }
 
         #endregion
+
+        
     }
 }

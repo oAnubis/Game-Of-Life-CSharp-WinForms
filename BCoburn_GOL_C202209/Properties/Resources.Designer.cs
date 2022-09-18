@@ -63,6 +63,16 @@ namespace BCoburn_GOL_C202209.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap Borders {
+            get {
+                object obj = ResourceManager.GetObject("Borders", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap CurrentContextArrow {
             get {
                 object obj = ResourceManager.GetObject("CurrentContextArrow", resourceCulture);
@@ -76,6 +86,16 @@ namespace BCoburn_GOL_C202209.Properties {
         internal static System.Drawing.Bitmap Dice_icon {
             get {
                 object obj = ResourceManager.GetObject("Dice_icon", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap DisplayConfiguration {
+            get {
+                object obj = ResourceManager.GetObject("DisplayConfiguration", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
