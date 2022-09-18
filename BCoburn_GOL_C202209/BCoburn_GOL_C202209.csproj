@@ -46,6 +46,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Forms\Main Form\ViewApplyArgs.cs" />
     <Compile Include="Forms\Options Dialog\OptionsApplyArgs.cs" />
     <Compile Include="Forms\Options Dialog\OptionsModalDialog.cs">
       <SubType>Form</SubType>
@@ -63,10 +64,10 @@
     </Compile>
     <Compile Include="Game Classes\Game.cs" />
     <Compile Include="Game Classes\Universe.cs" />
-    <Compile Include="Forms\MainForm.cs">
+    <Compile Include="Forms\Main Form\MainForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Forms\MainForm.Designer.cs">
+    <Compile Include="Forms\Main Form\MainForm.Designer.cs">
       <DependentUpon>MainForm.cs</DependentUpon>
     </Compile>
     <Compile Include="GraphicsPanel.cs">
@@ -77,7 +78,7 @@
     <EmbeddedResource Include="Forms\Options Dialog\OptionsModalDialog.resx">
       <DependentUpon>OptionsModalDialog.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Forms\MainForm.resx">
+    <EmbeddedResource Include="Forms\Main Form\MainForm.resx">
       <DependentUpon>MainForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\Randomize Dialog\RandomizeModalDialog.resx">
