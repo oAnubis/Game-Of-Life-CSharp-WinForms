@@ -1,19 +1,18 @@
-﻿using System;
+﻿using BCoburn_GOL_C202209.Properties;
+using System;
 using System.Drawing;
+using System.IO;
 using System.Windows.Forms;
-using BCoburn_GOL_C202209.Properties;
 
 namespace BCoburn_GOL_C202209
 {
-    
-
     public partial class MainForm : Form
     {
         #region Events
 
         public event ApplyViewEventHandler Apply;
 
-        #endregion
+        #endregion Events
 
         #region Properties
 
@@ -52,7 +51,7 @@ namespace BCoburn_GOL_C202209
         {
             // Initializes all the components of the form (Buttons, Labels, MenuItems, etc...)
             InitializeComponent();
-            
+
             // Loads the Application settings
             LoadSettings();
 
@@ -187,9 +186,11 @@ namespace BCoburn_GOL_C202209
             SaveSettings();
         }
 
-        #endregion
+        #endregion Forms Main Methods
+
         //
         //
+
         #region Game Commands Menu Item Controls
 
         private void runToolStripMenuItem_Click(object sender, EventArgs e)
@@ -209,8 +210,10 @@ namespace BCoburn_GOL_C202209
         }
 
         #endregion Game Commands Menu Item Controls
+
         //
         //
+
         #region ToolStrip Button Methods
 
         // Clears the board. Fired when the Clear button on the tool strip is clicked.
@@ -378,9 +381,11 @@ namespace BCoburn_GOL_C202209
             graphicsPanel1.Invalidate();
         }
 
-        #endregion ToolStrip Buttons
+        #endregion ToolStrip Button Methods
+
         //
         //
+
         #region Randomize Settings Dialog Methods
 
         private void randomizeSettingsToolStripMenuItem_Click(object sender, EventArgs e)
@@ -416,9 +421,11 @@ namespace BCoburn_GOL_C202209
             _game.Seed = seed;
         }
 
-        #endregion Randomize Settings Dialog
+        #endregion Randomize Settings Dialog Methods
+
         //
         //
+
         #region Game Options Dialog
 
         /// <summary>
@@ -465,7 +472,7 @@ namespace BCoburn_GOL_C202209
 
             // Updates the timer objects Interval.
             _timer.Interval = e.TimerInterval;
-            
+
             // Checks if any changes were made to the Width or Height. If not Skips Updating the Games Board.
             if (e.Height != _game.Height || e.Width != _game.Width)
             {
@@ -477,7 +484,7 @@ namespace BCoburn_GOL_C202209
 
                 // Creates a new scratchpad to match the new universe.
                 _game.ScratchPad = new Universe(e.Width, e.Height);
-                
+
                 // Resets the generations to 0.
                 ResetGenerations();
 
@@ -490,8 +497,10 @@ namespace BCoburn_GOL_C202209
         }
 
         #endregion Game Options Dialog
+
         //
         //
+
         #region View Menu Item Methods
 
         private void toroidalViewMenuItem_Clicked(object sender, EventArgs e)
@@ -526,10 +535,8 @@ namespace BCoburn_GOL_C202209
             {
                 DisplayNumbers = DisplayNumbers.No;
             }
-            
+
             graphicsPanel1.Invalidate();
-
-
         }
 
         private void showHUDViewMenuToggle_Clicked(object sender, EventArgs e)
@@ -546,7 +553,7 @@ namespace BCoburn_GOL_C202209
             }
         }
 
-        #endregion
+        #endregion View Menu Item Methods
 
         private void showGridToolStripMenuItem_Clicked(object sender, EventArgs e)
         {
@@ -560,6 +567,150 @@ namespace BCoburn_GOL_C202209
             }
 
             graphicsPanel1.Invalidate();
+        }
+
+        private void saveToolStripButton_Click(object sender, EventArgs e)
+        {
+            SaveFileDialog dlg = new SaveFileDialog();
+            dlg.Filter = "All Files|*.*|Cells|*.cells";
+            dlg.FilterIndex = 2; dlg.DefaultExt = "cells";
+
+            if (DialogResult.OK == dlg.ShowDialog())
+            {
+                StreamWriter writer = new StreamWriter(dlg.FileName);
+
+                // Write any comments you want to include first.
+                // Prefix all comment strings with an exclamation point.
+                // Use WriteLine to write the strings to the file.
+                // It appends a CRLF for you.
+                writer.WriteLine("!This is my comment.");
+
+                // Iterate through the universe one row at a time.
+                for (int y = 0; y < _game.Height; y++)
+                {
+                    // Create a string to represent the current row.
+                    String currentRow = string.Empty;
+
+                    // Iterate through the current row one cell at a time.
+                    for (int x = 0; x < _game.Width; x++)
+                    {
+                        // If the universe[x,y] is alive then append 'O' (capital O)
+                        // to the row string.
+
+                        if (_game.GameBoard.UniverseGrid[x, y].Alive)
+                        {
+                            currentRow += "O";
+                        }
+                        else
+                        {
+                            currentRow += ".";
+                        }
+
+                        // Else if the universe[x,y] is dead then append '.' (period)
+                        // to the row string.
+                    }
+
+                    // Once the current row has been read through and the
+                    // string constructed then write it to the file using WriteLine.
+
+                    writer.WriteLine(currentRow);
+                }
+
+                // After all rows and columns have been written then close the file.
+                writer.Close();
+            }
+        }
+
+        private void openToolStripButton_Click(object sender, EventArgs e)
+        {
+            OpenFileDialog dlg = new OpenFileDialog();
+            dlg.Filter = "All Files|*.*|Cells|*.cells";
+            dlg.FilterIndex = 2;
+
+            if (DialogResult.OK == dlg.ShowDialog())
+            {
+                StreamReader reader = new StreamReader(dlg.FileName);
+
+                // Create a couple variables to calculate the width and height
+                // of the data in the file.
+                int maxWidth = 0;
+                int maxHeight = 0;
+
+                // Iterate through the file once to get its size.
+                while (!reader.EndOfStream)
+                {
+                    // Read one row at a time.
+                    string row = reader.ReadLine();
+
+                    if (row.StartsWith("!"))
+                    {
+                    }
+                    else
+                    {
+                        maxHeight++;
+                    }
+
+                    maxWidth = row.Length;
+
+                    // If the row begins with '!' then it is a comment
+                    // and should be ignored.
+
+                    // If the row is not a comment then it is a row of cells.
+                    // Increment the maxHeight variable for each row read.
+
+                    // Get the length of the current row string
+                    // and adjust the maxWidth variable if necessary.
+                }
+
+                // Resize the current universe and scratchPad
+                // to the width and height of the file calculated above.
+                _game.SetBoardSize(maxWidth, maxHeight);
+                _game.GameBoard = new Universe(_game.Width, _game.Height);
+                _game.ScratchPad = new Universe(_game.Width, _game.Height);
+
+                graphicsPanel1.Invalidate();
+                // Reset the file pointer back to the beginning of the file.
+                reader.BaseStream.Seek(0, SeekOrigin.Begin);
+
+                int rowNum = 0;
+                // Iterate through the file again, this time reading in the cells.
+                while (!reader.EndOfStream)
+                {
+                    // Read one row at a time.
+                    string row = reader.ReadLine();
+
+                    // If the row begins with '!' then
+                    // it is a comment and should be ignored.
+                    if (row.StartsWith("!"))
+                    {
+                    }
+                    else
+                    {
+                        // If the row is not a comment then
+                        // it is a row of cells and needs to be iterated through.
+                        for (int xPos = 0; xPos < row.Length; xPos++)
+                        {
+                            // If row[xPos] is a 'O' (capital O) then
+                            // set the corresponding cell in the universe to alive.
+                            if (row[xPos] == 'O')
+                            {
+                                _game.GameBoard.UniverseGrid[xPos, rowNum].SetLifeState(true);
+                            }
+
+                            if (row[xPos] == '.')
+                            {
+                                _game.GameBoard.UniverseGrid[xPos, rowNum].SetLifeState(false);
+                            }
+                            // If row[xPos] is a '.' (period) then
+                            // set the corresponding cell in the universe to dead.
+                        }
+                        rowNum++;
+                    }
+                }
+
+                // Close the file.
+                reader.Close();
+            }
         }
     }
 }
