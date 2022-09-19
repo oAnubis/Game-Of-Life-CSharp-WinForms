@@ -31,24 +31,33 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.newToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.openToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator = new System.Windows.Forms.ToolStripSeparator();
+            this.saveToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
             this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.displaySettingsViewMenuLabel = new System.Windows.Forms.ToolStripMenuItem();
             this.showHUDViewMenuToggle = new System.Windows.Forms.ToolStripMenuItem();
             this.showNumbersViewMenuToggle = new System.Windows.Forms.ToolStripMenuItem();
-            this.gridToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.showGridViewMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator13 = new System.Windows.Forms.ToolStripSeparator();
+            this.toolStripSeparator12 = new System.Windows.Forms.ToolStripSeparator();
+            this.BorderModeViewMenuLabel = new System.Windows.Forms.ToolStripMenuItem();
             this.toroidalViewMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.finiteViewMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.gameCommandsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.runToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.pauseToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.nextToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator15 = new System.Windows.Forms.ToolStripSeparator();
             this.toolStripSeparator8 = new System.Windows.Forms.ToolStripSeparator();
             this.randomizeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.gameSettingsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.randomizeSettingsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator14 = new System.Windows.Forms.ToolStripSeparator();
             this.toolStripSeparator11 = new System.Windows.Forms.ToolStripSeparator();
             this.optionsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.helpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -58,35 +67,26 @@
             this.toolStripSeparator5 = new System.Windows.Forms.ToolStripSeparator();
             this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStrip = new System.Windows.Forms.ToolStrip();
+            this.newToolStripButton = new System.Windows.Forms.ToolStripButton();
+            this.openToolStripButton = new System.Windows.Forms.ToolStripButton();
+            this.saveToolStripButton = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator10 = new System.Windows.Forms.ToolStripSeparator();
             this.toolStripSeparator9 = new System.Windows.Forms.ToolStripSeparator();
+            this.clearButton = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator6 = new System.Windows.Forms.ToolStripSeparator();
             this.toolStripSeparator7 = new System.Windows.Forms.ToolStripSeparator();
+            this.gameFlowButton = new System.Windows.Forms.ToolStripButton();
+            this.stopButton = new System.Windows.Forms.ToolStripButton();
+            this.nextButton = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator4 = new System.Windows.Forms.ToolStripSeparator();
             this.toolStripSeparator3 = new System.Windows.Forms.ToolStripSeparator();
+            this.currentSeedRandomizeButton = new System.Windows.Forms.ToolStripButton();
+            this.randomSeedRandomizeButton = new System.Windows.Forms.ToolStripButton();
+            this.timeSeedRandomizeButton = new System.Windows.Forms.ToolStripButton();
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.toolStripStatusLabelGenerations = new System.Windows.Forms.ToolStripStatusLabel();
             this.toolStripStatusLabelAliveCount = new System.Windows.Forms.ToolStripStatusLabel();
             this.toolStripStatusLabelSeed = new System.Windows.Forms.ToolStripStatusLabel();
-            this.toolStripSeparator12 = new System.Windows.Forms.ToolStripSeparator();
-            this.toolStripSeparator13 = new System.Windows.Forms.ToolStripSeparator();
-            this.displaySettingsViewMenuLabel = new System.Windows.Forms.ToolStripMenuItem();
-            this.newToolStripButton = new System.Windows.Forms.ToolStripButton();
-            this.openToolStripButton = new System.Windows.Forms.ToolStripButton();
-            this.saveToolStripButton = new System.Windows.Forms.ToolStripButton();
-            this.clearButton = new System.Windows.Forms.ToolStripButton();
-            this.gameFlowButton = new System.Windows.Forms.ToolStripButton();
-            this.stopButton = new System.Windows.Forms.ToolStripButton();
-            this.nextButton = new System.Windows.Forms.ToolStripButton();
-            this.currentSeedRandomizeButton = new System.Windows.Forms.ToolStripButton();
-            this.randomSeedRandomizeButton = new System.Windows.Forms.ToolStripButton();
-            this.timeSeedRandomizeButton = new System.Windows.Forms.ToolStripButton();
-            this.newToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.openToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.saveToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.BorderModeViewMenuLabel = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripSeparator14 = new System.Windows.Forms.ToolStripSeparator();
-            this.toolStripSeparator15 = new System.Windows.Forms.ToolStripSeparator();
             this.graphicsPanel1 = new BCoburn_GOL_C202209.GraphicsPanel();
             this.labelHUD = new BCoburn_GOL_C202209.GraphicsPanel();
             this.menuStrip1.SuspendLayout();
@@ -125,10 +125,37 @@
             this.fileToolStripMenuItem.Size = new System.Drawing.Size(54, 29);
             this.fileToolStripMenuItem.Text = "&File";
             // 
+            // newToolStripMenuItem
+            // 
+            this.newToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("newToolStripMenuItem.Image")));
+            this.newToolStripMenuItem.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.newToolStripMenuItem.Name = "newToolStripMenuItem";
+            this.newToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.N)));
+            this.newToolStripMenuItem.Size = new System.Drawing.Size(223, 34);
+            this.newToolStripMenuItem.Text = "&New";
+            // 
+            // openToolStripMenuItem
+            // 
+            this.openToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("openToolStripMenuItem.Image")));
+            this.openToolStripMenuItem.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.openToolStripMenuItem.Name = "openToolStripMenuItem";
+            this.openToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.O)));
+            this.openToolStripMenuItem.Size = new System.Drawing.Size(223, 34);
+            this.openToolStripMenuItem.Text = "&Open";
+            // 
             // toolStripSeparator
             // 
             this.toolStripSeparator.Name = "toolStripSeparator";
             this.toolStripSeparator.Size = new System.Drawing.Size(220, 6);
+            // 
+            // saveToolStripMenuItem
+            // 
+            this.saveToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("saveToolStripMenuItem.Image")));
+            this.saveToolStripMenuItem.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.saveToolStripMenuItem.Name = "saveToolStripMenuItem";
+            this.saveToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.S)));
+            this.saveToolStripMenuItem.Size = new System.Drawing.Size(223, 34);
+            this.saveToolStripMenuItem.Text = "&Save";
             // 
             // toolStripSeparator1
             // 
@@ -152,7 +179,7 @@
             this.displaySettingsViewMenuLabel,
             this.showHUDViewMenuToggle,
             this.showNumbersViewMenuToggle,
-            this.gridToolStripMenuItem,
+            this.showGridViewMenuItem,
             this.toolStripSeparator13,
             this.toolStripSeparator12,
             this.BorderModeViewMenuLabel,
@@ -161,6 +188,16 @@
             this.toolStripMenuItem1.Name = "toolStripMenuItem1";
             this.toolStripMenuItem1.Size = new System.Drawing.Size(65, 29);
             this.toolStripMenuItem1.Text = "View";
+            // 
+            // displaySettingsViewMenuLabel
+            // 
+            this.displaySettingsViewMenuLabel.Enabled = false;
+            this.displaySettingsViewMenuLabel.Font = new System.Drawing.Font("Segoe UI", 9F, ((System.Drawing.FontStyle)(((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic) 
+                | System.Drawing.FontStyle.Underline))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.displaySettingsViewMenuLabel.Image = global::BCoburn_GOL_C202209.Properties.Resources.DisplayConfiguration;
+            this.displaySettingsViewMenuLabel.Name = "displaySettingsViewMenuLabel";
+            this.displaySettingsViewMenuLabel.Size = new System.Drawing.Size(283, 34);
+            this.displaySettingsViewMenuLabel.Text = "Display Settings";
             // 
             // showHUDViewMenuToggle
             // 
@@ -172,7 +209,7 @@
             this.showHUDViewMenuToggle.Size = new System.Drawing.Size(283, 34);
             this.showHUDViewMenuToggle.Text = "HUD";
             this.showHUDViewMenuToggle.ToolTipText = "Toggle HUD";
-            this.showHUDViewMenuToggle.CheckStateChanged += new System.EventHandler(this.showHUDViewMenuToggle_CheckStateChanged);
+            this.showHUDViewMenuToggle.Click += new System.EventHandler(this.showHUDViewMenuToggle_Clicked);
             // 
             // showNumbersViewMenuToggle
             // 
@@ -184,17 +221,42 @@
             this.showNumbersViewMenuToggle.Size = new System.Drawing.Size(283, 34);
             this.showNumbersViewMenuToggle.Text = "Alive Neighbors";
             this.showNumbersViewMenuToggle.ToolTipText = "Toggle Numbers in Cells";
-            this.showNumbersViewMenuToggle.CheckStateChanged += new System.EventHandler(this.showNumbersViewMenuToggle_CheckStateChanged);
+            this.showNumbersViewMenuToggle.Click += new System.EventHandler(this.showNumbersViewMenuToggle_Clicked);
             // 
-            // gridToolStripMenuItem
+            // showGridViewMenuItem
             // 
-            this.gridToolStripMenuItem.Checked = true;
-            this.gridToolStripMenuItem.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.gridToolStripMenuItem.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
-            this.gridToolStripMenuItem.Name = "gridToolStripMenuItem";
-            this.gridToolStripMenuItem.Size = new System.Drawing.Size(283, 34);
-            this.gridToolStripMenuItem.Text = "Grid";
-            this.gridToolStripMenuItem.ToolTipText = "Toggle Grid";
+            this.showGridViewMenuItem.Checked = true;
+            this.showGridViewMenuItem.CheckOnClick = true;
+            this.showGridViewMenuItem.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.showGridViewMenuItem.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
+            this.showGridViewMenuItem.Name = "showGridViewMenuItem";
+            this.showGridViewMenuItem.Size = new System.Drawing.Size(283, 34);
+            this.showGridViewMenuItem.Text = "Grid";
+            this.showGridViewMenuItem.ToolTipText = "Toggle Grid";
+            this.showGridViewMenuItem.Click += new System.EventHandler(this.showGridToolStripMenuItem_Clicked);
+            // 
+            // toolStripSeparator13
+            // 
+            this.toolStripSeparator13.Name = "toolStripSeparator13";
+            this.toolStripSeparator13.Size = new System.Drawing.Size(280, 6);
+            // 
+            // toolStripSeparator12
+            // 
+            this.toolStripSeparator12.Name = "toolStripSeparator12";
+            this.toolStripSeparator12.Size = new System.Drawing.Size(280, 6);
+            // 
+            // BorderModeViewMenuLabel
+            // 
+            this.BorderModeViewMenuLabel.BackColor = System.Drawing.SystemColors.Control;
+            this.BorderModeViewMenuLabel.Enabled = false;
+            this.BorderModeViewMenuLabel.Font = new System.Drawing.Font("Segoe UI", 9F, ((System.Drawing.FontStyle)(((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic) 
+                | System.Drawing.FontStyle.Underline))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.BorderModeViewMenuLabel.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.BorderModeViewMenuLabel.Image = global::BCoburn_GOL_C202209.Properties.Resources.Borders;
+            this.BorderModeViewMenuLabel.Name = "BorderModeViewMenuLabel";
+            this.BorderModeViewMenuLabel.ShowShortcutKeys = false;
+            this.BorderModeViewMenuLabel.Size = new System.Drawing.Size(283, 34);
+            this.BorderModeViewMenuLabel.Text = "Border Mode Settings";
             // 
             // toroidalViewMenuItem
             // 
@@ -234,30 +296,35 @@
             // 
             this.runToolStripMenuItem.CheckOnClick = true;
             this.runToolStripMenuItem.Name = "runToolStripMenuItem";
-            this.runToolStripMenuItem.Size = new System.Drawing.Size(203, 34);
+            this.runToolStripMenuItem.Size = new System.Drawing.Size(270, 34);
             this.runToolStripMenuItem.Text = "Run";
             // 
             // pauseToolStripMenuItem
             // 
             this.pauseToolStripMenuItem.Name = "pauseToolStripMenuItem";
-            this.pauseToolStripMenuItem.Size = new System.Drawing.Size(203, 34);
+            this.pauseToolStripMenuItem.Size = new System.Drawing.Size(270, 34);
             this.pauseToolStripMenuItem.Text = "Pause";
             // 
             // nextToolStripMenuItem
             // 
             this.nextToolStripMenuItem.Name = "nextToolStripMenuItem";
-            this.nextToolStripMenuItem.Size = new System.Drawing.Size(203, 34);
+            this.nextToolStripMenuItem.Size = new System.Drawing.Size(270, 34);
             this.nextToolStripMenuItem.Text = "Next";
+            // 
+            // toolStripSeparator15
+            // 
+            this.toolStripSeparator15.Name = "toolStripSeparator15";
+            this.toolStripSeparator15.Size = new System.Drawing.Size(267, 6);
             // 
             // toolStripSeparator8
             // 
             this.toolStripSeparator8.Name = "toolStripSeparator8";
-            this.toolStripSeparator8.Size = new System.Drawing.Size(200, 6);
+            this.toolStripSeparator8.Size = new System.Drawing.Size(267, 6);
             // 
             // randomizeToolStripMenuItem
             // 
             this.randomizeToolStripMenuItem.Name = "randomizeToolStripMenuItem";
-            this.randomizeToolStripMenuItem.Size = new System.Drawing.Size(203, 34);
+            this.randomizeToolStripMenuItem.Size = new System.Drawing.Size(270, 34);
             this.randomizeToolStripMenuItem.Text = "Randomize";
             this.randomizeToolStripMenuItem.Click += new System.EventHandler(this.randomizeToolStripMenuItem_Click);
             // 
@@ -278,6 +345,11 @@
             this.randomizeSettingsToolStripMenuItem.Size = new System.Drawing.Size(222, 34);
             this.randomizeSettingsToolStripMenuItem.Text = "Seed Settings";
             this.randomizeSettingsToolStripMenuItem.Click += new System.EventHandler(this.randomizeSettingsToolStripMenuItem_Click);
+            // 
+            // toolStripSeparator14
+            // 
+            this.toolStripSeparator14.Name = "toolStripSeparator14";
+            this.toolStripSeparator14.Size = new System.Drawing.Size(219, 6);
             // 
             // toolStripSeparator11
             // 
@@ -360,90 +432,6 @@
             this.toolStrip.TabIndex = 1;
             this.toolStrip.Text = "toolStrip";
             // 
-            // toolStripSeparator10
-            // 
-            this.toolStripSeparator10.Name = "toolStripSeparator10";
-            this.toolStripSeparator10.Size = new System.Drawing.Size(6, 33);
-            // 
-            // toolStripSeparator9
-            // 
-            this.toolStripSeparator9.Name = "toolStripSeparator9";
-            this.toolStripSeparator9.Size = new System.Drawing.Size(6, 33);
-            // 
-            // toolStripSeparator6
-            // 
-            this.toolStripSeparator6.Name = "toolStripSeparator6";
-            this.toolStripSeparator6.Size = new System.Drawing.Size(6, 33);
-            // 
-            // toolStripSeparator7
-            // 
-            this.toolStripSeparator7.Name = "toolStripSeparator7";
-            this.toolStripSeparator7.Size = new System.Drawing.Size(6, 33);
-            // 
-            // toolStripSeparator4
-            // 
-            this.toolStripSeparator4.Name = "toolStripSeparator4";
-            this.toolStripSeparator4.Size = new System.Drawing.Size(6, 33);
-            // 
-            // toolStripSeparator3
-            // 
-            this.toolStripSeparator3.BackColor = System.Drawing.SystemColors.Control;
-            this.toolStripSeparator3.ForeColor = System.Drawing.Color.DarkBlue;
-            this.toolStripSeparator3.Name = "toolStripSeparator3";
-            this.toolStripSeparator3.Size = new System.Drawing.Size(6, 33);
-            // 
-            // statusStrip1
-            // 
-            this.statusStrip1.ImageScalingSize = new System.Drawing.Size(24, 24);
-            this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.toolStripStatusLabelGenerations,
-            this.toolStripStatusLabelAliveCount,
-            this.toolStripStatusLabelSeed});
-            this.statusStrip1.Location = new System.Drawing.Point(0, 826);
-            this.statusStrip1.Name = "statusStrip1";
-            this.statusStrip1.Padding = new System.Windows.Forms.Padding(2, 0, 21, 0);
-            this.statusStrip1.Size = new System.Drawing.Size(1172, 32);
-            this.statusStrip1.TabIndex = 2;
-            this.statusStrip1.Text = "statusStrip1";
-            // 
-            // toolStripStatusLabelGenerations
-            // 
-            this.toolStripStatusLabelGenerations.Name = "toolStripStatusLabelGenerations";
-            this.toolStripStatusLabelGenerations.Size = new System.Drawing.Size(138, 25);
-            this.toolStripStatusLabelGenerations.Text = "Generations = 0";
-            // 
-            // toolStripStatusLabelAliveCount
-            // 
-            this.toolStripStatusLabelAliveCount.Name = "toolStripStatusLabelAliveCount";
-            this.toolStripStatusLabelAliveCount.Size = new System.Drawing.Size(123, 25);
-            this.toolStripStatusLabelAliveCount.Text = "Cells Alive = 0";
-            // 
-            // toolStripStatusLabelSeed
-            // 
-            this.toolStripStatusLabelSeed.Name = "toolStripStatusLabelSeed";
-            this.toolStripStatusLabelSeed.Size = new System.Drawing.Size(146, 25);
-            this.toolStripStatusLabelSeed.Text = "Current Seed = 0";
-            // 
-            // toolStripSeparator12
-            // 
-            this.toolStripSeparator12.Name = "toolStripSeparator12";
-            this.toolStripSeparator12.Size = new System.Drawing.Size(280, 6);
-            // 
-            // toolStripSeparator13
-            // 
-            this.toolStripSeparator13.Name = "toolStripSeparator13";
-            this.toolStripSeparator13.Size = new System.Drawing.Size(280, 6);
-            // 
-            // displaySettingsViewMenuLabel
-            // 
-            this.displaySettingsViewMenuLabel.Enabled = false;
-            this.displaySettingsViewMenuLabel.Font = new System.Drawing.Font("Segoe UI", 9F, ((System.Drawing.FontStyle)(((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic) 
-                | System.Drawing.FontStyle.Underline))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.displaySettingsViewMenuLabel.Image = global::BCoburn_GOL_C202209.Properties.Resources.DisplayConfiguration;
-            this.displaySettingsViewMenuLabel.Name = "displaySettingsViewMenuLabel";
-            this.displaySettingsViewMenuLabel.Size = new System.Drawing.Size(283, 34);
-            this.displaySettingsViewMenuLabel.Text = "Display Settings";
-            // 
             // newToolStripButton
             // 
             this.newToolStripButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
@@ -471,6 +459,16 @@
             this.saveToolStripButton.Size = new System.Drawing.Size(34, 28);
             this.saveToolStripButton.Text = "&Save";
             // 
+            // toolStripSeparator10
+            // 
+            this.toolStripSeparator10.Name = "toolStripSeparator10";
+            this.toolStripSeparator10.Size = new System.Drawing.Size(6, 33);
+            // 
+            // toolStripSeparator9
+            // 
+            this.toolStripSeparator9.Name = "toolStripSeparator9";
+            this.toolStripSeparator9.Size = new System.Drawing.Size(6, 33);
+            // 
             // clearButton
             // 
             this.clearButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
@@ -481,6 +479,16 @@
             this.clearButton.Text = "Clear Universe";
             this.clearButton.ToolTipText = "Clear Universe";
             this.clearButton.Click += new System.EventHandler(this.clearButton_Click);
+            // 
+            // toolStripSeparator6
+            // 
+            this.toolStripSeparator6.Name = "toolStripSeparator6";
+            this.toolStripSeparator6.Size = new System.Drawing.Size(6, 33);
+            // 
+            // toolStripSeparator7
+            // 
+            this.toolStripSeparator7.Name = "toolStripSeparator7";
+            this.toolStripSeparator7.Size = new System.Drawing.Size(6, 33);
             // 
             // gameFlowButton
             // 
@@ -515,6 +523,18 @@
             this.nextButton.ToolTipText = "Next Generation";
             this.nextButton.Click += new System.EventHandler(this.nextButton_Click);
             // 
+            // toolStripSeparator4
+            // 
+            this.toolStripSeparator4.Name = "toolStripSeparator4";
+            this.toolStripSeparator4.Size = new System.Drawing.Size(6, 33);
+            // 
+            // toolStripSeparator3
+            // 
+            this.toolStripSeparator3.BackColor = System.Drawing.SystemColors.Control;
+            this.toolStripSeparator3.ForeColor = System.Drawing.Color.DarkBlue;
+            this.toolStripSeparator3.Name = "toolStripSeparator3";
+            this.toolStripSeparator3.Size = new System.Drawing.Size(6, 33);
+            // 
             // currentSeedRandomizeButton
             // 
             this.currentSeedRandomizeButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
@@ -548,55 +568,37 @@
             this.timeSeedRandomizeButton.ToolTipText = "Quick Randomize (Time Seed)";
             this.timeSeedRandomizeButton.Click += new System.EventHandler(this.timeSeedRandomizeButton_Click);
             // 
-            // newToolStripMenuItem
+            // statusStrip1
             // 
-            this.newToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("newToolStripMenuItem.Image")));
-            this.newToolStripMenuItem.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.newToolStripMenuItem.Name = "newToolStripMenuItem";
-            this.newToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.N)));
-            this.newToolStripMenuItem.Size = new System.Drawing.Size(223, 34);
-            this.newToolStripMenuItem.Text = "&New";
+            this.statusStrip1.ImageScalingSize = new System.Drawing.Size(24, 24);
+            this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.toolStripStatusLabelGenerations,
+            this.toolStripStatusLabelAliveCount,
+            this.toolStripStatusLabelSeed});
+            this.statusStrip1.Location = new System.Drawing.Point(0, 826);
+            this.statusStrip1.Name = "statusStrip1";
+            this.statusStrip1.Padding = new System.Windows.Forms.Padding(2, 0, 21, 0);
+            this.statusStrip1.Size = new System.Drawing.Size(1172, 32);
+            this.statusStrip1.TabIndex = 2;
+            this.statusStrip1.Text = "statusStrip1";
             // 
-            // openToolStripMenuItem
+            // toolStripStatusLabelGenerations
             // 
-            this.openToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("openToolStripMenuItem.Image")));
-            this.openToolStripMenuItem.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.openToolStripMenuItem.Name = "openToolStripMenuItem";
-            this.openToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.O)));
-            this.openToolStripMenuItem.Size = new System.Drawing.Size(223, 34);
-            this.openToolStripMenuItem.Text = "&Open";
+            this.toolStripStatusLabelGenerations.Name = "toolStripStatusLabelGenerations";
+            this.toolStripStatusLabelGenerations.Size = new System.Drawing.Size(138, 25);
+            this.toolStripStatusLabelGenerations.Text = "Generations = 0";
             // 
-            // saveToolStripMenuItem
+            // toolStripStatusLabelAliveCount
             // 
-            this.saveToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("saveToolStripMenuItem.Image")));
-            this.saveToolStripMenuItem.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.saveToolStripMenuItem.Name = "saveToolStripMenuItem";
-            this.saveToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.S)));
-            this.saveToolStripMenuItem.Size = new System.Drawing.Size(223, 34);
-            this.saveToolStripMenuItem.Text = "&Save";
+            this.toolStripStatusLabelAliveCount.Name = "toolStripStatusLabelAliveCount";
+            this.toolStripStatusLabelAliveCount.Size = new System.Drawing.Size(123, 25);
+            this.toolStripStatusLabelAliveCount.Text = "Cells Alive = 0";
             // 
-            // BorderModeViewMenuLabel
+            // toolStripStatusLabelSeed
             // 
-            this.BorderModeViewMenuLabel.BackColor = System.Drawing.SystemColors.Control;
-            this.BorderModeViewMenuLabel.Enabled = false;
-            this.BorderModeViewMenuLabel.Font = new System.Drawing.Font("Segoe UI", 9F, ((System.Drawing.FontStyle)(((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic) 
-                | System.Drawing.FontStyle.Underline))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.BorderModeViewMenuLabel.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.BorderModeViewMenuLabel.Image = global::BCoburn_GOL_C202209.Properties.Resources.Borders;
-            this.BorderModeViewMenuLabel.Name = "BorderModeViewMenuLabel";
-            this.BorderModeViewMenuLabel.ShowShortcutKeys = false;
-            this.BorderModeViewMenuLabel.Size = new System.Drawing.Size(283, 34);
-            this.BorderModeViewMenuLabel.Text = "Border Mode Settings";
-            // 
-            // toolStripSeparator14
-            // 
-            this.toolStripSeparator14.Name = "toolStripSeparator14";
-            this.toolStripSeparator14.Size = new System.Drawing.Size(219, 6);
-            // 
-            // toolStripSeparator15
-            // 
-            this.toolStripSeparator15.Name = "toolStripSeparator15";
-            this.toolStripSeparator15.Size = new System.Drawing.Size(200, 6);
+            this.toolStripStatusLabelSeed.Name = "toolStripStatusLabelSeed";
+            this.toolStripStatusLabelSeed.Size = new System.Drawing.Size(146, 25);
+            this.toolStripStatusLabelSeed.Text = "Current Seed = 0";
             // 
             // graphicsPanel1
             // 
@@ -678,7 +680,7 @@
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem1;
         private System.Windows.Forms.ToolStripMenuItem showHUDViewMenuToggle;
         private System.Windows.Forms.ToolStripMenuItem showNumbersViewMenuToggle;
-        private System.Windows.Forms.ToolStripMenuItem gridToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem showGridViewMenuItem;
         private System.Windows.Forms.ToolStripMenuItem toroidalViewMenuItem;
         private System.Windows.Forms.ToolStripMenuItem gameCommandsToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem runToolStripMenuItem;

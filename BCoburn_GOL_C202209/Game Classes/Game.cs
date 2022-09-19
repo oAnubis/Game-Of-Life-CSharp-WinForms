@@ -131,8 +131,11 @@ namespace BCoburn_GOL_C202209
 
                     //TODO: Reimplement Images
 
-                    // Outline the cell with a pen
-                    e.Graphics.DrawRectangle(gridPen, cellRect.X, cellRect.Y, cellWidth, cellHeight);
+                    if (_mainForm.ShowGrid == ShowGrid.Yes)
+                    {
+                        // Outline the cell with a pen
+                        e.Graphics.DrawRectangle(gridPen, cellRect.X, cellRect.Y, cellWidth, cellHeight);
+                    }
 
                     // Checks if showNumbers is true (Defaults to yes).
                     if (_mainForm.DisplayNumbers == DisplayNumbers.Yes)

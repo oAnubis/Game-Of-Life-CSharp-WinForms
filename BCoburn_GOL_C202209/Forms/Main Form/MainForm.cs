@@ -72,23 +72,21 @@ namespace BCoburn_GOL_C202209
 
         #region Forms Main Methods
 
+        // Sets the view menu items checked states to the correct value based on current enum values.
         private void SetViewMenu()
         {
-            if (BorderMode == BorderMode.Finite)
-            {
-                finiteViewMenuItem.Checked = true;
-                toroidalViewMenuItem.Checked = false;
-            }
-            else
-            {
-                finiteViewMenuItem.Checked = false;
-                toroidalViewMenuItem.Checked = true;
-            }
+            finiteViewMenuItem.Checked = BorderMode == BorderMode.Finite;
 
-            showHUDViewMenuToggle.Checked = ShowHUD == ShowHUD.Yes ? true : false;
+            toroidalViewMenuItem.Checked = BorderMode == BorderMode.Toroidal;
 
+            showNumbersViewMenuToggle.Checked = DisplayNumbers == DisplayNumbers.Yes;
+
+            showHUDViewMenuToggle.Checked = ShowHUD == ShowHUD.Yes;
+
+            showGridViewMenuItem.Checked = ShowGrid == ShowGrid.Yes;
         }
 
+        // Sets the Enum values to the default or saved values.
         private void LoadSettings()
         {
             BorderMode = Settings.Default.BorderMode;
@@ -96,9 +94,11 @@ namespace BCoburn_GOL_C202209
             ShowHUD = Settings.Default.ShowHUD;
             ShowGrid = Settings.Default.ShowGrid;
 
+            // Sets the view menu, the values were set above. Either default or user settings.
             SetViewMenu();
         }
 
+        // Saves the current application settings to the Existing enum values.
         private void SaveSettings()
         {
             Settings.Default.BorderMode = BorderMode;
@@ -516,7 +516,7 @@ namespace BCoburn_GOL_C202209
             graphicsPanel1.Invalidate();
         }
 
-        private void showNumbersViewMenuToggle_CheckStateChanged(object sender, EventArgs e)
+        private void showNumbersViewMenuToggle_Clicked(object sender, EventArgs e)
         {
             if (showNumbersViewMenuToggle.Checked)
             {
@@ -532,7 +532,7 @@ namespace BCoburn_GOL_C202209
 
         }
 
-        private void showHUDViewMenuToggle_CheckStateChanged(object sender, EventArgs e)
+        private void showHUDViewMenuToggle_Clicked(object sender, EventArgs e)
         {
             if (showHUDViewMenuToggle.Checked)
             {
@@ -548,6 +548,18 @@ namespace BCoburn_GOL_C202209
 
         #endregion
 
-        
+        private void showGridToolStripMenuItem_Clicked(object sender, EventArgs e)
+        {
+            if (showGridViewMenuItem.Checked)
+            {
+                ShowGrid = ShowGrid.Yes;
+            }
+            else
+            {
+                ShowGrid = ShowGrid.No;
+            }
+
+            graphicsPanel1.Invalidate();
+        }
     }
 }
