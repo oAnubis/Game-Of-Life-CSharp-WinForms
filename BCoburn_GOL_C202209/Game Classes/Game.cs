@@ -5,7 +5,7 @@ namespace BCoburn_GOL_C202209
 {
     public class Game
     {
-        public event ApplyViewEventHandler Apply;
+        public event ApplyColorsEventHandler ApplyColors;
 
         // PROPERTIES FOR THE GAME
         //TODO: Change most logic from form to here in the form of Methods
@@ -30,10 +30,12 @@ namespace BCoburn_GOL_C202209
 
         // Determines the color of the gridlines
         //TODO: Allow to be customizable
-        private Color _gridColor = Color.Black;
+        public Color GridColor { get; private set; }
 
         // Determines the color of Alive Cells.
-        private Color _cellColor = Color.Gray;
+        public Color CellColor { get; private set; }
+
+        public Color UniverseColor { get; private set; }
 
         // Sets the Font of the numbers shown inside each Cell (If the setting in the view menu is checked).
         private Font _cellFont = new Font("Cascadia Mono", 8f, FontStyle.Bold);
@@ -54,13 +56,14 @@ namespace BCoburn_GOL_C202209
         {
             InitializeObjects();
             _mainForm = form;
+            ApplyColors += Game_ApplyColors;
         }
 
-        public void Game_Apply(object sender, ViewApplyArgs e)
+        public void Game_ApplyColors(object sender, ColorsApplyArgs e)
         {
-            _showNumbers = e.ShowNumbers;
-            _showGrid = e.ShowGrid;
-            _isFinite = e.Finite;
+            GridColor = e.GridColor;
+            CellColor = e.CellColor;
+            UniverseColor = e.UniverseColor;
         }
 
         /// <summary>
@@ -68,6 +71,9 @@ namespace BCoburn_GOL_C202209
         /// </summary>
         private void InitializeObjects()
         {
+            GridColor = Color.Black;
+            UniverseColor = Color.White;
+            CellColor = Color.Gray;
             Width = 30;
             Height = 30;
             GameBoard = new Universe(Width, Height);
@@ -99,10 +105,12 @@ namespace BCoburn_GOL_C202209
             float cellHeight = (float)panel.ClientSize.Height / Height;
 
             // A Pen for drawing the grid lines (color, width)
-            Pen gridPen = new Pen(_gridColor, 1);
+            Pen gridPen = new Pen(GridColor, 1);
 
             // A Brush for filling living cells interiors (color)
-            Brush cellBrush = new SolidBrush(_cellColor);
+            Brush cellBrush = new SolidBrush(CellColor);
+
+            Brush universeBrush = new SolidBrush(UniverseColor);
 
             // Iterate through the universe in the y, top to bottom
             for (int y = 0; y < Height; y++)
@@ -127,6 +135,7 @@ namespace BCoburn_GOL_C202209
                     {
                         //TODO: Add ability to color dead cell.
                         // Fills the rectangle with the Color Selected for dead cells.
+                        e.Graphics.FillRectangle(universeBrush, cellRect);
                     }
 
                     //TODO: Reimplement Images

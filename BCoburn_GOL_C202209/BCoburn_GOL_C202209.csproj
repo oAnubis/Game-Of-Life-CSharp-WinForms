@@ -46,6 +46,13 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Forms\Game Colors Dialog\ColorsApplyArgs.cs" />
+    <Compile Include="Forms\Game Colors Dialog\GameColorsDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Game Colors Dialog\GameColorsDialog.Designer.cs">
+      <DependentUpon>GameColorsDialog.cs</DependentUpon>
+    </Compile>
     <Compile Include="Forms\Main Form\ViewApplyArgs.cs" />
     <Compile Include="Forms\Options Dialog\OptionsApplyArgs.cs" />
     <Compile Include="Forms\Options Dialog\OptionsModalDialog.cs">
@@ -81,6 +88,9 @@
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
     <Compile Include="Setting Enums\SettingEnums.cs" />
+    <EmbeddedResource Include="Forms\Game Colors Dialog\GameColorsDialog.resx">
+      <DependentUpon>GameColorsDialog.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Forms\Options Dialog\OptionsModalDialog.resx">
       <DependentUpon>OptionsModalDialog.cs</DependentUpon>
     </EmbeddedResource>

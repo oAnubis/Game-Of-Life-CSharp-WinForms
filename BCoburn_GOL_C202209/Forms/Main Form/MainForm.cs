@@ -186,6 +186,150 @@ namespace BCoburn_GOL_C202209
             SaveSettings();
         }
 
+        private void SaveGame()
+        {
+            SaveFileDialog dlg = new SaveFileDialog();
+            dlg.Filter = "All Files|*.*|Cells|*.cells";
+            dlg.FilterIndex = 2; dlg.DefaultExt = "cells";
+
+            if (DialogResult.OK == dlg.ShowDialog())
+            {
+                StreamWriter writer = new StreamWriter(dlg.FileName);
+
+                // Write any comments you want to include first.
+                // Prefix all comment strings with an exclamation point.
+                // Use WriteLine to write the strings to the file.
+                // It appends a CRLF for you.
+                writer.WriteLine("!This is my comment.");
+
+                // Iterate through the universe one row at a time.
+                for (int y = 0; y < _game.Height; y++)
+                {
+                    // Create a string to represent the current row.
+                    String currentRow = string.Empty;
+
+                    // Iterate through the current row one cell at a time.
+                    for (int x = 0; x < _game.Width; x++)
+                    {
+                        // If the universe[x,y] is alive then append 'O' (capital O)
+                        // to the row string.
+
+                        if (_game.GameBoard.UniverseGrid[x, y].Alive)
+                        {
+                            currentRow += "O";
+                        }
+                        else
+                        {
+                            currentRow += ".";
+                        }
+
+                        // Else if the universe[x,y] is dead then append '.' (period)
+                        // to the row string.
+                    }
+
+                    // Once the current row has been read through and the
+                    // string constructed then write it to the file using WriteLine.
+
+                    writer.WriteLine(currentRow);
+                }
+
+                // After all rows and columns have been written then close the file.
+                writer.Close();
+            }
+        }
+
+        private void LoadGame()
+        {
+            OpenFileDialog dlg = new OpenFileDialog();
+            dlg.Filter = "All Files|*.*|Cells|*.cells";
+            dlg.FilterIndex = 2;
+
+            if (DialogResult.OK == dlg.ShowDialog())
+            {
+                StreamReader reader = new StreamReader(dlg.FileName);
+
+                // Create a couple variables to calculate the width and height
+                // of the data in the file.
+                int maxWidth = 0;
+                int maxHeight = 0;
+
+                // Iterate through the file once to get its size.
+                while (!reader.EndOfStream)
+                {
+                    // Read one row at a time.
+                    string row = reader.ReadLine();
+
+                    if (row.StartsWith("!"))
+                    {
+                    }
+                    else
+                    {
+                        maxHeight++;
+                    }
+
+                    maxWidth = row.Length;
+
+                    // If the row begins with '!' then it is a comment
+                    // and should be ignored.
+
+                    // If the row is not a comment then it is a row of cells.
+                    // Increment the maxHeight variable for each row read.
+
+                    // Get the length of the current row string
+                    // and adjust the maxWidth variable if necessary.
+                }
+
+                // Resize the current universe and scratchPad
+                // to the width and height of the file calculated above.
+                _game.SetBoardSize(maxWidth, maxHeight);
+                _game.GameBoard = new Universe(_game.Width, _game.Height);
+                _game.ScratchPad = new Universe(_game.Width, _game.Height);
+
+                graphicsPanel1.Invalidate();
+                // Reset the file pointer back to the beginning of the file.
+                reader.BaseStream.Seek(0, SeekOrigin.Begin);
+
+                int rowNum = 0;
+                // Iterate through the file again, this time reading in the cells.
+                while (!reader.EndOfStream)
+                {
+                    // Read one row at a time.
+                    string row = reader.ReadLine();
+
+                    // If the row begins with '!' then
+                    // it is a comment and should be ignored.
+                    if (row.StartsWith("!"))
+                    {
+                    }
+                    else
+                    {
+                        // If the row is not a comment then
+                        // it is a row of cells and needs to be iterated through.
+                        for (int xPos = 0; xPos < row.Length; xPos++)
+                        {
+                            // If row[xPos] is a 'O' (capital O) then
+                            // set the corresponding cell in the universe to alive.
+                            if (row[xPos] == 'O')
+                            {
+                                _game.GameBoard.UniverseGrid[xPos, rowNum].SetLifeState(true);
+                            }
+
+                            if (row[xPos] == '.')
+                            {
+                                _game.GameBoard.UniverseGrid[xPos, rowNum].SetLifeState(false);
+                            }
+                            // If row[xPos] is a '.' (period) then
+                            // set the corresponding cell in the universe to dead.
+                        }
+                        rowNum++;
+                    }
+                }
+
+                // Close the file.
+                reader.Close();
+            }
+        }
+
         #endregion Forms Main Methods
 
         //
@@ -571,145 +715,31 @@ namespace BCoburn_GOL_C202209
 
         private void saveToolStripButton_Click(object sender, EventArgs e)
         {
-            SaveFileDialog dlg = new SaveFileDialog();
-            dlg.Filter = "All Files|*.*|Cells|*.cells";
-            dlg.FilterIndex = 2; dlg.DefaultExt = "cells";
-
-            if (DialogResult.OK == dlg.ShowDialog())
-            {
-                StreamWriter writer = new StreamWriter(dlg.FileName);
-
-                // Write any comments you want to include first.
-                // Prefix all comment strings with an exclamation point.
-                // Use WriteLine to write the strings to the file.
-                // It appends a CRLF for you.
-                writer.WriteLine("!This is my comment.");
-
-                // Iterate through the universe one row at a time.
-                for (int y = 0; y < _game.Height; y++)
-                {
-                    // Create a string to represent the current row.
-                    String currentRow = string.Empty;
-
-                    // Iterate through the current row one cell at a time.
-                    for (int x = 0; x < _game.Width; x++)
-                    {
-                        // If the universe[x,y] is alive then append 'O' (capital O)
-                        // to the row string.
-
-                        if (_game.GameBoard.UniverseGrid[x, y].Alive)
-                        {
-                            currentRow += "O";
-                        }
-                        else
-                        {
-                            currentRow += ".";
-                        }
-
-                        // Else if the universe[x,y] is dead then append '.' (period)
-                        // to the row string.
-                    }
-
-                    // Once the current row has been read through and the
-                    // string constructed then write it to the file using WriteLine.
-
-                    writer.WriteLine(currentRow);
-                }
-
-                // After all rows and columns have been written then close the file.
-                writer.Close();
-            }
+            SaveGame();
         }
 
         private void openToolStripButton_Click(object sender, EventArgs e)
         {
-            OpenFileDialog dlg = new OpenFileDialog();
-            dlg.Filter = "All Files|*.*|Cells|*.cells";
-            dlg.FilterIndex = 2;
+            LoadGame();
+        }
 
-            if (DialogResult.OK == dlg.ShowDialog())
+        private void gameColorsToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            GameColorsDialog gameColorsDialog = new GameColorsDialog();
+
+            gameColorsDialog.GridColor = _game.GridColor;
+            gameColorsDialog.UniverseColor = _game.UniverseColor;
+            gameColorsDialog.CellColor = _game.CellColor;
+
+            gameColorsDialog.cellColorPreview.BackColor = gameColorsDialog.GridColor;
+            gameColorsDialog.universeColorPreview.BackColor = gameColorsDialog.UniverseColor;
+            gameColorsDialog.gridColorPreview.BackColor = gameColorsDialog.CellColor;
+
+            gameColorsDialog.ApplyColors += _game.Game_ApplyColors;
+
+            if (gameColorsDialog.ShowDialog() == DialogResult.OK)
             {
-                StreamReader reader = new StreamReader(dlg.FileName);
-
-                // Create a couple variables to calculate the width and height
-                // of the data in the file.
-                int maxWidth = 0;
-                int maxHeight = 0;
-
-                // Iterate through the file once to get its size.
-                while (!reader.EndOfStream)
-                {
-                    // Read one row at a time.
-                    string row = reader.ReadLine();
-
-                    if (row.StartsWith("!"))
-                    {
-                    }
-                    else
-                    {
-                        maxHeight++;
-                    }
-
-                    maxWidth = row.Length;
-
-                    // If the row begins with '!' then it is a comment
-                    // and should be ignored.
-
-                    // If the row is not a comment then it is a row of cells.
-                    // Increment the maxHeight variable for each row read.
-
-                    // Get the length of the current row string
-                    // and adjust the maxWidth variable if necessary.
-                }
-
-                // Resize the current universe and scratchPad
-                // to the width and height of the file calculated above.
-                _game.SetBoardSize(maxWidth, maxHeight);
-                _game.GameBoard = new Universe(_game.Width, _game.Height);
-                _game.ScratchPad = new Universe(_game.Width, _game.Height);
-
                 graphicsPanel1.Invalidate();
-                // Reset the file pointer back to the beginning of the file.
-                reader.BaseStream.Seek(0, SeekOrigin.Begin);
-
-                int rowNum = 0;
-                // Iterate through the file again, this time reading in the cells.
-                while (!reader.EndOfStream)
-                {
-                    // Read one row at a time.
-                    string row = reader.ReadLine();
-
-                    // If the row begins with '!' then
-                    // it is a comment and should be ignored.
-                    if (row.StartsWith("!"))
-                    {
-                    }
-                    else
-                    {
-                        // If the row is not a comment then
-                        // it is a row of cells and needs to be iterated through.
-                        for (int xPos = 0; xPos < row.Length; xPos++)
-                        {
-                            // If row[xPos] is a 'O' (capital O) then
-                            // set the corresponding cell in the universe to alive.
-                            if (row[xPos] == 'O')
-                            {
-                                _game.GameBoard.UniverseGrid[xPos, rowNum].SetLifeState(true);
-                            }
-
-                            if (row[xPos] == '.')
-                            {
-                                _game.GameBoard.UniverseGrid[xPos, rowNum].SetLifeState(false);
-                            }
-                            // If row[xPos] is a '.' (period) then
-                            // set the corresponding cell in the universe to dead.
-                        }
-                        rowNum++;
-                    }
-                }
-
-                // Close the file.
-                reader.Close();
             }
         }
     }
