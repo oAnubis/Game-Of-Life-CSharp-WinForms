@@ -14,5 +14,17 @@
     <Setting Name="ShowGrid" Type="BCoburn_GOL_C202209.ShowGrid" Scope="User">
       <Value Profile="(Default)">Yes</Value>
     </Setting>
+    <Setting Name="BorderModeDefault" Type="BCoburn_GOL_C202209.BorderMode" Scope="Application">
+      <Value Profile="(Default)">Finite</Value>
+    </Setting>
+    <Setting Name="DisplayNumbersDefault" Type="BCoburn_GOL_C202209.DisplayNumbers" Scope="Application">
+      <Value Profile="(Default)">Yes</Value>
+    </Setting>
+    <Setting Name="ShowHUDDefault" Type="BCoburn_GOL_C202209.ShowHUD" Scope="Application">
+      <Value Profile="(Default)">Yes</Value>
+    </Setting>
+    <Setting Name="ShowGridDefault" Type="BCoburn_GOL_C202209.ShowGrid" Scope="Application">
+      <Value Profile="(Default)">Yes</Value>
+    </Setting>
   </Settings>
 </SettingsFile>

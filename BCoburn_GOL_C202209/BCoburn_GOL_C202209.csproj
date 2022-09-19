@@ -75,6 +75,11 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
     <Compile Include="Setting Enums\SettingEnums.cs" />
     <EmbeddedResource Include="Forms\Options Dialog\OptionsModalDialog.resx">
       <DependentUpon>OptionsModalDialog.cs</DependentUpon>
@@ -87,14 +92,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
-      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <Compile Include="Properties\Resources.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DependentUpon>Resources.resx</DependentUpon>
-      <DesignTime>True</DesignTime>
-    </Compile>
     <None Include="Properties\DataSources\MainForm.datasource" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
@@ -135,13 +135,12 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="CheckLists.txt" />
+    <None Include="Resources\Dice_icon %28Custom%29.png" />
+    <None Include="Resources\Import_Icon%28Custom%29.png" />
     <None Include="Resources\DisplayConfiguration.png" />
     <None Include="Resources\Borders.png" />
     <None Include="Resources\CurrentContextArrow.png" />
-    <None Include="Resources\Image1.png" />
-    <None Include="Resources\Icon1.ico" />
     <None Include="Resources\Time.png" />
-    <None Include="Resources\Dice-icon.png" />
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

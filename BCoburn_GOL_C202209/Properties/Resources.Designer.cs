@@ -83,9 +83,9 @@ namespace BCoburn_GOL_C202209.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap Dice_icon {
+        internal static System.Drawing.Bitmap Dice_icon__Custom_ {
             get {
-                object obj = ResourceManager.GetObject("Dice_icon", resourceCulture);
+                object obj = ResourceManager.GetObject("Dice_icon (Custom)", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -106,6 +106,16 @@ namespace BCoburn_GOL_C202209.Properties {
         internal static System.Drawing.Bitmap Eraser {
             get {
                 object obj = ResourceManager.GetObject("Eraser", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap Import_Icon_Custom_ {
+            get {
+                object obj = ResourceManager.GetObject("Import_Icon_Custom_", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

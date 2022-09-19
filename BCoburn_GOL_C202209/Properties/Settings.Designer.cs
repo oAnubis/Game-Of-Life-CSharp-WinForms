@@ -70,5 +70,41 @@ namespace BCoburn_GOL_C202209.Properties {
                 this["ShowGrid"] = value;
             }
         }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("Finite")]
+        public global::BCoburn_GOL_C202209.BorderMode BorderModeDefault {
+            get {
+                return ((global::BCoburn_GOL_C202209.BorderMode)(this["BorderModeDefault"]));
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("Yes")]
+        public global::BCoburn_GOL_C202209.DisplayNumbers DisplayNumbersDefault {
+            get {
+                return ((global::BCoburn_GOL_C202209.DisplayNumbers)(this["DisplayNumbersDefault"]));
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("Yes")]
+        public global::BCoburn_GOL_C202209.ShowHUD ShowHUDDefault {
+            get {
+                return ((global::BCoburn_GOL_C202209.ShowHUD)(this["ShowHUDDefault"]));
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("Yes")]
+        public global::BCoburn_GOL_C202209.ShowGrid ShowGridDefault {
+            get {
+                return ((global::BCoburn_GOL_C202209.ShowGrid)(this["ShowGridDefault"]));
+            }
+        }
     }
 }
