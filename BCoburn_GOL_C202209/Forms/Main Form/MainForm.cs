@@ -746,7 +746,7 @@ namespace BCoburn_GOL_C202209
             graphicsPanel1.Invalidate();
         }
 
-        private void showHUDViewMenuToggle_Clicked(object sender, EventArgs e)
+        private void showHUDViewMenuToggle_CheckStateChanged(object sender, EventArgs e)
         {
             if (showHUDViewMenuToggle.Checked)
             {
@@ -799,6 +799,7 @@ namespace BCoburn_GOL_C202209
             TimerInterval = Settings.Default.TimeIntervalDefault;
 
             _game.DefaultSettings();
+            SetViewMenu();
 
             graphicsPanel1.Invalidate();
         }
@@ -863,5 +864,7 @@ namespace BCoburn_GOL_C202209
 
             graphicsPanel1.Invalidate();
         }
+
+        
     }
 }
