@@ -731,9 +731,9 @@ namespace BCoburn_GOL_C202209
             gameColorsDialog.UniverseColor = _game.UniverseColor;
             gameColorsDialog.CellColor = _game.CellColor;
 
-            gameColorsDialog.cellColorPreview.BackColor = gameColorsDialog.GridColor;
+            gameColorsDialog.cellColorPreview.BackColor = gameColorsDialog.CellColor;
             gameColorsDialog.universeColorPreview.BackColor = gameColorsDialog.UniverseColor;
-            gameColorsDialog.gridColorPreview.BackColor = gameColorsDialog.CellColor;
+            gameColorsDialog.gridColorPreview.BackColor = gameColorsDialog.GridColor;
 
             gameColorsDialog.ApplyColors += _game.Game_ApplyColors;
 
@@ -741,6 +741,13 @@ namespace BCoburn_GOL_C202209
             {
                 graphicsPanel1.Invalidate();
             }
+        }
+
+        private void newToolStripButton_Click(object sender, EventArgs e)
+        {
+            _game = new Game(this);
+
+            graphicsPanel1.Invalidate();
         }
     }
 }

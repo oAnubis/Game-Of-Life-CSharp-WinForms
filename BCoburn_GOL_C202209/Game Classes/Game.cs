@@ -43,14 +43,6 @@ namespace BCoburn_GOL_C202209
         // Instantiates a new StringFormat object, this allows the numbers to be centered in each rectangle in the gameBoard.
         private StringFormat _cellStringFormat = new StringFormat();
 
-        private bool _showHud = true;
-
-        private bool _showNumbers = true;
-
-        private bool _showGrid;
-
-        private bool _isFinite;
-
         //Game constructor - Calls the IntializeObjects method. Also stores the current MainForm.
         public Game(MainForm form)
         {
