@@ -136,6 +136,30 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Resources\Patterns\Gliders\135-Degree Glider.cells">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Resources\Patterns\Gliders\2-Glider%28Collision%29.cells">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Resources\Patterns\Gliders\Diamond Glider.cells">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Resources\Patterns\Gliders\Herchel Climber.cells">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Resources\Patterns\Reactions\AK-47 Reaction.cells">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Resources\Patterns\Spaceships\SpaceShip %2825P3H1V0.1%29.cells">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Resources\Patterns\Spaceships\SpaceShip%2830P5H2V0%29.cells">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Resources\Patterns\Spaceships\SpaceShip%2844P5H2V0%29.cells">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Include="Resources\Pause.png" />
   </ItemGroup>
   <ItemGroup>
@@ -155,12 +179,15 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="CheckLists.txt" />
-    <None Include="Resources\Patterns\1-2-3-4 %28p4%29 Spaceship.cells">
+    <Content Include="Resources\Patterns\ReadMe.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <None Include="Resources\Patterns\Spaceships\SpaceShip%281-2-3-4%29.cells">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Include="Resources\Time.png" />
     <None Include="Resources\Import_Icon_Custom_.png" />
-    <None Include="Resources\Patterns\1-2-3 Oscillator.cells">
+    <None Include="Resources\Patterns\Oscillators\Oscillator%281-2-3%29.cells">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Include="Resources\Dice_icon %28Custom%29.png" />
@@ -181,6 +208,7 @@
       <Install>false</Install>
     </BootstrapperPackage>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
