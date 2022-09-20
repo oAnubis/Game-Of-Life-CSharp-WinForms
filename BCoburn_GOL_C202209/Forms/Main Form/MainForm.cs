@@ -808,58 +808,18 @@ namespace BCoburn_GOL_C202209
         {
             OpenFileDialog dlg = new OpenFileDialog();
 
-            dlg.InitialDirectory = @"$BCoburn_GOL_C202209\BCoburn_GOL_C202209\Resources";
+            string initialdir = Path.GetDirectoryName(AppDomain.CurrentDomain.BaseDirectory);
+
+            string patterns = initialdir + @"\Resources\Patterns";
+
+            dlg.InitialDirectory = patterns;
 
             dlg.Filter = "All Files|*.*|Cells|*.cells";
             dlg.FilterIndex = 2;
-
-            if (DialogResult.OK == dlg.ShowDialog())
+            if (dlg.ShowDialog() == DialogResult.OK)
             {
                 StreamReader reader = new StreamReader(dlg.FileName);
-
-                // Create a couple variables to calculate the width and height
-                // of the data in the file.
-                int maxWidth = 0;
-                int maxHeight = 0;
-
-                // Iterate through the file once to get its size.
-                while (!reader.EndOfStream)
-                {
-                    // Read one row at a time.
-                    string row = reader.ReadLine();
-
-                    if (row.StartsWith("!"))
-                    {
-                    }
-                    else
-                    {
-                        maxHeight++;
-                    }
-
-                    maxWidth = row.Length;
-
-                    // If the row begins with '!' then it is a comment
-                    // and should be ignored.
-
-                    // If the row is not a comment then it is a row of cells.
-                    // Increment the maxHeight variable for each row read.
-
-                    // Get the length of the current row string
-                    // and adjust the maxWidth variable if necessary.
-                }
-
-                // Resize the current universe and scratchPad
-                // to the width and height of the file calculated above.
-                _game.SetBoardSize(maxWidth, maxHeight);
-                _game.GameBoard = new Universe(_game.Width, _game.Height);
-                _game.ScratchPad = new Universe(_game.Width, _game.Height);
-
-                graphicsPanel1.Invalidate();
-                // Reset the file pointer back to the beginning of the file.
-                reader.BaseStream.Seek(0, SeekOrigin.Begin);
-
                 int rowNum = 0;
-                // Iterate through the file again, this time reading in the cells.
                 while (!reader.EndOfStream)
                 {
                     // Read one row at a time.
@@ -878,7 +838,7 @@ namespace BCoburn_GOL_C202209
                         {
                             // If row[xPos] is a 'O' (capital O) then
                             // set the corresponding cell in the universe to alive.
-                            if (row[xPos] == 'O')
+                            if (row[xPos] == '*')
                             {
                                 _game.GameBoard.UniverseGrid[xPos, rowNum].SetLifeState(true);
                             }
@@ -893,10 +853,11 @@ namespace BCoburn_GOL_C202209
                         rowNum++;
                     }
                 }
-
                 // Close the file.
                 reader.Close();
             }
+
+            graphicsPanel1.Invalidate();
         }
     }
 }
