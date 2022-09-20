@@ -104,6 +104,7 @@ namespace BCoburn_GOL_C202209
             DisplayNumbers = Settings.Default.DisplayNumbers;
             ShowHUD = Settings.Default.ShowHUD;
             ShowGrid = Settings.Default.ShowGrid;
+            
 
             TimerInterval = Settings.Default.TimeInterval;
 
@@ -124,6 +125,7 @@ namespace BCoburn_GOL_C202209
             Settings.Default.CellColor = _game.CellColor;
             Settings.Default.UniverseColor = _game.UniverseColor;
             Settings.Default.GridColor = _game.GridColor;
+            Settings.Default.HUDColor = _game.HUDColor;
             Settings.Default.Save();
         }
 
@@ -187,7 +189,7 @@ namespace BCoburn_GOL_C202209
                     $"Universe Width: {_game.Width.ToString()}   Universe Height: {_game.Height.ToString()}";
 
                 Font font = new Font("Arial", 12, FontStyle.Bold);
-                using (Brush hudBrush = new SolidBrush(Color.DarkViolet))
+                using (Brush hudBrush = new SolidBrush(_game.HUDColor))
                 {
                     e.Graphics.DrawString(hudString, font, hudBrush, ClientRectangle);
                 }
@@ -686,10 +688,12 @@ namespace BCoburn_GOL_C202209
             gameColorsDialog.GridColor = _game.GridColor;
             gameColorsDialog.UniverseColor = _game.UniverseColor;
             gameColorsDialog.CellColor = _game.CellColor;
+            gameColorsDialog.HUDColor = _game.HUDColor;
 
             gameColorsDialog.cellColorPreview.BackColor = gameColorsDialog.CellColor;
             gameColorsDialog.universeColorPreview.BackColor = gameColorsDialog.UniverseColor;
             gameColorsDialog.gridColorPreview.BackColor = gameColorsDialog.GridColor;
+            gameColorsDialog.HUDColorPreview.BackColor = gameColorsDialog.HUDColor;
 
             gameColorsDialog.ApplyColors += _game.Game_ApplyColors;
 

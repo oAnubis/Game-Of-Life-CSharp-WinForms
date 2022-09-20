@@ -38,6 +38,8 @@ namespace BCoburn_GOL_C202209
 
         public Color UniverseColor { get; private set; }
 
+        public Color HUDColor { get; private set; }
+
         // Sets the Font of the numbers shown inside each Cell (If the setting in the view menu is checked).
         private Font _cellFont = new Font("Cascadia Mono", 8f, FontStyle.Bold);
 
@@ -57,6 +59,7 @@ namespace BCoburn_GOL_C202209
             GridColor = e.GridColor;
             CellColor = e.CellColor;
             UniverseColor = e.UniverseColor;
+            HUDColor = e.HUDColor;
         }
 
         /// <summary>
@@ -76,6 +79,7 @@ namespace BCoburn_GOL_C202209
             CellColor = Settings.Default.CellColorDefault;
             UniverseColor = Settings.Default.UniverseColorDefault;
             GridColor = Settings.Default.GridColorDefault;
+            HUDColor = Settings.Default.HUDColorDefault;
         }
 
         public void RevertSettings()
@@ -85,6 +89,7 @@ namespace BCoburn_GOL_C202209
             CellColor = Settings.Default.CellColor;
             UniverseColor = Settings.Default.UniverseColor;
             GridColor = Settings.Default.GridColor;
+            HUDColor = Settings.Default.HUDColor;
         }
 
         /// <summary>

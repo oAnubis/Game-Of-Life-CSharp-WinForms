@@ -14,6 +14,8 @@ namespace BCoburn_GOL_C202209
 
         public Color CellColor { get; set; }
 
+        public Color HUDColor { get; set; }
+
         public GameColorsDialog()
         {
             InitializeComponent();
@@ -23,31 +25,34 @@ namespace BCoburn_GOL_C202209
 
         private void universeColorButton_Click(object sender, EventArgs e)
         {
-            if (universeColorDialog.ShowDialog() == DialogResult.OK)
+            
+            if (colorDialog.ShowDialog() == DialogResult.OK)
             {
-                universeColorPreview.BackColor = universeColorDialog.Color;
+                universeColorPreview.BackColor = colorDialog.Color;
 
-                UniverseColor = universeColorDialog.Color;
+                UniverseColor = colorDialog.Color;
             }
         }
 
         private void cellColorButton_Click(object sender, EventArgs e)
         {
-            if (cellColorDialog.ShowDialog() == DialogResult.OK)
+            
+            if (colorDialog.ShowDialog() == DialogResult.OK)
             {
-                cellColorPreview.BackColor = cellColorDialog.Color;
+                cellColorPreview.BackColor = colorDialog.Color;
 
-                CellColor = cellColorDialog.Color;
+                CellColor = colorDialog.Color;
             }
         }
 
         private void gridColorButton_Click(object sender, EventArgs e)
         {
-            if (gridColorDialog.ShowDialog() == DialogResult.OK)
+            
+            if (colorDialog.ShowDialog() == DialogResult.OK)
             {
-                gridColorPreview.BackColor = gridColorDialog.Color;
+                gridColorPreview.BackColor = colorDialog.Color;
 
-                GridColor = gridColorDialog.Color;
+                GridColor = colorDialog.Color;
             }
         }
 
@@ -55,7 +60,17 @@ namespace BCoburn_GOL_C202209
         {
             if (ApplyColors != null)
             {
-                ApplyColors(this, new ColorsApplyArgs(GridColor, UniverseColor, CellColor));
+                ApplyColors(this, new ColorsApplyArgs(GridColor, UniverseColor, CellColor, HUDColor));
+            }
+        }
+
+        private void HUDColorButton_Click(object sender, EventArgs e)
+        {
+            if (colorDialog.ShowDialog() == DialogResult.OK)
+            {
+                HUDColorPreview.BackColor = colorDialog.Color;
+
+                HUDColor = colorDialog.Color;
             }
         }
     }

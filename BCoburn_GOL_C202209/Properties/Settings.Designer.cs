@@ -232,5 +232,26 @@ namespace BCoburn_GOL_C202209.Properties {
                 return ((global::System.Drawing.Color)(this["GridColorDefault"]));
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("192, 0, 192")]
+        public global::System.Drawing.Color HUDColor {
+            get {
+                return ((global::System.Drawing.Color)(this["HUDColor"]));
+            }
+            set {
+                this["HUDColor"] = value;
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("192, 0, 192")]
+        public global::System.Drawing.Color HUDColorDefault {
+            get {
+                return ((global::System.Drawing.Color)(this["HUDColorDefault"]));
+            }
+        }
     }
 }

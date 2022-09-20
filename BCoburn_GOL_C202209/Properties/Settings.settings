@@ -62,5 +62,11 @@
     <Setting Name="GridColorDefault" Type="System.Drawing.Color" Scope="Application">
       <Value Profile="(Default)">Black</Value>
     </Setting>
+    <Setting Name="HUDColor" Type="System.Drawing.Color" Scope="User">
+      <Value Profile="(Default)">192, 0, 192</Value>
+    </Setting>
+    <Setting Name="HUDColorDefault" Type="System.Drawing.Color" Scope="Application">
+      <Value Profile="(Default)">192, 0, 192</Value>
+    </Setting>
   </Settings>
 </SettingsFile>

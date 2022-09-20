@@ -17,11 +17,14 @@ namespace BCoburn_GOL_C202209
 
         public Color CellColor { get; private set; }
 
-        public ColorsApplyArgs(Color gridColor, Color universeColor, Color cellColor)
+        public Color HUDColor { get; private set; }
+
+        public ColorsApplyArgs(Color gridColor, Color universeColor, Color cellColor, Color hudColor)
         {
             GridColor = gridColor;
             UniverseColor = universeColor;
             CellColor = cellColor;
+            HUDColor = hudColor;
         }
     }
 }
