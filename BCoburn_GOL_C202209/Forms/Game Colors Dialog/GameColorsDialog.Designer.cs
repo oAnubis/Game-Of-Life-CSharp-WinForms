@@ -164,8 +164,11 @@ namespace BCoburn_GOL_C202209
             this.Controls.Add(this.CancelButton);
             this.Controls.Add(this.OKButton);
             this.MaximizeBox = false;
+            this.MaximumSize = new System.Drawing.Size(367, 342);
             this.MinimizeBox = false;
+            this.MinimumSize = new System.Drawing.Size(367, 342);
             this.Name = "GameColorsDialog";
+            this.SizeGripStyle = System.Windows.Forms.SizeGripStyle.Hide;
             this.StartPosition = System.Windows.Forms.FormStartPosition.Manual;
             this.Text = "Game Colors";
             this.ResumeLayout(false);

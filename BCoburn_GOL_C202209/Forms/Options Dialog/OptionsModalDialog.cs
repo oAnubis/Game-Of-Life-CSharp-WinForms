@@ -19,6 +19,8 @@ namespace BCoburn_GOL_C202209
         public OptionsModalDialog()
         {
             InitializeComponent();
+
+            this.Location = new Point(ActiveForm.Location.X + 239, ActiveForm.Location.Y + 100);
         }
 
         public int TimerInterval { get; set; }

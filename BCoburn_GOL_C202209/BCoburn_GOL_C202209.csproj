@@ -88,6 +88,7 @@
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
     <Compile Include="Setting Enums\SettingEnums.cs" />
+    <Compile Include="Settings.cs" />
     <EmbeddedResource Include="Forms\Game Colors Dialog\GameColorsDialog.resx">
       <DependentUpon>GameColorsDialog.cs</DependentUpon>
     </EmbeddedResource>
@@ -132,12 +133,6 @@
     <None Include="Resources\Stop.png" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\Spider.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\SpiderWeb.png" />
-  </ItemGroup>
-  <ItemGroup>
     <None Include="Resources\ClearWindowContent.png" />
   </ItemGroup>
   <ItemGroup>
@@ -145,6 +140,8 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="CheckLists.txt" />
+    <None Include="Resources\Import_Icon_Custom_.png" />
+    <None Include="Resources\Patterns\1-2-3 Oscillator.txt" />
     <None Include="Resources\Dice_icon %28Custom%29.png" />
     <None Include="Resources\Import_Icon%28Custom%29.png" />
     <None Include="Resources\DisplayConfiguration.png" />

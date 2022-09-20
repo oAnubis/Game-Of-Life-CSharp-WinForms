@@ -129,7 +129,7 @@
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "OptionsModalDialog";
-            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
+            this.StartPosition = System.Windows.Forms.FormStartPosition.Manual;
             this.Text = "Options";
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownTimer)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownWidth)).EndInit();

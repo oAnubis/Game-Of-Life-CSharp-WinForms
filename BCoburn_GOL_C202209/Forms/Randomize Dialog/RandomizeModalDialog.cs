@@ -21,6 +21,8 @@ namespace BCoburn_GOL_C202209
             InitializeComponent();
             numericUpDown1.Minimum = Int32.MinValue;
             numericUpDown1.Maximum = Int32.MaxValue;
+
+            this.Location = new Point(ActiveForm.Location.X + 239, ActiveForm.Location.Y + 100);
         }
 
         public int Seed { get; set; }

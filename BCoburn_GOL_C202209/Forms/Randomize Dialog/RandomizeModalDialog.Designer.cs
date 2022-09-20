@@ -106,7 +106,7 @@
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "RandomizeModalDialog";
-            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
+            this.StartPosition = System.Windows.Forms.FormStartPosition.Manual;
             this.Text = "Randomize Settings";
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).EndInit();
             this.ResumeLayout(false);

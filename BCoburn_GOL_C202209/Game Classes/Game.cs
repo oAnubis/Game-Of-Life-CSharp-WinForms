@@ -1,5 +1,6 @@
 ﻿using System.Drawing;
 using System.Windows.Forms;
+using BCoburn_GOL_C202209.Properties;
 
 namespace BCoburn_GOL_C202209
 {
@@ -63,13 +64,27 @@ namespace BCoburn_GOL_C202209
         /// </summary>
         private void InitializeObjects()
         {
-            GridColor = Color.Black;
-            UniverseColor = Color.White;
-            CellColor = Color.Gray;
-            Width = 30;
-            Height = 30;
+            RevertSettings();
             GameBoard = new Universe(Width, Height);
             ScratchPad = new Universe(Width, Height);
+        }
+
+        public void DefaultSettings()
+        {
+            Height = Settings.Default.UniverseHeightDefault;
+            Width = Settings.Default.UniverseWidthDefault;
+            CellColor = Settings.Default.CellColorDefault;
+            UniverseColor = Settings.Default.UniverseColorDefault;
+            GridColor = Settings.Default.GridColorDefault;
+        }
+
+        public void RevertSettings()
+        {
+            Height = Settings.Default.UniverseHeight;
+            Width = Settings.Default.UniverseWidth;
+            CellColor = Settings.Default.CellColor;
+            UniverseColor = Settings.Default.UniverseColor;
+            GridColor = Settings.Default.GridColor;
         }
 
         /// <summary>

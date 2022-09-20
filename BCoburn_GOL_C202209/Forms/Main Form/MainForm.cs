@@ -14,6 +14,9 @@ namespace BCoburn_GOL_C202209
 
         #endregion Events
 
+        //
+        //
+
         #region Properties
 
         // Game object (Holds game logic).
@@ -38,12 +41,18 @@ namespace BCoburn_GOL_C202209
 
         #endregion Properties
 
+        //
+        //
+
         #region Fields
 
         // Game 1st Start Tracker (Has the simulation been ran since the program was opened).
         private bool _isFirstLaunch = true;
 
         #endregion Fields
+
+        //
+        //
 
         #region Constructors
 
@@ -52,14 +61,14 @@ namespace BCoburn_GOL_C202209
             // Initializes all the components of the form (Buttons, Labels, MenuItems, etc...)
             InitializeComponent();
 
-            // Loads the Application settings
-            LoadSettings();
-
             // Initialize a new instance of the Game class.
             _game = new Game(this);
 
             // Sets the default interval for the timer, in milliseconds.
             TimerInterval = 20;
+
+            // Loads the Application settings
+            LoadSettings();
 
             // Setup the timer
             _timer.Interval = TimerInterval; // milliseconds
@@ -68,6 +77,9 @@ namespace BCoburn_GOL_C202209
         }
 
         #endregion Constructors
+
+        //
+        //
 
         #region Forms Main Methods
 
@@ -93,6 +105,8 @@ namespace BCoburn_GOL_C202209
             ShowHUD = Settings.Default.ShowHUD;
             ShowGrid = Settings.Default.ShowGrid;
 
+            TimerInterval = Settings.Default.TimeInterval;
+
             // Sets the view menu, the values were set above. Either default or user settings.
             SetViewMenu();
         }
@@ -104,6 +118,12 @@ namespace BCoburn_GOL_C202209
             Settings.Default.DisplayNumbers = DisplayNumbers;
             Settings.Default.ShowHUD = ShowHUD;
             Settings.Default.ShowGrid = ShowGrid;
+            Settings.Default.TimeInterval = TimerInterval;
+            Settings.Default.UniverseWidth = _game.Width;
+            Settings.Default.UniverseHeight = _game.Height;
+            Settings.Default.CellColor = _game.CellColor;
+            Settings.Default.UniverseColor = _game.UniverseColor;
+            Settings.Default.GridColor = _game.GridColor;
             Settings.Default.Save();
         }
 
@@ -345,20 +365,32 @@ namespace BCoburn_GOL_C202209
         {
         }
 
-        private void nextToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-        }
-
-        private void randomizeToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-        }
-
         #endregion Game Commands Menu Item Controls
 
         //
         //
 
         #region ToolStrip Button Methods
+
+        // Creates a brand new game, set to default settings.
+        private void newToolStripButton_Click(object sender, EventArgs e)
+        {
+            _game.GameBoard = new Universe(_game.Width, _game.Height);
+
+            _game.Seed = 0;
+
+            graphicsPanel1.Invalidate();
+        }
+
+        private void saveToolStripButton_Click(object sender, EventArgs e)
+        {
+            SaveGame();
+        }
+
+        private void openToolStripButton_Click(object sender, EventArgs e)
+        {
+            LoadGame();
+        }
 
         // Clears the board. Fired when the Clear button on the tool strip is clicked.
         private void clearButton_Click(object sender, EventArgs e)
@@ -645,6 +677,33 @@ namespace BCoburn_GOL_C202209
         //
         //
 
+        #region Game Colors Dialog
+
+        private void gameColorsToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            GameColorsDialog gameColorsDialog = new GameColorsDialog();
+
+            gameColorsDialog.GridColor = _game.GridColor;
+            gameColorsDialog.UniverseColor = _game.UniverseColor;
+            gameColorsDialog.CellColor = _game.CellColor;
+
+            gameColorsDialog.cellColorPreview.BackColor = gameColorsDialog.CellColor;
+            gameColorsDialog.universeColorPreview.BackColor = gameColorsDialog.UniverseColor;
+            gameColorsDialog.gridColorPreview.BackColor = gameColorsDialog.GridColor;
+
+            gameColorsDialog.ApplyColors += _game.Game_ApplyColors;
+
+            if (gameColorsDialog.ShowDialog() == DialogResult.OK)
+            {
+                graphicsPanel1.Invalidate();
+            }
+        }
+
+        #endregion Game Colors Dialog
+
+        //
+        //
+
         #region View Menu Item Methods
 
         private void toroidalViewMenuItem_Clicked(object sender, EventArgs e)
@@ -697,8 +756,6 @@ namespace BCoburn_GOL_C202209
             }
         }
 
-        #endregion View Menu Item Methods
-
         private void showGridToolStripMenuItem_Clicked(object sender, EventArgs e)
         {
             if (showGridViewMenuItem.Checked)
@@ -713,41 +770,133 @@ namespace BCoburn_GOL_C202209
             graphicsPanel1.Invalidate();
         }
 
-        private void saveToolStripButton_Click(object sender, EventArgs e)
+        #endregion View Menu Item Methods
+
+        private void revertToLastToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            SaveGame();
-        }
+            LoadSettings();
 
-        private void openToolStripButton_Click(object sender, EventArgs e)
-        {
-            LoadGame();
-        }
-
-        private void gameColorsToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            GameColorsDialog gameColorsDialog = new GameColorsDialog();
-
-            gameColorsDialog.GridColor = _game.GridColor;
-            gameColorsDialog.UniverseColor = _game.UniverseColor;
-            gameColorsDialog.CellColor = _game.CellColor;
-
-            gameColorsDialog.cellColorPreview.BackColor = gameColorsDialog.CellColor;
-            gameColorsDialog.universeColorPreview.BackColor = gameColorsDialog.UniverseColor;
-            gameColorsDialog.gridColorPreview.BackColor = gameColorsDialog.GridColor;
-
-            gameColorsDialog.ApplyColors += _game.Game_ApplyColors;
-
-            if (gameColorsDialog.ShowDialog() == DialogResult.OK)
-            {
-                graphicsPanel1.Invalidate();
-            }
-        }
-
-        private void newToolStripButton_Click(object sender, EventArgs e)
-        {
-            _game = new Game(this);
+            _game.RevertSettings();
 
             graphicsPanel1.Invalidate();
+        }
+
+        private void resetToDefaultToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            ResetSettingsToDefault();
+        }
+
+        private void ResetSettingsToDefault()
+        {
+            BorderMode = Settings.Default.BorderModeDefault;
+            DisplayNumbers = Settings.Default.DisplayNumbersDefault;
+            ShowHUD = Settings.Default.ShowHUDDefault;
+            ShowGrid = Settings.Default.ShowGridDefault;
+            TimerInterval = Settings.Default.TimeIntervalDefault;
+
+            _game.DefaultSettings();
+
+            graphicsPanel1.Invalidate();
+        }
+
+        private void importButton_Click(object sender, EventArgs e)
+        {
+            ImportPattern();
+        }
+
+        private void ImportPattern()
+        {
+            OpenFileDialog dlg = new OpenFileDialog();
+
+            dlg.InitialDirectory = @"$BCoburn_GOL_C202209\BCoburn_GOL_C202209\Resources";
+
+            dlg.Filter = "All Files|*.*|Cells|*.cells";
+            dlg.FilterIndex = 2;
+
+            if (DialogResult.OK == dlg.ShowDialog())
+            {
+                StreamReader reader = new StreamReader(dlg.FileName);
+
+                // Create a couple variables to calculate the width and height
+                // of the data in the file.
+                int maxWidth = 0;
+                int maxHeight = 0;
+
+                // Iterate through the file once to get its size.
+                while (!reader.EndOfStream)
+                {
+                    // Read one row at a time.
+                    string row = reader.ReadLine();
+
+                    if (row.StartsWith("!"))
+                    {
+                    }
+                    else
+                    {
+                        maxHeight++;
+                    }
+
+                    maxWidth = row.Length;
+
+                    // If the row begins with '!' then it is a comment
+                    // and should be ignored.
+
+                    // If the row is not a comment then it is a row of cells.
+                    // Increment the maxHeight variable for each row read.
+
+                    // Get the length of the current row string
+                    // and adjust the maxWidth variable if necessary.
+                }
+
+                // Resize the current universe and scratchPad
+                // to the width and height of the file calculated above.
+                _game.SetBoardSize(maxWidth, maxHeight);
+                _game.GameBoard = new Universe(_game.Width, _game.Height);
+                _game.ScratchPad = new Universe(_game.Width, _game.Height);
+
+                graphicsPanel1.Invalidate();
+                // Reset the file pointer back to the beginning of the file.
+                reader.BaseStream.Seek(0, SeekOrigin.Begin);
+
+                int rowNum = 0;
+                // Iterate through the file again, this time reading in the cells.
+                while (!reader.EndOfStream)
+                {
+                    // Read one row at a time.
+                    string row = reader.ReadLine();
+
+                    // If the row begins with '!' then
+                    // it is a comment and should be ignored.
+                    if (row.StartsWith("!"))
+                    {
+                    }
+                    else
+                    {
+                        // If the row is not a comment then
+                        // it is a row of cells and needs to be iterated through.
+                        for (int xPos = 0; xPos < row.Length; xPos++)
+                        {
+                            // If row[xPos] is a 'O' (capital O) then
+                            // set the corresponding cell in the universe to alive.
+                            if (row[xPos] == 'O')
+                            {
+                                _game.GameBoard.UniverseGrid[xPos, rowNum].SetLifeState(true);
+                            }
+
+                            if (row[xPos] == '.')
+                            {
+                                _game.GameBoard.UniverseGrid[xPos, rowNum].SetLifeState(false);
+                            }
+                            // If row[xPos] is a '.' (period) then
+                            // set the corresponding cell in the universe to dead.
+                        }
+                        rowNum++;
+                    }
+                }
+
+                // Close the file.
+                reader.Close();
+            }
         }
     }
 }
