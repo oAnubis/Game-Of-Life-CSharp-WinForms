@@ -361,10 +361,12 @@ namespace BCoburn_GOL_C202209
 
         private void runToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            runButton_Click(sender, e);
         }
 
         private void pauseToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            pauseButton_Click(sender, e);
         }
 
         #endregion Game Commands Menu Item Controls
@@ -407,55 +409,27 @@ namespace BCoburn_GOL_C202209
             graphicsPanel1.Invalidate();
         }
 
-        // Starts and pauses the simulation - Changes state based on game state (Running or Paused)
-        private void gameFlowButton_Click(object sender, EventArgs e)
+        private void runButton_Click(object sender, EventArgs e)
         {
-            // Switch which check if the game has been launched or if program was just opened
-            switch (_isFirstLaunch)
+            if (!_timer.Enabled)
             {
-                // If this is the first run this program launch, this will fire.
-                case true:
-                    // Enables the timer (First Run)
-                    _timer.Enabled = true;
+                _timer.Enabled = true;
+                runButton.Enabled = false;
+                runToolStripMenuItem.Enabled = false;
+                pauseButton.Enabled = true;
+                pauseToolStripMenuItem.Enabled = true;
+            }
+        }
 
-                    // Tells program simulation has been ran for the first time.
-                    _isFirstLaunch = false;
-
-                    // Changes the button to display a pause image.
-                    gameFlowButton.Image = BCoburn_GOL_C202209.Properties.Resources.Pause;
-
-                    // Changes the tool tip to Pause (ToolTip = Textbox that displays on mouse hover)
-                    gameFlowButton.ToolTipText = "Pause";
-                    break;
-
-                // If this is NOT the first run this set of logic will run.
-                case false:
-                    // Check if timer is running.
-                    if (_timer.Enabled)
-                    {
-                        // Stops the timer.
-                        _timer.Stop();
-
-                        // Changes the button to display a Play image.
-
-                        gameFlowButton.Image = BCoburn_GOL_C202209.Properties.Resources.Play;
-
-                        // Changes tool tip to display Continue. (ToolTip = Textbox that displays on mouse hover)
-                        gameFlowButton.ToolTipText = "Continue";
-                    }
-                    // If timer is not running, this will fire.
-                    else
-                    {
-                        // Restarts the timer.
-                        _timer.Start();
-
-                        // Changes the button to display a Pause image.
-                        gameFlowButton.Image = BCoburn_GOL_C202209.Properties.Resources.Pause;
-
-                        // Changes the tooltip to display Pause. (ToolTip = Textbox that displays on mouse hover)
-                        gameFlowButton.ToolTipText = "Pause";
-                    }
-                    break;
+        private void pauseButton_Click(object sender, EventArgs e)
+        {
+            if (_timer.Enabled)
+            {
+                _timer.Stop();
+                runButton.Enabled = true;
+                runToolStripMenuItem.Enabled = true;
+                pauseButton.Enabled = false;
+                pauseToolStripMenuItem.Enabled = false;
             }
         }
 
@@ -466,7 +440,7 @@ namespace BCoburn_GOL_C202209
             if (_timer.Enabled)
             {
                 // Calls the logic in the game flow buttons method. (Pause and Resume Simulation)
-                gameFlowButton_Click(sender, e);
+                pauseButton_Click(sender, e);
             }
 
             // Resets generations to 0.
