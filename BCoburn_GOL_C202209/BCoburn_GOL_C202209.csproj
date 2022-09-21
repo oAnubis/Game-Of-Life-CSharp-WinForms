@@ -77,6 +77,12 @@
       <DependentUpon>OptionsModalDialog.cs</DependentUpon>
     </Compile>
     <Compile Include="Forms\Randomize Dialog\RandomApplyArgs.cs" />
+    <Compile Include="Forms\Run To Dialog\RunToDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Run To Dialog\RunToDialog.Designer.cs">
+      <DependentUpon>RunToDialog.cs</DependentUpon>
+    </Compile>
     <Compile Include="Game Classes\Cell.cs" />
     <Compile Include="Forms\Randomize Dialog\RandomizeModalDialog.cs">
       <SubType>Form</SubType>
@@ -116,6 +122,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\Randomize Dialog\RandomizeModalDialog.resx">
       <DependentUpon>RandomizeModalDialog.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Run To Dialog\RunToDialog.resx">
+      <DependentUpon>RunToDialog.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

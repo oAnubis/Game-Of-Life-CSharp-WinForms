@@ -2,7 +2,10 @@
 using System;
 using System.Drawing;
 using System.IO;
+using System.Threading;
+using System.Threading.Tasks;
 using System.Windows.Forms;
+using Timer = System.Windows.Forms.Timer;
 
 namespace BCoburn_GOL_C202209
 {
@@ -104,7 +107,6 @@ namespace BCoburn_GOL_C202209
             DisplayNumbers = Settings.Default.DisplayNumbers;
             ShowHUD = Settings.Default.ShowHUD;
             ShowGrid = Settings.Default.ShowGrid;
-            
 
             TimerInterval = Settings.Default.TimeInterval;
 
@@ -436,6 +438,7 @@ namespace BCoburn_GOL_C202209
         // Stops the Simulation, and Resets the counts and universe. Fired when the Stop button on the tool strip is clicked.
         private void stopButton_Click(object sender, EventArgs e)
         {
+            //TODO: Redo Commenting
             // Checks if the timer is running.
             if (_timer.Enabled)
             {
@@ -682,6 +685,37 @@ namespace BCoburn_GOL_C202209
         //
         //
 
+        #region Run To Dialog
+
+        private void RunToDialogHandler(object sender, EventArgs e)
+        {
+            RunToDialog runToDialog = new RunToDialog();
+
+            int runTo = 0;
+
+            if (runToDialog.ShowDialog() == DialogResult.OK)
+            {
+                runTo = (int)runToDialog.generationsNumeric.Value;
+
+                RunTo(sender, e, runTo);
+            }
+        }
+
+        private async void RunTo(object sender, EventArgs e, int runTo)
+        {
+            runButton_Click(sender, e);
+            for (int i = 0; i < runTo; i++)
+            {
+                await Task.Delay(TimerInterval);
+            }
+            pauseButton_Click(sender, e);
+        }
+
+        #endregion Run To Dialog
+
+        //
+        //
+
         #region View Menu Item Methods
 
         private void toroidalViewMenuItem_Clicked(object sender, EventArgs e)
@@ -708,6 +742,11 @@ namespace BCoburn_GOL_C202209
 
         private void showNumbersViewMenuToggle_Clicked(object sender, EventArgs e)
         {
+            
+        }
+
+        private void showNumbersViewMenuToggle_CheckStateChanged(object sender, EventArgs e)
+        {
             if (showNumbersViewMenuToggle.Checked)
             {
                 DisplayNumbers = DisplayNumbers.Yes;
@@ -726,9 +765,11 @@ namespace BCoburn_GOL_C202209
             {
                 labelHUD.Visible = true;
                 ShowHUD = ShowHUD.Yes;
+                hUDToolStripMenuItem.Checked = true;
             }
             else
             {
+                hUDToolStripMenuItem.Checked = false;
                 labelHUD.Visible = false;
                 ShowHUD = ShowHUD.No;
             }
@@ -837,6 +878,16 @@ namespace BCoburn_GOL_C202209
             }
 
             graphicsPanel1.Invalidate();
+        }
+
+        private void runToToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            RunToDialogHandler(sender, e);
+        }
+
+        private void hUDToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            showHUDViewMenuToggle.Checked = !showHUDViewMenuToggle.Checked;
         }
 
         
