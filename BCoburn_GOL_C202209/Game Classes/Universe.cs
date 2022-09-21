@@ -15,12 +15,7 @@ namespace BCoburn_GOL_C202209
             FillGridArray(UniverseGrid);
         }
 
-        /// <summary>
-        /// Counts the Neighbors of a specific Cell, Border is finite, any Cell "outside" the board is assumed dead.
-        /// </summary>
-        /// <param name="x"> The x index of the Cell. </param>
-        /// <param name="y"> The y index of the Cell. </param>
-        /// <returns> Returns an int holding the number of alive neighbors of the specified Cell. </returns>
+        // Counts the Neighbors of a specific Cell, Border is finite, any Cell "outside" the board is assumed dead.
         public int CountNeighborsFinite(int x, int y)
         {
             // Instantiates an int variable to hold the count of alive neighbors.
@@ -72,12 +67,7 @@ namespace BCoburn_GOL_C202209
             return count;
         }
 
-        /// <summary>
-        /// Counts the alive neighbors around a specified cell in the UniverseGrid. The borders wrap around.
-        /// </summary>
-        /// <param name="x"> The x index of the Cell. </param>
-        /// <param name="y"> The y index of the Cell. </param>
-        /// <returns> Returns the amount of alive neighbors around the specified Cell. </returns>
+        // Counts the alive neighbors around a specified cell in the UniverseGrid. The borders wrap around.
         public int CountNeighborsToroidal(int x, int y)
         {
             // Alive count to be incremented then returned
@@ -138,20 +128,13 @@ namespace BCoburn_GOL_C202209
             return count;
         }
 
-        /// <summary>
-        /// Small Helper function to allow the UniverseGrid to be set in the SwapBoard Function in the Game Class (UniverseGrid setter is private)
-        /// </summary>
-        /// <param name="toSet"> The UniverseGrid to copy. </param>
+        // Small Helper function to allow the UniverseGrid to be set in the SwapBoard Function in the Game Class (UniverseGrid setter is private)
         public void SetUniverse(Cell[,] toSet)
         {
             UniverseGrid = toSet;
         }
 
-        /// <summary>
-        /// Fills the UniverseGrid with Cells whose life state is randomly determined by an RNG.
-        /// </summary>
-        /// <param name="universe"> The universe to work with. </param>
-        /// <param name="seed"> The seed to pass into the RNG. </param>
+        // Fills the UniverseGrid with Cells whose life state is randomly determined by an RNG.
         public void RandomFillUniverse(Cell[,] universe, int seed)
         {
             // Instantiates a Random object to act as the Random Number Generator (RNG) passes a seed to determine a starting value.
@@ -187,10 +170,7 @@ namespace BCoburn_GOL_C202209
             }
         }
 
-        /// <summary>
-        /// Fills the Universe Grid with Cells, the life states are defaulted to dead. (A blank Grid).
-        /// </summary>
-        /// <param name="universe"> The UniverseGrid to work with. </param>
+        // Fills the Universe Grid with Cells, the life states are defaulted to dead. (A blank Grid).
         public void FillGridArray(Cell[,] universe)
         {
             // Iterates the 1st Dimension: x = Left to Right
@@ -205,36 +185,17 @@ namespace BCoburn_GOL_C202209
             }
         }
 
-        /// <summary>
-        /// Retrieves the AliveNeighbors Property of the Specified Cell in the UniverseGrid Array.
-        /// </summary>
-        /// <param name="x"> The x Index to search. </param>
-        /// <param name="y"> The y Index to search. </param>
-        /// <returns> Returns the number of alive neighbors of the specified Cell. </returns>
+        // Retrieves the AliveNeighbors Property of the Specified Cell in the UniverseGrid Array.
         public int GetAliveNeighbors(int x, int y)
         {
             return UniverseGrid[x, y].AliveNeighbors;
         }
 
-        /// <summary>
-        /// Retrieves the life state of the Specified Cell in the UniverseGrid.
-        /// </summary>
-        /// <param name="x"> The x index to search </param>
-        /// <param name="y"> The y index to search </param>
-        /// <returns> Returns the life state of the specified Cell (true = alive, false = dead) </returns>
+        // Retrieves the life state of the Specified Cell in the UniverseGrid.
         public bool LifeState(int x, int y)
         {
             return UniverseGrid[x, y].Alive;
         }
 
-        /// <summary>
-        /// Sets the life state of the specified Cell in the UniverseGrid.
-        /// </summary>
-        /// <param name="x"> The x index to search. </param>
-        /// <param name="y"> The y index to search. </param>
-        /// <param name="state"> The life state to set in the specified Cell. </param>
-        public void SetCellState(int x, int y, bool state)
-        {
-        }
     }
 }

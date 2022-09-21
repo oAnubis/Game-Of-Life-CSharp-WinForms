@@ -187,7 +187,6 @@
     <None Include="Resources\Eraser.png" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="CheckLists.txt" />
     <Content Include="Resources\Patterns\ReadMe.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>

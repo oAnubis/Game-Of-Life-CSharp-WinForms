@@ -7,8 +7,7 @@ namespace BCoburn_GOL_C202209
     public class Game
     {
         // PROPERTIES FOR THE GAME
-        //TODO: Change most logic from form to here in the form of Methods
-
+        
         // Main universe, holds an array of cells. This is what is shown (Current generation)
         public Universe GameBoard;
 
@@ -18,17 +17,21 @@ namespace BCoburn_GOL_C202209
         // Hold the value of the current MainForm
         private MainForm _mainForm;
 
+        // The current seed set in the game.
+        public int Seed;
+
+        // Sets the Font of the numbers shown inside each Cell (If the setting in the view menu is checked).
+        private Font _cellFont = new Font("Cascadia Mono", 8f, FontStyle.Bold);
+
+        // Instantiates a new StringFormat object, this allows the numbers to be centered in each rectangle in the gameBoard.
+        private StringFormat _cellStringFormat = new StringFormat();
+
         // The width (x dimension) of the current gameBoard.
         public int Width { get; private set; }
 
         // The height (y dimension) of the current gameBoard.
         public int Height { get; private set; }
 
-        // The current seed set in the game.
-        public int Seed;
-
-        // Determines the color of the gridlines
-        //TODO: Allow to be customizable
         // Determines the Color of the Grid Lines (Component: 1)
         public Color GridColor { get; private set; }
 
@@ -41,61 +44,69 @@ namespace BCoburn_GOL_C202209
         // Determines the Color of the HUD Text (Component: 4)
         public Color HUDColor { get; private set; }
 
-        // Sets the Font of the numbers shown inside each Cell (If the setting in the view menu is checked).
-        private Font _cellFont = new Font("Cascadia Mono", 8f, FontStyle.Bold);
-
-        // Instantiates a new StringFormat object, this allows the numbers to be centered in each rectangle in the gameBoard.
-        private StringFormat _cellStringFormat = new StringFormat();
-
         //Game constructor - Calls the IntializeObjects method. Also stores the current MainForm.
         public Game(MainForm form)
         {
+            // Initialized the Objects
             InitializeObjects();
+
+            // Sets the Main Form for the game
             _mainForm = form;
         }
 
+        // Method to Apply All Color Changes in the Game Colors Menu Item
         public void Game_ApplyColors(object sender, ColorsApplyArgs e)
         {
+            // Sets the Color Properties for the game equal to the user input
             GridColor = e.GridColor;
             CellColor = e.CellColor;
             UniverseColor = e.UniverseColor;
             HUDColor = e.HUDColor;
         }
 
+        // Sets the color that was changed in the context menu based on the component number
         public void Game_ApplyOneColor(object sender, ColorsApplyArgs e, int componentNumber)
         {
+            // Switch statement, controls which color was changed by the user in the context menu
             switch (componentNumber)
             {
+                // Grid Color was changed
                 case 1:
                     GridColor = e.AnyColor;
                     break;
 
+                // Cell Color was Changed
                 case 2:
                     CellColor = e.AnyColor;
                     break;
 
+                // Universe Color was Changed
                 case 3:
                     UniverseColor = e.AnyColor;
                     break;
 
+                // HUD Color was Changed
                 case 4:
                     HUDColor = e.AnyColor;
                     break;
             }
         }
 
-        /// <summary>
-        /// Intialize the starting Properties and Game Objects.
-        /// </summary>
+        // Intialize the starting Properties and Game Objects.
         private void InitializeObjects()
         {
+            // Loads the User settings (Persistence between program launches
             RevertSettings();
+
+            // Sets a new Gameboard and ScratchPad based on the User Settings
             GameBoard = new Universe(Width, Height);
             ScratchPad = new Universe(Width, Height);
         }
 
+        // Loads Default Application Settings
         public void DefaultSettings()
         {
+            // Loads the default application settings for each property
             Height = Settings.Default.UniverseHeightDefault;
             Width = Settings.Default.UniverseWidthDefault;
             CellColor = Settings.Default.CellColorDefault;
@@ -104,8 +115,10 @@ namespace BCoburn_GOL_C202209
             HUDColor = Settings.Default.HUDColorDefault;
         }
 
+        // Reverts settings to the current user settings (Persistence between program launches
         public void RevertSettings()
         {
+            // Sets each property to the current saved user settings
             Height = Settings.Default.UniverseHeight;
             Width = Settings.Default.UniverseWidth;
             CellColor = Settings.Default.CellColor;
@@ -114,22 +127,14 @@ namespace BCoburn_GOL_C202209
             HUDColor = Settings.Default.HUDColor;
         }
 
-        /// <summary>
-        /// Sets the Width and Height properties. This controls the size of the grid (x = Width, y = Height).
-        /// </summary>
-        /// <param name="width"> The width to set the gameBoard to (x dimension) </param>
-        /// <param name="height"> The height to set the gameBoard to (y dimension) </param>
+        // Sets the Width and Height properties. This controls the size of the grid (x = Width, y = Height).
         public void SetBoardSize(int width, int height)
         {
             Width = width;
             Height = height;
         }
 
-        /// <summary>
-        /// Handles drawing of the gameBoard to the GraphicsPanel
-        /// </summary>
-        /// <param name="panel"> The GraphicsPanel to Paint to. </param>
-        /// <param name="graphics"> The Graphics object, allows drawing to the GraphicsPanel. </param>
+        // Handles drawing of the gameBoard to the GraphicsPanel
         public void PaintBoard(Panel panel, PaintEventArgs e)
         {
             // Calculate the width and height of each cell in pixels
@@ -167,20 +172,20 @@ namespace BCoburn_GOL_C202209
                     }
                     else
                     {
-                        //TODO: Add ability to color dead cell.
-                        // Fills the rectangle with the Color Selected for dead cells.
+                        // Fills the rectangle with the Color Selected for dead cells. (UniverseColor)
                         e.Graphics.FillRectangle(universeBrush, cellRect);
                     }
 
-                    //TODO: Reimplement Images
+                    //TODO: (Personal) Reimplement Images
 
+                    // If ShowGrid Enum is Set To Yes
                     if (_mainForm.ShowGrid == ShowGrid.Yes)
                     {
                         // Outline the cell with a pen
                         e.Graphics.DrawRectangle(gridPen, cellRect.X, cellRect.Y, cellWidth, cellHeight);
                     }
 
-                    // Checks if showNumbers is true (Defaults to yes).
+                    // Checks if showNumbers Enum is set to Yes
                     if (_mainForm.DisplayNumbers == DisplayNumbers.Yes)
                     {
                         // Checks if the cell has any living neighbors (Only draws a number if there is at least 1 living neighbor)
@@ -198,13 +203,7 @@ namespace BCoburn_GOL_C202209
             cellBrush.Dispose();
         }
 
-        /// <summary>
-        /// Draws the number of living neighbors inside the cell. (Number is centered).
-        /// </summary>
-        /// <param name="graphics"> Allows the DrawString Method to be called on the GraphicsPanel. </param>
-        /// <param name="x"> The x index of the Cell. </param>
-        /// <param name="y"> The y index of the Cell. </param>
-        /// <param name="cellRect"> Visually represents the cell as a RectangleF. </param>
+        // Draws the number of living neighbors inside the cell. (Number is centered).
         public void PrintNumbers(PaintEventArgs e, int x, int y, RectangleF cellRect)
         {
             // Sets the alignment of the number to be centered inside each Cell.
@@ -225,25 +224,27 @@ namespace BCoburn_GOL_C202209
             }
         }
 
-        /// <summary>
-        /// Method to swap the universe and scratchpad arrays (Make Next generation the current generation)
-        /// Utilized the SetUniverse method in the Universe class (Required because the Universe Setter is private.
-        /// </summary>
+        // Method to swap the universe and scratchpad arrays (Make Next generation the current generation)
+        // Utilized the SetUniverse method in the Universe class (Required because the Universe Setter is private.
         public void SwapBoards()
         {
+            // Sets a temporary holder to the Current Universe
             Cell[,] temp = GameBoard.UniverseGrid;
+
+            // Sets the Current Universe to the ScratchPad
             GameBoard.SetUniverse(ScratchPad.UniverseGrid);
+
+            // Sets the ScratchPad to the Temp Value (Previous Generation)
             ScratchPad.SetUniverse(temp);
         }
 
-        /// <summary>
         /// Method that holds the rules of the game - Determines if the cell lives or dies in the next generation.
-        /// </summary>
         public void GameRules()
         {
             // Variables for Universe and Scratchpad 2D Arrays.
             Cell[,] scratch = ScratchPad.UniverseGrid;
 
+            // Tracks alive neighbors
             int count = 0;
 
             // Iterate through y Dimension of the Universe:  y = Top to Bottom.
@@ -265,8 +266,6 @@ namespace BCoburn_GOL_C202209
 
                     // Holds the LifeState of the currently selected cell
                     bool lifeState = GameBoard.LifeState(x, y);
-
-                    //TODO: Possible refactor opportunity (?Check life state, then run the rules?)
 
                     //Rule: Any living cell with less than 2 living neighbors dies, as if by under-population.
                     if (count < 2 && lifeState == true)
@@ -292,9 +291,7 @@ namespace BCoburn_GOL_C202209
             }
         }
 
-        /// <summary>
-        /// Called when Clear Button on the form is pressed, makes all cells LifeState "dead". (Empties the grid).
-        /// </summary>
+        // Called when Clear Button on the form is pressed, makes all cells LifeState "dead". (Empties the grid).
         public void ClearUniverse()
         {
             // Variable to hold the actual array in the Universe object (The gameBoard).
@@ -316,11 +313,7 @@ namespace BCoburn_GOL_C202209
             }
         }
 
-        /// <summary>
-        /// Called when the GraphicsPanel is Clicked, Handles toggling the life state of the clicked Cell.
-        /// </summary>
-        /// <param name="panel"> The GraphicsPanel that was clicked on. </param>
-        /// <param name="e"> The events that are passed when the GraphicsPanel is clicked on, stores several different variables. </param>
+        // Called when the GraphicsPanel is Clicked, Handles toggling the life state of the clicked Cell.
         public void ToggleCell(Panel panel, MouseEventArgs e)
         {
             // A variable holding the actual array of the Universe object (gameBoard)
@@ -347,10 +340,7 @@ namespace BCoburn_GOL_C202209
             }
         }
 
-        /// <summary>
-        /// Counts the total amount of living cells in the Universe.
-        /// </summary>
-        /// <returns> Returns the number of living cells. </returns>
+        // Counts the total amount of living cells in the Universe.
         public int CountTotalAlive()
         {
             // An int value to hold the number of counted living cells.

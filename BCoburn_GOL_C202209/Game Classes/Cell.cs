@@ -28,10 +28,7 @@ namespace BCoburn_GOL_C202209
             Alive = lifeState;
         }
 
-        /// <summary>
-        /// Accesses and sets a Cells LifeState (Required because setter is private)
-        /// </summary>
-        /// <param name="alive"> The life state to set in the specified Cell. </param>
+        // Accesses and sets a Cells LifeState (Required because setter is private)
         public void SetLifeState(bool alive)
         {
             Alive = alive;
