@@ -419,6 +419,8 @@ namespace BCoburn_GOL_C202209
                 runToolStripMenuItem.Enabled = false;
                 pauseButton.Enabled = true;
                 pauseToolStripMenuItem.Enabled = true;
+                nextButton.Enabled = false;
+                nextToolStripMenuItem.Enabled = false;
             }
         }
 
@@ -431,6 +433,8 @@ namespace BCoburn_GOL_C202209
                 runToolStripMenuItem.Enabled = true;
                 pauseButton.Enabled = false;
                 pauseToolStripMenuItem.Enabled = false;
+                nextButton.Enabled = true;
+                nextToolStripMenuItem.Enabled = true;
             }
         }
 

@@ -15,6 +15,8 @@ namespace BCoburn_GOL_C202209
         public RunToDialog()
         {
             InitializeComponent();
+
+            this.Location = new Point(ActiveForm.Location.X + 239, ActiveForm.Location.Y + 100);
         }
     }
 }
