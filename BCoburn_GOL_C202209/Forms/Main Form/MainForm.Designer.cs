@@ -110,8 +110,8 @@
             this.cellColorToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.viewToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.hUDToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.aliveNeighborsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.gridToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.aliveNeighborsContext = new System.Windows.Forms.ToolStripMenuItem();
+            this.showGridContext = new System.Windows.Forms.ToolStripMenuItem();
             this.graphicsPanel1 = new BCoburn_GOL_C202209.GraphicsPanel();
             this.labelHUD = new BCoburn_GOL_C202209.GraphicsPanel();
             this.menuStrip1.SuspendLayout();
@@ -123,7 +123,6 @@
             // 
             // menuStrip1
             // 
-            this.menuStrip1.GripMargin = new System.Windows.Forms.Padding(2, 2, 0, 2);
             this.menuStrip1.ImageScalingSize = new System.Drawing.Size(24, 24);
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.fileToolStripMenuItem,
@@ -262,7 +261,7 @@
             this.showGridViewMenuItem.Size = new System.Drawing.Size(283, 34);
             this.showGridViewMenuItem.Text = "Grid";
             this.showGridViewMenuItem.ToolTipText = "Toggle Grid";
-            this.showGridViewMenuItem.Click += new System.EventHandler(this.showGridToolStripMenuItem_Clicked);
+            this.showGridViewMenuItem.CheckStateChanged += new System.EventHandler(this.showGridViewMenuItem_CheckStateChanged);
             // 
             // toolStripSeparator13
             // 
@@ -755,12 +754,12 @@
             this.universeColorToolStripMenuItem,
             this.viewToolStripMenuItem});
             this.graphicsPanelContextStrip.Name = "graphicsPanelContextStrip";
-            this.graphicsPanelContextStrip.Size = new System.Drawing.Size(200, 100);
+            this.graphicsPanelContextStrip.Size = new System.Drawing.Size(241, 133);
             // 
             // universeSizeToolStripMenuItem
             // 
             this.universeSizeToolStripMenuItem.Name = "universeSizeToolStripMenuItem";
-            this.universeSizeToolStripMenuItem.Size = new System.Drawing.Size(199, 32);
+            this.universeSizeToolStripMenuItem.Size = new System.Drawing.Size(240, 32);
             this.universeSizeToolStripMenuItem.Text = "Game Options";
             this.universeSizeToolStripMenuItem.ToolTipText = "Change Universe Size";
             // 
@@ -772,42 +771,42 @@
             this.universeColorToolStripMenuItem1,
             this.cellColorToolStripMenuItem});
             this.universeColorToolStripMenuItem.Name = "universeColorToolStripMenuItem";
-            this.universeColorToolStripMenuItem.Size = new System.Drawing.Size(199, 32);
+            this.universeColorToolStripMenuItem.Size = new System.Drawing.Size(240, 32);
             this.universeColorToolStripMenuItem.Text = "Game Colors";
             this.universeColorToolStripMenuItem.ToolTipText = "Change Game Colors";
             // 
             // hUDColorToolStripMenuItem
             // 
             this.hUDColorToolStripMenuItem.Name = "hUDColorToolStripMenuItem";
-            this.hUDColorToolStripMenuItem.Size = new System.Drawing.Size(229, 34);
+            this.hUDColorToolStripMenuItem.Size = new System.Drawing.Size(270, 34);
             this.hUDColorToolStripMenuItem.Text = "HUD Color";
             // 
             // gridColorToolStripMenuItem
             // 
             this.gridColorToolStripMenuItem.Name = "gridColorToolStripMenuItem";
-            this.gridColorToolStripMenuItem.Size = new System.Drawing.Size(229, 34);
+            this.gridColorToolStripMenuItem.Size = new System.Drawing.Size(270, 34);
             this.gridColorToolStripMenuItem.Text = "Grid Color";
             // 
             // universeColorToolStripMenuItem1
             // 
             this.universeColorToolStripMenuItem1.Name = "universeColorToolStripMenuItem1";
-            this.universeColorToolStripMenuItem1.Size = new System.Drawing.Size(229, 34);
+            this.universeColorToolStripMenuItem1.Size = new System.Drawing.Size(270, 34);
             this.universeColorToolStripMenuItem1.Text = "Universe Color";
             // 
             // cellColorToolStripMenuItem
             // 
             this.cellColorToolStripMenuItem.Name = "cellColorToolStripMenuItem";
-            this.cellColorToolStripMenuItem.Size = new System.Drawing.Size(229, 34);
+            this.cellColorToolStripMenuItem.Size = new System.Drawing.Size(270, 34);
             this.cellColorToolStripMenuItem.Text = "Cell Color";
             // 
             // viewToolStripMenuItem
             // 
             this.viewToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.hUDToolStripMenuItem,
-            this.aliveNeighborsToolStripMenuItem,
-            this.gridToolStripMenuItem});
+            this.aliveNeighborsContext,
+            this.showGridContext});
             this.viewToolStripMenuItem.Name = "viewToolStripMenuItem";
-            this.viewToolStripMenuItem.Size = new System.Drawing.Size(199, 32);
+            this.viewToolStripMenuItem.Size = new System.Drawing.Size(240, 32);
             this.viewToolStripMenuItem.Text = "View";
             // 
             // hUDToolStripMenuItem
@@ -816,30 +815,32 @@
             this.hUDToolStripMenuItem.CheckOnClick = true;
             this.hUDToolStripMenuItem.CheckState = System.Windows.Forms.CheckState.Checked;
             this.hUDToolStripMenuItem.Name = "hUDToolStripMenuItem";
-            this.hUDToolStripMenuItem.Size = new System.Drawing.Size(240, 34);
+            this.hUDToolStripMenuItem.Size = new System.Drawing.Size(270, 34);
             this.hUDToolStripMenuItem.Text = "HUD";
             this.hUDToolStripMenuItem.ToolTipText = "Toggle HUD";
             this.hUDToolStripMenuItem.Click += new System.EventHandler(this.hUDToolStripMenuItem_Click);
             // 
-            // aliveNeighborsToolStripMenuItem
+            // aliveNeighborsContext
             // 
-            this.aliveNeighborsToolStripMenuItem.Checked = true;
-            this.aliveNeighborsToolStripMenuItem.CheckOnClick = true;
-            this.aliveNeighborsToolStripMenuItem.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.aliveNeighborsToolStripMenuItem.Name = "aliveNeighborsToolStripMenuItem";
-            this.aliveNeighborsToolStripMenuItem.Size = new System.Drawing.Size(240, 34);
-            this.aliveNeighborsToolStripMenuItem.Text = "Alive Neighbors";
-            this.aliveNeighborsToolStripMenuItem.ToolTipText = "Toggle Alive Neighbors";
+            this.aliveNeighborsContext.Checked = true;
+            this.aliveNeighborsContext.CheckOnClick = true;
+            this.aliveNeighborsContext.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.aliveNeighborsContext.Name = "aliveNeighborsContext";
+            this.aliveNeighborsContext.Size = new System.Drawing.Size(270, 34);
+            this.aliveNeighborsContext.Text = "Alive Neighbors";
+            this.aliveNeighborsContext.ToolTipText = "Toggle Alive Neighbors";
+            this.aliveNeighborsContext.Click += new System.EventHandler(this.aliveNeighborsToolStripMenuItem_Click);
             // 
-            // gridToolStripMenuItem
+            // showGridContext
             // 
-            this.gridToolStripMenuItem.Checked = true;
-            this.gridToolStripMenuItem.CheckOnClick = true;
-            this.gridToolStripMenuItem.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.gridToolStripMenuItem.Name = "gridToolStripMenuItem";
-            this.gridToolStripMenuItem.Size = new System.Drawing.Size(240, 34);
-            this.gridToolStripMenuItem.Text = "Grid";
-            this.gridToolStripMenuItem.ToolTipText = "Toggle Grid";
+            this.showGridContext.Checked = true;
+            this.showGridContext.CheckOnClick = true;
+            this.showGridContext.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.showGridContext.Name = "showGridContext";
+            this.showGridContext.Size = new System.Drawing.Size(270, 34);
+            this.showGridContext.Text = "Grid";
+            this.showGridContext.ToolTipText = "Toggle Grid";
+            this.showGridContext.Click += new System.EventHandler(this.gridToolStripMenuItem_Click);
             // 
             // graphicsPanel1
             // 
@@ -976,8 +977,8 @@
         private System.Windows.Forms.ToolStripMenuItem universeColorToolStripMenuItem1;
         private System.Windows.Forms.ToolStripMenuItem cellColorToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem viewToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem gridToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem aliveNeighborsToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem showGridContext;
+        private System.Windows.Forms.ToolStripMenuItem aliveNeighborsContext;
         private System.Windows.Forms.ToolStripMenuItem hUDToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem hUDColorToolStripMenuItem;
     }

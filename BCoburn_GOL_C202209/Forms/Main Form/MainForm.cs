@@ -740,22 +740,20 @@ namespace BCoburn_GOL_C202209
             graphicsPanel1.Invalidate();
         }
 
-        private void showNumbersViewMenuToggle_Clicked(object sender, EventArgs e)
-        {
-            
-        }
-
         private void showNumbersViewMenuToggle_CheckStateChanged(object sender, EventArgs e)
         {
             if (showNumbersViewMenuToggle.Checked)
             {
                 DisplayNumbers = DisplayNumbers.Yes;
+                aliveNeighborsContext.Checked = true;
+
             }
             else
             {
                 DisplayNumbers = DisplayNumbers.No;
+                aliveNeighborsContext.Checked = false;
             }
-
+            
             graphicsPanel1.Invalidate();
         }
 
@@ -775,15 +773,17 @@ namespace BCoburn_GOL_C202209
             }
         }
 
-        private void showGridToolStripMenuItem_Clicked(object sender, EventArgs e)
+        private void showGridViewMenuItem_CheckStateChanged(object sender, EventArgs e)
         {
             if (showGridViewMenuItem.Checked)
             {
                 ShowGrid = ShowGrid.Yes;
+                showGridContext.Checked = true;
             }
             else
             {
                 ShowGrid = ShowGrid.No;
+                showGridContext.Checked = false;
             }
 
             graphicsPanel1.Invalidate();
@@ -888,6 +888,16 @@ namespace BCoburn_GOL_C202209
         private void hUDToolStripMenuItem_Click(object sender, EventArgs e)
         {
             showHUDViewMenuToggle.Checked = !showHUDViewMenuToggle.Checked;
+        }
+
+        private void aliveNeighborsToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            showNumbersViewMenuToggle.Checked = !showNumbersViewMenuToggle.Checked;
+        }
+
+        private void gridToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            showGridViewMenuItem.Checked = !showGridViewMenuItem.Checked;
         }
 
         
