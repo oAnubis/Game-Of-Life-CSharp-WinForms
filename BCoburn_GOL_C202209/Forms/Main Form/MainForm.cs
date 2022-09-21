@@ -2,7 +2,6 @@
 using System;
 using System.Drawing;
 using System.IO;
-using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using Timer = System.Windows.Forms.Timer;
@@ -13,7 +12,7 @@ namespace BCoburn_GOL_C202209
     {
         #region Events
 
-        public event ApplyViewEventHandler Apply;
+        public event ApplyColorEventHandler ApplyColor;
 
         #endregion Events
 
@@ -746,14 +745,13 @@ namespace BCoburn_GOL_C202209
             {
                 DisplayNumbers = DisplayNumbers.Yes;
                 aliveNeighborsContext.Checked = true;
-
             }
             else
             {
                 DisplayNumbers = DisplayNumbers.No;
                 aliveNeighborsContext.Checked = false;
             }
-            
+
             graphicsPanel1.Invalidate();
         }
 
@@ -900,6 +898,72 @@ namespace BCoburn_GOL_C202209
             showGridViewMenuItem.Checked = !showGridViewMenuItem.Checked;
         }
 
-        
+        private void hUDColorToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            ColorDialog colorDialog = new ColorDialog();
+
+            ApplyColor += _game.Game_ApplyOneColor;
+
+            if (colorDialog.ShowDialog() == DialogResult.OK)
+            {
+                if (ApplyColor != null)
+                {
+                    ApplyColor(this, new ColorsApplyArgs(colorDialog.Color), 4);
+                }
+            }
+
+            graphicsPanel1.Invalidate();
+        }
+
+        private void gridColorToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            ColorDialog colorDialog = new ColorDialog();
+
+            ApplyColor += _game.Game_ApplyOneColor;
+
+            if (colorDialog.ShowDialog() == DialogResult.OK)
+            {
+                if (ApplyColor != null)
+                {
+                    ApplyColor(this, new ColorsApplyArgs(colorDialog.Color), 1);
+                }
+            }
+
+            graphicsPanel1.Invalidate();
+        }
+
+        private void universeColorToolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+            ColorDialog colorDialog = new ColorDialog();
+
+            ApplyColor += _game.Game_ApplyOneColor;
+
+            if (colorDialog.ShowDialog() == DialogResult.OK)
+            {
+                if (ApplyColor != null)
+                {
+                    ApplyColor(this, new ColorsApplyArgs(colorDialog.Color), 3);
+                }
+            }
+
+            graphicsPanel1.Invalidate();
+        }
+
+        private void cellColorToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            ColorDialog colorDialog = new ColorDialog();
+
+            ApplyColor += _game.Game_ApplyOneColor;
+
+            if (colorDialog.ShowDialog() == DialogResult.OK)
+            {
+                if (ApplyColor != null)
+                {
+                    ApplyColor(this, new ColorsApplyArgs(colorDialog.Color), 2);
+                }
+            }
+
+            graphicsPanel1.Invalidate();
+        }
     }
 }

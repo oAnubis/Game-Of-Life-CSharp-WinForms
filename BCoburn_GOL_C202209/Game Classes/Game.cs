@@ -31,13 +31,16 @@ namespace BCoburn_GOL_C202209
 
         // Determines the color of the gridlines
         //TODO: Allow to be customizable
+        // Determines the Color of the Grid Lines (Component: 1)
         public Color GridColor { get; private set; }
 
-        // Determines the color of Alive Cells.
+        // Determines the color of Alive Cells. (Component: 2)
         public Color CellColor { get; private set; }
 
+        // Determines the Color of the Universe (Component: 3)
         public Color UniverseColor { get; private set; }
 
+        // Determines the Color of the HUD Text (Component: 4)
         public Color HUDColor { get; private set; }
 
         // Sets the Font of the numbers shown inside each Cell (If the setting in the view menu is checked).
@@ -60,6 +63,28 @@ namespace BCoburn_GOL_C202209
             CellColor = e.CellColor;
             UniverseColor = e.UniverseColor;
             HUDColor = e.HUDColor;
+        }
+
+        public void Game_ApplyOneColor(object sender, ColorsApplyArgs e, int componentNumber)
+        {
+            switch (componentNumber)
+            {
+                case 1:
+                    GridColor = e.AnyColor;
+                    break;
+
+                case 2:
+                    CellColor = e.AnyColor;
+                    break;
+
+                case 3:
+                    UniverseColor = e.AnyColor;
+                    break;
+
+                case 4:
+                    HUDColor = e.AnyColor;
+                    break;
+            }
         }
 
         /// <summary>
