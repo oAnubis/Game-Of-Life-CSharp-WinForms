@@ -68,7 +68,6 @@
     <Compile Include="Forms\Game Colors Dialog\GameColorsDialog.Designer.cs">
       <DependentUpon>GameColorsDialog.cs</DependentUpon>
     </Compile>
-    <Compile Include="Forms\Main Form\ViewApplyArgs.cs" />
     <Compile Include="Forms\Options Dialog\OptionsApplyArgs.cs" />
     <Compile Include="Forms\Options Dialog\OptionsModalDialog.cs">
       <SubType>Form</SubType>

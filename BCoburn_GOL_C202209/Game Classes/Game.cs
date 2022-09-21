@@ -6,8 +6,6 @@ namespace BCoburn_GOL_C202209
 {
     public class Game
     {
-        public event ApplyColorsEventHandler ApplyColors;
-
         // PROPERTIES FOR THE GAME
         //TODO: Change most logic from form to here in the form of Methods
 
@@ -54,7 +52,6 @@ namespace BCoburn_GOL_C202209
         {
             InitializeObjects();
             _mainForm = form;
-            ApplyColors += Game_ApplyColors;
         }
 
         public void Game_ApplyColors(object sender, ColorsApplyArgs e)

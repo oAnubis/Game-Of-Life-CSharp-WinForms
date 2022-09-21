@@ -150,6 +150,7 @@ namespace BCoburn_GOL_C202209
             this.HUDColorPreview.Name = "HUDColorPreview";
             this.HUDColorPreview.Size = new System.Drawing.Size(31, 30);
             this.HUDColorPreview.TabIndex = 9;
+            this.HUDColorPreview.Click += new System.EventHandler(this.HUDColorButton_Click);
             // 
             // GameColorsDialog
             // 

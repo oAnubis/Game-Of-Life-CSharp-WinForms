@@ -37,7 +37,6 @@
             this.toolStripSeparator = new System.Windows.Forms.ToolStripSeparator();
             this.saveToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
-            this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
             this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.displaySettingsViewMenuLabel = new System.Windows.Forms.ToolStripMenuItem();
@@ -62,7 +61,7 @@
             this.currentSeedToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.gameSettingsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator14 = new System.Windows.Forms.ToolStripSeparator();
-            this.randomizeSettingsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.SeedSelectorToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator18 = new System.Windows.Forms.ToolStripSeparator();
             this.gameColorsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.optionsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -114,6 +113,8 @@
             this.showGridContext = new System.Windows.Forms.ToolStripMenuItem();
             this.graphicsPanel1 = new BCoburn_GOL_C202209.GraphicsPanel();
             this.labelHUD = new BCoburn_GOL_C202209.GraphicsPanel();
+            this.toolStripSeparator20 = new System.Windows.Forms.ToolStripSeparator();
+            this.importToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.toolStrip.SuspendLayout();
             this.statusStrip1.SuspendLayout();
@@ -132,7 +133,7 @@
             this.helpToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(1172, 36);
+            this.menuStrip1.Size = new System.Drawing.Size(1172, 33);
             this.menuStrip1.TabIndex = 0;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -141,13 +142,14 @@
             this.fileToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.newToolStripMenuItem,
             this.openToolStripMenuItem,
+            this.toolStripSeparator20,
+            this.importToolStripMenuItem,
             this.toolStripSeparator,
             this.saveToolStripMenuItem,
             this.toolStripSeparator1,
-            this.toolStripSeparator2,
             this.exitToolStripMenuItem});
             this.fileToolStripMenuItem.Name = "fileToolStripMenuItem";
-            this.fileToolStripMenuItem.Size = new System.Drawing.Size(54, 30);
+            this.fileToolStripMenuItem.Size = new System.Drawing.Size(54, 29);
             this.fileToolStripMenuItem.Text = "&File";
             // 
             // newToolStripMenuItem
@@ -156,7 +158,7 @@
             this.newToolStripMenuItem.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.newToolStripMenuItem.Name = "newToolStripMenuItem";
             this.newToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.N)));
-            this.newToolStripMenuItem.Size = new System.Drawing.Size(223, 34);
+            this.newToolStripMenuItem.Size = new System.Drawing.Size(270, 34);
             this.newToolStripMenuItem.Text = "&New";
             this.newToolStripMenuItem.Click += new System.EventHandler(this.newToolStripButton_Click);
             // 
@@ -166,14 +168,14 @@
             this.openToolStripMenuItem.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.openToolStripMenuItem.Name = "openToolStripMenuItem";
             this.openToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.O)));
-            this.openToolStripMenuItem.Size = new System.Drawing.Size(223, 34);
+            this.openToolStripMenuItem.Size = new System.Drawing.Size(270, 34);
             this.openToolStripMenuItem.Text = "&Open";
             this.openToolStripMenuItem.Click += new System.EventHandler(this.openToolStripButton_Click);
             // 
             // toolStripSeparator
             // 
             this.toolStripSeparator.Name = "toolStripSeparator";
-            this.toolStripSeparator.Size = new System.Drawing.Size(220, 6);
+            this.toolStripSeparator.Size = new System.Drawing.Size(267, 6);
             // 
             // saveToolStripMenuItem
             // 
@@ -181,24 +183,19 @@
             this.saveToolStripMenuItem.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.saveToolStripMenuItem.Name = "saveToolStripMenuItem";
             this.saveToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.S)));
-            this.saveToolStripMenuItem.Size = new System.Drawing.Size(223, 34);
+            this.saveToolStripMenuItem.Size = new System.Drawing.Size(270, 34);
             this.saveToolStripMenuItem.Text = "&Save";
             this.saveToolStripMenuItem.Click += new System.EventHandler(this.saveToolStripButton_Click);
             // 
             // toolStripSeparator1
             // 
             this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(220, 6);
-            // 
-            // toolStripSeparator2
-            // 
-            this.toolStripSeparator2.Name = "toolStripSeparator2";
-            this.toolStripSeparator2.Size = new System.Drawing.Size(220, 6);
+            this.toolStripSeparator1.Size = new System.Drawing.Size(267, 6);
             // 
             // exitToolStripMenuItem
             // 
             this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
-            this.exitToolStripMenuItem.Size = new System.Drawing.Size(223, 34);
+            this.exitToolStripMenuItem.Size = new System.Drawing.Size(270, 34);
             this.exitToolStripMenuItem.Text = "E&xit";
             // 
             // toolStripMenuItem1
@@ -214,7 +211,7 @@
             this.toroidalViewMenuItem,
             this.finiteViewMenuItem});
             this.toolStripMenuItem1.Name = "toolStripMenuItem1";
-            this.toolStripMenuItem1.Size = new System.Drawing.Size(65, 30);
+            this.toolStripMenuItem1.Size = new System.Drawing.Size(65, 29);
             this.toolStripMenuItem1.Text = "View";
             // 
             // displaySettingsViewMenuLabel
@@ -318,7 +315,7 @@
             this.toolStripSeparator8,
             this.randomizeToolStripMenuItem});
             this.gameCommandsToolStripMenuItem.Name = "gameCommandsToolStripMenuItem";
-            this.gameCommandsToolStripMenuItem.Size = new System.Drawing.Size(171, 30);
+            this.gameCommandsToolStripMenuItem.Size = new System.Drawing.Size(171, 29);
             this.gameCommandsToolStripMenuItem.Text = "Game Commands";
             // 
             // runToolStripMenuItem
@@ -403,7 +400,7 @@
             // 
             this.gameSettingsToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.toolStripSeparator14,
-            this.randomizeSettingsToolStripMenuItem,
+            this.SeedSelectorToolStripMenuItem,
             this.toolStripSeparator18,
             this.gameColorsToolStripMenuItem,
             this.optionsToolStripMenuItem,
@@ -412,7 +409,7 @@
             this.revertToLastToolStripMenuItem,
             this.resetToDefaultToolStripMenuItem});
             this.gameSettingsToolStripMenuItem.Name = "gameSettingsToolStripMenuItem";
-            this.gameSettingsToolStripMenuItem.Size = new System.Drawing.Size(143, 30);
+            this.gameSettingsToolStripMenuItem.Size = new System.Drawing.Size(143, 29);
             this.gameSettingsToolStripMenuItem.Text = "Game Settings";
             // 
             // toolStripSeparator14
@@ -420,12 +417,12 @@
             this.toolStripSeparator14.Name = "toolStripSeparator14";
             this.toolStripSeparator14.Size = new System.Drawing.Size(238, 6);
             // 
-            // randomizeSettingsToolStripMenuItem
+            // SeedSelectorToolStripMenuItem
             // 
-            this.randomizeSettingsToolStripMenuItem.Name = "randomizeSettingsToolStripMenuItem";
-            this.randomizeSettingsToolStripMenuItem.Size = new System.Drawing.Size(241, 34);
-            this.randomizeSettingsToolStripMenuItem.Text = "Seed Selector";
-            this.randomizeSettingsToolStripMenuItem.Click += new System.EventHandler(this.randomizeSettingsToolStripMenuItem_Click);
+            this.SeedSelectorToolStripMenuItem.Name = "SeedSelectorToolStripMenuItem";
+            this.SeedSelectorToolStripMenuItem.Size = new System.Drawing.Size(241, 34);
+            this.SeedSelectorToolStripMenuItem.Text = "Seed Selector";
+            this.SeedSelectorToolStripMenuItem.Click += new System.EventHandler(this.seedSelectorToolStripMenuItem_Click);
             // 
             // toolStripSeparator18
             // 
@@ -479,7 +476,7 @@
             this.toolStripSeparator5,
             this.aboutToolStripMenuItem});
             this.helpToolStripMenuItem.Name = "helpToolStripMenuItem";
-            this.helpToolStripMenuItem.Size = new System.Drawing.Size(65, 30);
+            this.helpToolStripMenuItem.Size = new System.Drawing.Size(65, 29);
             this.helpToolStripMenuItem.Text = "&Help";
             // 
             // contentsToolStripMenuItem
@@ -536,10 +533,10 @@
             this.currentSeedRandomizeButton,
             this.randomSeedRandomizeButton,
             this.timeSeedRandomizeButton});
-            this.toolStrip.Location = new System.Drawing.Point(0, 36);
+            this.toolStrip.Location = new System.Drawing.Point(0, 33);
             this.toolStrip.Name = "toolStrip";
             this.toolStrip.Padding = new System.Windows.Forms.Padding(0, 0, 3, 0);
-            this.toolStrip.Size = new System.Drawing.Size(1172, 38);
+            this.toolStrip.Size = new System.Drawing.Size(1172, 36);
             this.toolStrip.TabIndex = 1;
             this.toolStrip.Text = "toolStrip";
             // 
@@ -551,19 +548,19 @@
             this.importButton.ImageTransparentColor = System.Drawing.Color.White;
             this.importButton.Name = "importButton";
             this.importButton.Padding = new System.Windows.Forms.Padding(0, 0, 0, 3);
-            this.importButton.Size = new System.Drawing.Size(34, 33);
+            this.importButton.Size = new System.Drawing.Size(34, 31);
             this.importButton.Text = "toolStripButton1";
             this.importButton.Click += new System.EventHandler(this.importButton_Click);
             // 
             // toolStripSeparator17
             // 
             this.toolStripSeparator17.Name = "toolStripSeparator17";
-            this.toolStripSeparator17.Size = new System.Drawing.Size(6, 38);
+            this.toolStripSeparator17.Size = new System.Drawing.Size(6, 36);
             // 
             // toolStripSeparator16
             // 
             this.toolStripSeparator16.Name = "toolStripSeparator16";
-            this.toolStripSeparator16.Size = new System.Drawing.Size(6, 38);
+            this.toolStripSeparator16.Size = new System.Drawing.Size(6, 36);
             // 
             // newToolStripButton
             // 
@@ -571,7 +568,7 @@
             this.newToolStripButton.Image = ((System.Drawing.Image)(resources.GetObject("newToolStripButton.Image")));
             this.newToolStripButton.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.newToolStripButton.Name = "newToolStripButton";
-            this.newToolStripButton.Size = new System.Drawing.Size(34, 33);
+            this.newToolStripButton.Size = new System.Drawing.Size(34, 31);
             this.newToolStripButton.Text = "&New";
             this.newToolStripButton.Click += new System.EventHandler(this.newToolStripButton_Click);
             // 
@@ -581,7 +578,7 @@
             this.openToolStripButton.Image = ((System.Drawing.Image)(resources.GetObject("openToolStripButton.Image")));
             this.openToolStripButton.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.openToolStripButton.Name = "openToolStripButton";
-            this.openToolStripButton.Size = new System.Drawing.Size(34, 33);
+            this.openToolStripButton.Size = new System.Drawing.Size(34, 31);
             this.openToolStripButton.Text = "&Open";
             this.openToolStripButton.Click += new System.EventHandler(this.openToolStripButton_Click);
             // 
@@ -591,19 +588,19 @@
             this.saveToolStripButton.Image = ((System.Drawing.Image)(resources.GetObject("saveToolStripButton.Image")));
             this.saveToolStripButton.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.saveToolStripButton.Name = "saveToolStripButton";
-            this.saveToolStripButton.Size = new System.Drawing.Size(34, 33);
+            this.saveToolStripButton.Size = new System.Drawing.Size(34, 31);
             this.saveToolStripButton.Text = "&Save";
             this.saveToolStripButton.Click += new System.EventHandler(this.saveToolStripButton_Click);
             // 
             // toolStripSeparator10
             // 
             this.toolStripSeparator10.Name = "toolStripSeparator10";
-            this.toolStripSeparator10.Size = new System.Drawing.Size(6, 38);
+            this.toolStripSeparator10.Size = new System.Drawing.Size(6, 36);
             // 
             // toolStripSeparator9
             // 
             this.toolStripSeparator9.Name = "toolStripSeparator9";
-            this.toolStripSeparator9.Size = new System.Drawing.Size(6, 38);
+            this.toolStripSeparator9.Size = new System.Drawing.Size(6, 36);
             // 
             // clearButton
             // 
@@ -611,7 +608,7 @@
             this.clearButton.Image = ((System.Drawing.Image)(resources.GetObject("clearButton.Image")));
             this.clearButton.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.clearButton.Name = "clearButton";
-            this.clearButton.Size = new System.Drawing.Size(34, 33);
+            this.clearButton.Size = new System.Drawing.Size(34, 31);
             this.clearButton.Text = "Clear Universe";
             this.clearButton.ToolTipText = "Clear Universe";
             this.clearButton.Click += new System.EventHandler(this.clearButton_Click);
@@ -619,12 +616,12 @@
             // toolStripSeparator6
             // 
             this.toolStripSeparator6.Name = "toolStripSeparator6";
-            this.toolStripSeparator6.Size = new System.Drawing.Size(6, 38);
+            this.toolStripSeparator6.Size = new System.Drawing.Size(6, 36);
             // 
             // toolStripSeparator7
             // 
             this.toolStripSeparator7.Name = "toolStripSeparator7";
-            this.toolStripSeparator7.Size = new System.Drawing.Size(6, 38);
+            this.toolStripSeparator7.Size = new System.Drawing.Size(6, 36);
             // 
             // runButton
             // 
@@ -632,7 +629,7 @@
             this.runButton.Image = ((System.Drawing.Image)(resources.GetObject("runButton.Image")));
             this.runButton.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.runButton.Name = "runButton";
-            this.runButton.Size = new System.Drawing.Size(34, 33);
+            this.runButton.Size = new System.Drawing.Size(34, 31);
             this.runButton.Text = "Run";
             this.runButton.ToolTipText = "Run Simulation";
             this.runButton.Click += new System.EventHandler(this.runButton_Click);
@@ -643,7 +640,7 @@
             this.pauseButton.Image = global::BCoburn_GOL_C202209.Properties.Resources.Pause;
             this.pauseButton.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.pauseButton.Name = "pauseButton";
-            this.pauseButton.Size = new System.Drawing.Size(34, 33);
+            this.pauseButton.Size = new System.Drawing.Size(34, 31);
             this.pauseButton.Text = "Pause";
             this.pauseButton.Click += new System.EventHandler(this.pauseButton_Click);
             // 
@@ -653,7 +650,7 @@
             this.stopButton.Image = ((System.Drawing.Image)(resources.GetObject("stopButton.Image")));
             this.stopButton.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.stopButton.Name = "stopButton";
-            this.stopButton.Size = new System.Drawing.Size(34, 33);
+            this.stopButton.Size = new System.Drawing.Size(34, 31);
             this.stopButton.Text = "stopButton";
             this.stopButton.ToolTipText = "Stop";
             this.stopButton.Click += new System.EventHandler(this.stopButton_Click);
@@ -664,7 +661,7 @@
             this.nextButton.Image = ((System.Drawing.Image)(resources.GetObject("nextButton.Image")));
             this.nextButton.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.nextButton.Name = "nextButton";
-            this.nextButton.Size = new System.Drawing.Size(34, 33);
+            this.nextButton.Size = new System.Drawing.Size(34, 31);
             this.nextButton.Text = "Next";
             this.nextButton.ToolTipText = "Next Generation";
             this.nextButton.Click += new System.EventHandler(this.nextButton_Click);
@@ -672,14 +669,14 @@
             // toolStripSeparator4
             // 
             this.toolStripSeparator4.Name = "toolStripSeparator4";
-            this.toolStripSeparator4.Size = new System.Drawing.Size(6, 38);
+            this.toolStripSeparator4.Size = new System.Drawing.Size(6, 36);
             // 
             // toolStripSeparator3
             // 
             this.toolStripSeparator3.BackColor = System.Drawing.SystemColors.Control;
             this.toolStripSeparator3.ForeColor = System.Drawing.Color.DarkBlue;
             this.toolStripSeparator3.Name = "toolStripSeparator3";
-            this.toolStripSeparator3.Size = new System.Drawing.Size(6, 38);
+            this.toolStripSeparator3.Size = new System.Drawing.Size(6, 36);
             // 
             // currentSeedRandomizeButton
             // 
@@ -687,7 +684,7 @@
             this.currentSeedRandomizeButton.Image = global::BCoburn_GOL_C202209.Properties.Resources.CurrentContextArrow;
             this.currentSeedRandomizeButton.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.currentSeedRandomizeButton.Name = "currentSeedRandomizeButton";
-            this.currentSeedRandomizeButton.Size = new System.Drawing.Size(34, 33);
+            this.currentSeedRandomizeButton.Size = new System.Drawing.Size(34, 31);
             this.currentSeedRandomizeButton.Text = "Quick Randomize Current Seed";
             this.currentSeedRandomizeButton.ToolTipText = "Randomize (Current Seed)";
             this.currentSeedRandomizeButton.Click += new System.EventHandler(this.currentSeedRandomizeButton_Click);
@@ -698,7 +695,7 @@
             this.randomSeedRandomizeButton.Image = ((System.Drawing.Image)(resources.GetObject("randomSeedRandomizeButton.Image")));
             this.randomSeedRandomizeButton.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.randomSeedRandomizeButton.Name = "randomSeedRandomizeButton";
-            this.randomSeedRandomizeButton.Size = new System.Drawing.Size(34, 33);
+            this.randomSeedRandomizeButton.Size = new System.Drawing.Size(34, 31);
             this.randomSeedRandomizeButton.Text = "Quick Randomize";
             this.randomSeedRandomizeButton.ToolTipText = "Quick Randomize (Random Seed)";
             this.randomSeedRandomizeButton.Click += new System.EventHandler(this.randomSeedRandomizeButton_Click);
@@ -709,7 +706,7 @@
             this.timeSeedRandomizeButton.Image = global::BCoburn_GOL_C202209.Properties.Resources.Time;
             this.timeSeedRandomizeButton.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.timeSeedRandomizeButton.Name = "timeSeedRandomizeButton";
-            this.timeSeedRandomizeButton.Size = new System.Drawing.Size(34, 33);
+            this.timeSeedRandomizeButton.Size = new System.Drawing.Size(34, 31);
             this.timeSeedRandomizeButton.Text = "Time Seed Randomize";
             this.timeSeedRandomizeButton.ToolTipText = "Quick Randomize (Time Seed)";
             this.timeSeedRandomizeButton.Click += new System.EventHandler(this.timeSeedRandomizeButton_Click);
@@ -754,12 +751,12 @@
             this.universeColorToolStripMenuItem,
             this.viewToolStripMenuItem});
             this.graphicsPanelContextStrip.Name = "graphicsPanelContextStrip";
-            this.graphicsPanelContextStrip.Size = new System.Drawing.Size(241, 133);
+            this.graphicsPanelContextStrip.Size = new System.Drawing.Size(200, 100);
             // 
             // universeSizeToolStripMenuItem
             // 
             this.universeSizeToolStripMenuItem.Name = "universeSizeToolStripMenuItem";
-            this.universeSizeToolStripMenuItem.Size = new System.Drawing.Size(240, 32);
+            this.universeSizeToolStripMenuItem.Size = new System.Drawing.Size(199, 32);
             this.universeSizeToolStripMenuItem.Text = "Game Options";
             this.universeSizeToolStripMenuItem.ToolTipText = "Change Universe Size";
             this.universeSizeToolStripMenuItem.Click += new System.EventHandler(this.optionsToolStripMenuItem_Click);
@@ -772,35 +769,35 @@
             this.universeColorToolStripMenuItem1,
             this.cellColorToolStripMenuItem});
             this.universeColorToolStripMenuItem.Name = "universeColorToolStripMenuItem";
-            this.universeColorToolStripMenuItem.Size = new System.Drawing.Size(240, 32);
+            this.universeColorToolStripMenuItem.Size = new System.Drawing.Size(199, 32);
             this.universeColorToolStripMenuItem.Text = "Game Colors";
             this.universeColorToolStripMenuItem.ToolTipText = "Change Game Colors";
             // 
             // hUDColorToolStripMenuItem
             // 
             this.hUDColorToolStripMenuItem.Name = "hUDColorToolStripMenuItem";
-            this.hUDColorToolStripMenuItem.Size = new System.Drawing.Size(270, 34);
+            this.hUDColorToolStripMenuItem.Size = new System.Drawing.Size(229, 34);
             this.hUDColorToolStripMenuItem.Text = "HUD Color";
             this.hUDColorToolStripMenuItem.Click += new System.EventHandler(this.hUDColorToolStripMenuItem_Click);
             // 
             // gridColorToolStripMenuItem
             // 
             this.gridColorToolStripMenuItem.Name = "gridColorToolStripMenuItem";
-            this.gridColorToolStripMenuItem.Size = new System.Drawing.Size(270, 34);
+            this.gridColorToolStripMenuItem.Size = new System.Drawing.Size(229, 34);
             this.gridColorToolStripMenuItem.Text = "Grid Color";
             this.gridColorToolStripMenuItem.Click += new System.EventHandler(this.gridColorToolStripMenuItem_Click);
             // 
             // universeColorToolStripMenuItem1
             // 
             this.universeColorToolStripMenuItem1.Name = "universeColorToolStripMenuItem1";
-            this.universeColorToolStripMenuItem1.Size = new System.Drawing.Size(270, 34);
+            this.universeColorToolStripMenuItem1.Size = new System.Drawing.Size(229, 34);
             this.universeColorToolStripMenuItem1.Text = "Universe Color";
             this.universeColorToolStripMenuItem1.Click += new System.EventHandler(this.universeColorToolStripMenuItem1_Click);
             // 
             // cellColorToolStripMenuItem
             // 
             this.cellColorToolStripMenuItem.Name = "cellColorToolStripMenuItem";
-            this.cellColorToolStripMenuItem.Size = new System.Drawing.Size(270, 34);
+            this.cellColorToolStripMenuItem.Size = new System.Drawing.Size(229, 34);
             this.cellColorToolStripMenuItem.Text = "Cell Color";
             this.cellColorToolStripMenuItem.Click += new System.EventHandler(this.cellColorToolStripMenuItem_Click);
             // 
@@ -811,7 +808,7 @@
             this.aliveNeighborsContext,
             this.showGridContext});
             this.viewToolStripMenuItem.Name = "viewToolStripMenuItem";
-            this.viewToolStripMenuItem.Size = new System.Drawing.Size(240, 32);
+            this.viewToolStripMenuItem.Size = new System.Drawing.Size(199, 32);
             this.viewToolStripMenuItem.Text = "View";
             // 
             // hUDToolStripMenuItem
@@ -854,10 +851,10 @@
             this.graphicsPanel1.ContextMenuStrip = this.graphicsPanelContextStrip;
             this.graphicsPanel1.Controls.Add(this.labelHUD);
             this.graphicsPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.graphicsPanel1.Location = new System.Drawing.Point(0, 74);
+            this.graphicsPanel1.Location = new System.Drawing.Point(0, 69);
             this.graphicsPanel1.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.graphicsPanel1.Name = "graphicsPanel1";
-            this.graphicsPanel1.Size = new System.Drawing.Size(1172, 752);
+            this.graphicsPanel1.Size = new System.Drawing.Size(1172, 757);
             this.graphicsPanel1.TabIndex = 3;
             this.graphicsPanel1.Paint += new System.Windows.Forms.PaintEventHandler(this.graphicsPanel1_Paint);
             this.graphicsPanel1.MouseClick += new System.Windows.Forms.MouseEventHandler(this.graphicsPanel1_MouseClick);
@@ -867,11 +864,24 @@
             this.labelHUD.BackColor = System.Drawing.Color.Transparent;
             this.labelHUD.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.labelHUD.Enabled = false;
-            this.labelHUD.Location = new System.Drawing.Point(0, 679);
+            this.labelHUD.Location = new System.Drawing.Point(0, 684);
             this.labelHUD.Name = "labelHUD";
             this.labelHUD.Size = new System.Drawing.Size(1172, 73);
             this.labelHUD.TabIndex = 2;
             this.labelHUD.Paint += new System.Windows.Forms.PaintEventHandler(this.PaintHud);
+            // 
+            // toolStripSeparator20
+            // 
+            this.toolStripSeparator20.Name = "toolStripSeparator20";
+            this.toolStripSeparator20.Size = new System.Drawing.Size(267, 6);
+            // 
+            // importToolStripMenuItem
+            // 
+            this.importToolStripMenuItem.Image = global::BCoburn_GOL_C202209.Properties.Resources.Import_Icon_Custom_;
+            this.importToolStripMenuItem.Name = "importToolStripMenuItem";
+            this.importToolStripMenuItem.Size = new System.Drawing.Size(270, 34);
+            this.importToolStripMenuItem.Text = "Import Pattern";
+            this.importToolStripMenuItem.Click += new System.EventHandler(this.importButton_Click);
             // 
             // MainForm
             // 
@@ -912,7 +922,6 @@
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator;
         private System.Windows.Forms.ToolStripMenuItem saveToolStripMenuItem;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
-        private System.Windows.Forms.ToolStripSeparator toolStripSeparator2;
         private System.Windows.Forms.ToolStripMenuItem exitToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem helpToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem contentsToolStripMenuItem;
@@ -947,7 +956,7 @@
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator9;
         private System.Windows.Forms.ToolStripButton randomSeedRandomizeButton;
         private System.Windows.Forms.ToolStripMenuItem gameSettingsToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem randomizeSettingsToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem SeedSelectorToolStripMenuItem;
         private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabelAliveCount;
         private System.Windows.Forms.ToolStripButton timeSeedRandomizeButton;
         private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabelSeed;
@@ -986,6 +995,8 @@
         private System.Windows.Forms.ToolStripMenuItem aliveNeighborsContext;
         private System.Windows.Forms.ToolStripMenuItem hUDToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem hUDColorToolStripMenuItem;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator20;
+        private System.Windows.Forms.ToolStripMenuItem importToolStripMenuItem;
     }
 }
 

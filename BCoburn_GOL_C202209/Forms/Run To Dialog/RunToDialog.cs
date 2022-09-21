@@ -12,10 +12,14 @@ namespace BCoburn_GOL_C202209
 {
     public partial class RunToDialog : Form
     {
+
+        // Constructor
         public RunToDialog()
         {
+            // Initializes the components from the designer
             InitializeComponent();
 
+            // Sets the starting location for the form
             this.Location = new Point(ActiveForm.Location.X + 239, ActiveForm.Location.Y + 100);
         }
     }
