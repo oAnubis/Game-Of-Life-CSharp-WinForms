@@ -486,6 +486,11 @@ namespace BCoburn_GOL_C202209
             _game.ToggleCell(graphicsPanel1, e);
         }
 
+        private void exitToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            this.Close();
+        }
+
         // When the form is in the process of being closed, save the current settings (Enables persistence between program launches)
         private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
         {
@@ -1153,6 +1158,8 @@ namespace BCoburn_GOL_C202209
             // Repaint the HUD
             graphicsPanel1.Invalidate();
         }
+
+        
 
         #endregion
         //

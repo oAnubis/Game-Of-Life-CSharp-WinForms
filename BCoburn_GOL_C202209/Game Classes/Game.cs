@@ -6,8 +6,8 @@ namespace BCoburn_GOL_C202209
 {
     public class Game
     {
-        // PROPERTIES FOR THE GAME
-        
+        #region Fields
+
         // Main universe, holds an array of cells. This is what is shown (Current generation)
         public Universe GameBoard;
 
@@ -25,6 +25,11 @@ namespace BCoburn_GOL_C202209
 
         // Instantiates a new StringFormat object, this allows the numbers to be centered in each rectangle in the gameBoard.
         private StringFormat _cellStringFormat = new StringFormat();
+        
+        #endregion
+        //
+        //
+        #region Properties
 
         // The width (x dimension) of the current gameBoard.
         public int Width { get; private set; }
@@ -44,6 +49,11 @@ namespace BCoburn_GOL_C202209
         // Determines the Color of the HUD Text (Component: 4)
         public Color HUDColor { get; private set; }
 
+        #endregion
+        //
+        //
+        #region Constructor
+
         //Game constructor - Calls the IntializeObjects method. Also stores the current MainForm.
         public Game(MainForm form)
         {
@@ -53,6 +63,11 @@ namespace BCoburn_GOL_C202209
             // Sets the Main Form for the game
             _mainForm = form;
         }
+
+        #endregion
+        //
+        //
+        #region Handlers Methods for Form Events
 
         // Method to Apply All Color Changes in the Game Colors Menu Item
         public void Game_ApplyColors(object sender, ColorsApplyArgs e)
@@ -91,6 +106,11 @@ namespace BCoburn_GOL_C202209
                     break;
             }
         }
+
+        #endregion
+        //
+        //
+        #region Setting/Setup Methods
 
         // Intialize the starting Properties and Game Objects.
         private void InitializeObjects()
@@ -133,6 +153,11 @@ namespace BCoburn_GOL_C202209
             Width = width;
             Height = height;
         }
+
+        #endregion
+        //
+        //
+        #region Paint Methods
 
         // Handles drawing of the gameBoard to the GraphicsPanel
         public void PaintBoard(Panel panel, PaintEventArgs e)
@@ -223,6 +248,11 @@ namespace BCoburn_GOL_C202209
                 e.Graphics.DrawString(GameBoard.GetAliveNeighbors(x, y).ToString(), _cellFont, Brushes.Red, cellRect, _cellStringFormat);
             }
         }
+
+        #endregion
+        //
+        //
+        #region Game Logic
 
         // Method to swap the universe and scratchpad arrays (Make Next generation the current generation)
         // Utilized the SetUniverse method in the Universe class (Required because the Universe Setter is private.
@@ -363,5 +393,9 @@ namespace BCoburn_GOL_C202209
             // Return the total number of living cells after iterating through the entire Universe.
             return totalAlive;
         }
+
+        #endregion
+        //
+        //
     }
 }
